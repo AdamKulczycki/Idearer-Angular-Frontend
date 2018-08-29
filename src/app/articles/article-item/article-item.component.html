@@ -1,0 +1,22 @@
+<div class="article">
+  <div class="article-title">
+      <p class="title">{{ article.title }}</p>
+      <p class="category">{{ article.category }}</p>
+  </div>
+  <div class="article-content">
+      <iframe class="e2e-iframe-trusted-src" width="100%" height="560"
+      [src]="safeURL"
+      frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
+      ></iframe>
+  </div>
+  <div class="article-info">
+    <div class="article-created-info">
+        {{ article.created }},
+        <i>{{ article.author }}</i>
+    </div>
+    <div class="article-likes">
+        <span class="like-button" (click)="addLike()"><i class="far fa-thumbs-up"></i></span>
+        {{ article.likes }}
+    </div>
+  </div>
+</div>

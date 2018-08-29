@@ -1,0 +1,18 @@
+<!-- <div class="row">
+  <div class="col-7">
+    <div 
+      class="article" 
+      *ngFor="let articleItem of articles">
+      {{ articleItem.title }}
+    </div>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-6">
+      <app-article-item 
+        *ngFor="let item of articles" 
+        [article] = "item">
+      </app-article-item>
+  </div>
+</div>
