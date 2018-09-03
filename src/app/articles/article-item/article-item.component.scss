@@ -1,24 +1,39 @@
+@import '~src/assets/scss/main.scss';
+
 .article {
-    border: 1px solid black;
     margin-bottom: 20px;
-    //height: 700px;
-    font-size: 40px;
-    background-color: pink;
+    font: 20px 'Open Sans',sans-serif;
+    font-weight: bold;
+    //background-color: rgb(236, 230, 230);
     color: white;
     display: flex;
     flex-direction: column;
-    .article-title {
 
-        .title {
-            text-align: left;
-            padding: 10px 0px 0px 15px;
-            margin-bottom: 0px;
-        }
+
+    .article-top {
+
+        .article-title {
+            background-color: $mainTheme;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 5px;
+
+            .title {
+                padding: 10px 15px 10px 15px;    
+                margin-bottom: 0px;
+            }
+            .comments {
+                padding: 10px 15px 10px 15px; 
+            }
+        }  
 
         .category {
+            background-color: $mainTheme;
             text-align: left;
-            font-size: 16px;
-            padding: 0px 0px 10px 15px;
+            padding: 10px 15px 10px 15px;
+            margin-bottom: 5px;
+            font-size: 10px;
         }
     }
     
@@ -31,14 +46,21 @@
         width: 100%;
         margin-top: 0px;
         margin-bottom: 0px;
+        @media (max-width: 900px) {
+                height: 70vw;
+          }
+        @media (min-width: 900px) {
+            height: 560px;
+        }
     }
 
     .article-info {
-        margin-top: 10px;
+        background-color: $mainTheme;
+        margin-top: 5px;
         display: flex;
         flex-direction: row; 
         justify-content: space-between;
-        align-items: flex-end;
+        padding: 10px 0 10px 0;
 
         .article-created-info {
             padding-left: 5px;
@@ -56,3 +78,4 @@ iframe {
 .like-button {
     cursor: pointer;
 }
+

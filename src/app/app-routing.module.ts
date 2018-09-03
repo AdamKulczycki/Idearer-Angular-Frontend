@@ -4,8 +4,10 @@ import { ArticleDetailComponent } from './articles/article-item/article-detail/a
 import { ArticlesComponent } from './articles/articles.component';
 
 const appRoutes: Routes = [
-    { path: '', component: ArticlesComponent },
-    { path: 'ugabuga', component: ArticleDetailComponent }
+    { path: '', redirectTo: '/articles', pathMatch: 'full' },
+    { path: 'articles', component: ArticlesComponent}
+    { path: 'articles/:id', component: ArticleDetailComponent },
+    { path: '**', redirectTo: '/articles'}
 ];
 
 @NgModule({

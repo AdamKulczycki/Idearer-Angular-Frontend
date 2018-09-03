@@ -9,7 +9,7 @@ import { Article } from '../models/article-model';
 export class ArticlesComponent implements OnInit {
 
   constructor() { }
-  articles: Article[] = [new Article(1, 'ramen', 'https://www.youtube.com/embed/B8y3SSmz4sg', '10/01/2018', 201, 'Admin', 'Kitchen'),
+  articles: Article[] = [new Article(1, 'Ramen', 'https://www.youtube.com/embed/B8y3SSmz4sg', '10/01/2018', 201, 'Admin', 'Kitchen'),
   new Article(2, 'lol', 'https://www.youtube.com/embed/7kSPCWcs7cc', '10/01/2018', 201, 'chinkchiankchionk', 'Tools')];
 
   ngOnInit() {
