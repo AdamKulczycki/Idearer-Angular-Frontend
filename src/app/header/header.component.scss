@@ -1,0 +1,48 @@
+nav {
+    padding: 0px 80px;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    li {
+        display: inline-block;
+        margin-left: 25px;
+        position: relative;
+    }
+}
+
+.navbar-brand {
+    padding: 5px 0;
+    margin-right: 100px;
+}
+
+.nav-link {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+.nav-link::before {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 0%;
+    background-color: #fff;
+    position: absolute;
+    transition: all ease-in-out 250ms;
+}
+
+.nav-link:hover::before {
+    width: 100%;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding: 0;
+}
+
+.login-btn {
+    margin-right: 5px;
+}
