@@ -8,6 +8,7 @@ import { ArticleItemComponent } from './articles/article-item/article-item.compo
 import { ArticleDetailComponent } from './articles/article-item/article-detail/article-detail.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ArticlesService } from './services/articles.service';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ArticlesService } from './services/articles.service';
     ArticlesComponent,
     ArticleItemComponent,
     ArticleDetailComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
