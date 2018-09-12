@@ -1,6 +1,10 @@
 @import "variables";
 @import "global";
 
-.commentsSection > .subcomments{
-    color: blue !important;
+body {
+    background-image: linear-gradient(to right bottom, #3b5274, #436587, #4b789a, #558cac, #5fa1be)
+}
+
+html {
+    min-height: 100vh;
 }

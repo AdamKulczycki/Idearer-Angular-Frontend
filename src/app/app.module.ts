@@ -9,6 +9,7 @@ import { ArticleDetailComponent } from './articles/article-item/article-detail/a
 import { AppRoutingModule } from './app-routing.module';
 import { ArticlesService } from './services/articles.service';
 import { CommentComponent } from './comment/comment.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CommentComponent } from './comment/comment.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [ArticlesService],
   bootstrap: [AppComponent]

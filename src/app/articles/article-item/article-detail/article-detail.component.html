@@ -1,15 +1,17 @@
 <!-- <p>
   ARTICLE AJDI {{ id }}
 </p> -->
-<div class="row">
-  <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
-      <app-article-item 
-      [article] = article>
-    </app-article-item>
-  </div>
-</div>
-<div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
-    <div class="commentsSection" *ngFor="let comment of comments">
-      <app-comment [comment]="comment"></app-comment>
+<div *ngIf="article">
+  <div class="row">
+      <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+          <app-article-item
+          [article] = article>
+        </app-article-item>
+      </div>
+    </div>
+    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+        <div class="commentsSection" *ngFor="let comment of comments">
+          <app-comment [comment]="comment"></app-comment>
+        </div>
     </div>
 </div>

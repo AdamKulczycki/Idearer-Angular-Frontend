@@ -40,9 +40,14 @@
     .content {
         // text-align: center;
         padding: 20px 20px;
+        word-wrap: break-word;
     }
 }
 
 .subcomments {
     margin-left: 20px;
+}
+.subcomments {
+    border-left: 1px solid white;
+    padding-left: 35px;
 }

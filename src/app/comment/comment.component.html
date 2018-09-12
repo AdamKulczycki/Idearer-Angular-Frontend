@@ -1,15 +1,15 @@
 <div class="comment">
   <div class="comment-top">
     <div class="autor-created-container">
-        <span class="author">{{ comment.author }}</span>
+        <span class="author">{{ comment.user.username }}</span>
         <span class="created">{{ comment.created }}</span>
     </div>
     <div class="likes">
-        <span class="likesNumber"><i class="far fa-thumbs-up"></i> {{ comment.likes }}</span>
+        <span class="likesNumber"><i class="far fa-thumbs-up"></i> {{ comment.likesCount }}</span>
     </div>
   </div>
 <div class="content">{{ comment.content }}</div>
 </div>
-<div class="subcomments" *ngFor="let subcomment of comment.subcomments">
+<div class="subcomments" *ngFor="let subcomment of comment.comments">
   <app-comment [comment]="subcomment"></app-comment>
 </div>

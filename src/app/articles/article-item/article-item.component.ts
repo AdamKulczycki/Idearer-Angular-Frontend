@@ -11,7 +11,6 @@ export class ArticleItemComponent implements OnInit {
 
   @Input() article: Article;
   safeURL;
-  NumberOfComments = 41;
 
   constructor(private sanitizer: DomSanitizer) {
     // this.safeURL = sanitizer.bypassSecurityTrustResourceUrl(this.article.content);
@@ -22,7 +21,7 @@ export class ArticleItemComponent implements OnInit {
   }
 
   addLike() {
-    this.article.likes ++;
+    this.article.likesCount ++;
   }
 
 }

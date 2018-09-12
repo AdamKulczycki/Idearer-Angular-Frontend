@@ -1,14 +1,10 @@
 <div class="article">
   <div class="article-top">
       <div class="article-title">
-<<<<<<< HEAD
-        <p class="title"><a routerLink="/articles/2">{{ article.title }}</a></p>
-=======
         <p class="title"><a [routerLink]="[article.id]">{{ article.title }}</a></p>
->>>>>>> 4863c607aaff25a16babceb34d969a941e51404c
-        <span class="comments"><i class="far fa-comment"></i> {{ NumberOfComments }}</span>
+        <span class="comments"><i class="far fa-comment"></i> {{ article.commentsCount }}</span>
       </div>
-      <p class="category">{{ article.category }} Food</p>
+      <p class="category">{{ article.categoryName }}</p>
   </div>
   <div class="article-content">
       <iframe class="e2e-iframe-trusted-src" width="100%" height="100%"
@@ -19,11 +15,11 @@
   <div class="article-info">
     <div class="article-created-info">
         {{ article.created }},
-        <i>{{ article.author }}</i>
+        <i>{{ article.user.username }}</i>
     </div>
     <div class="article-likes">
         <span class="like-button" (click)="addLike()"><i class="far fa-thumbs-up"></i></span>
-        {{ article.likes }}
+        {{ article.likesCount }}
     </div>
   </div>
 </div>
