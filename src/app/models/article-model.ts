@@ -1,18 +1,26 @@
 import { User } from './user-model';
 
 export class Article {
+    public id: number; 
+    public title: string;
+    public content: string;
     public created : String;
+    public likesCount: number;
+    public user: User;
+    public categoryName: string;
+    public liked: boolean; 
+    public commentsCount: number;
 
-    constructor(public id: number, 
-        public title: string,
-        public content: string, 
-        private date: string, 
-        public likesCount: number, 
-        public user: User, 
-        public categoryName: string, 
-        public liked: boolean, 
-        public commentsCount: number) {
-            this.created = this.prettifyDate(date)
+    constructor(jsonArticle) {
+            this.id = jsonArticle.id;
+            this.title = jsonArticle.title;
+            this.content = jsonArticle.content;
+            this.created = this.prettifyDate(jsonArticle.created)
+            this.likesCount = jsonArticle.likesCount;
+            this.user = jsonArticle.user;
+            this.categoryName = jsonArticle.categoryName;
+            this.liked = jsonArticle.liked;
+            this.commentsCount = jsonArticle.commentsCount;
         }
 
         private prettifyDate(input: string) : String{
@@ -23,5 +31,10 @@ export class Article {
           };
             
           return date.toLocaleDateString("pl-PL", options);
-          }
+        }
+
+        deserialize(input: any): this {
+            Object.assign(this, input);
+            return this;
+        }
 }

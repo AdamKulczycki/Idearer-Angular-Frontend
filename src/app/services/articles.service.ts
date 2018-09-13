@@ -16,18 +16,7 @@ export class ArticlesService {
     getArticles() : Observable<Article[]> {
         return this.http.get(api + 'articles')
         .pipe(
-            map((data : any[]) => data.map((element) => 
-                new Article(
-                element.id,
-                element.title,
-                element.content,
-                element.created,
-                element.likesCount,
-                element.user,
-                element.categoryName,
-                element.liked,
-                element.commentsCount
-                ))
+            map((data : any[]) => data.map((article) => new Article(article))
             )  
         )       
     }// zwraca artykuly na glowna strone, co 10 na przyklad, te najnowsze
