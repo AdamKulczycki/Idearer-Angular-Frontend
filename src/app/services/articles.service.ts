@@ -4,14 +4,34 @@ import { Injectable } from '@angular/core';
 import { api } from './global-variables';
 import { HttpClient } from '@angular/common/http';
 import { Comment } from '../models/comment-model';
+import { Observable, Subject, throwError} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Http } from '@angular/http';
+
 
 @Injectable()
 export class ArticlesService {
     constructor(private http: HttpClient) {}
 
-    getArticles() {
-        return this.http.get<Article[]>(api + 'articles');
+    getArticles() : Observable<Article[]> {
+        return this.http.get(api + 'articles')
+        .pipe(
+            map((data : any[]) => data.map((element) => 
+                new Article(
+                element.id,
+                element.title,
+                element.content,
+                element.created,
+                element.likesCount,
+                element.user,
+                element.categoryName,
+                element.liked,
+                element.commentsCount
+                ))
+            )  
+        )       
     }// zwraca artykuly na glowna strone, co 10 na przyklad, te najnowsze
+
 
     getArticle(index: number) {
         return this.http.get<Article>(api + 'articles/' + index);

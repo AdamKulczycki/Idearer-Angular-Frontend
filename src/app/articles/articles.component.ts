@@ -15,8 +15,8 @@ export class ArticlesComponent implements OnInit {
   constructor(private articleService: ArticlesService, private route: ActivatedRoute) {
     this.articleService.getArticles()
       .subscribe(
-        (artciles) => {
-          this.articles = artciles;
+        (articles) => {
+          this.articles = articles;
         },
         (error) => console.log(error)
       );
