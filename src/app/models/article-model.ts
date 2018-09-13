@@ -25,12 +25,14 @@ export class Article {
 
         private prettifyDate(input: string) : String{
             let date : Date = new Date(input);
-            let options: Intl.DateTimeFormatOptions = {
-              day: "numeric", month: "numeric", year: "numeric",
-              hour: "2-digit", minute: "2-digit"
-          };
+            let dateOptions: Intl.DateTimeFormatOptions = {
+              day: "numeric", month: "numeric", year: "numeric"
+            };
+            let timeOptions: Intl.DateTimeFormatOptions = {
+                hour: "2-digit", minute: "2-digit"
+            }
             
-          return date.toLocaleDateString("pl-PL", options);
+          return date.toLocaleDateString("pl-PL", dateOptions) + " " + date.toLocaleTimeString("pl-PL", timeOptions);
         }
 
         deserialize(input: any): this {
