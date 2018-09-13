@@ -6,8 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { Comment } from '../models/comment-model';
 import { Observable, Subject, throwError} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Http } from '@angular/http';
-
 
 @Injectable()
 export class ArticlesService {
@@ -23,7 +21,10 @@ export class ArticlesService {
 
 
     getArticle(index: number) {
-        return this.http.get<Article>(api + 'articles/' + index);
+        return this.http.get<Article>(api + 'articles/' + index)
+        .pipe(
+            map((data : any) => new Article(data))
+        )
     }
 
     getArtcilesByCategory() {} // zwraca artykulu danej kategori co 10 na przyklad
