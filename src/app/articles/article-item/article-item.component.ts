@@ -24,4 +24,14 @@ export class ArticleItemComponent implements OnInit {
     this.article.likesCount ++;
   }
 
+  private prettifyDate(input: string) : string{
+    let date : Date = new Date(input);
+    let options: Intl.DateTimeFormatOptions = {
+      day: "numeric", month: "numeric", year: "numeric",
+      hour: "2-digit", minute: "2-digit"
+  };
+
+  return date.toLocaleDateString("pl-PL", options);
+  }
+
 }
