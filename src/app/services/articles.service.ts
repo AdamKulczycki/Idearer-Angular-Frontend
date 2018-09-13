@@ -29,8 +29,12 @@ export class ArticlesService {
 
     getArtcilesByCategory() {} // zwraca artykulu danej kategori co 10 na przyklad
 
-    getComments(index: number) {
-        return this.http.get<Comment[]>(api + 'comments?articleId=' + index);
+    getComments(index: number) : Observable<Comment[]>{
+        return this.http.get(api + 'comments?articleId=' + index)
+        .pipe(
+            map((data : any[]) => data.map((comment) => new Comment(comment))
+            )  
+        );  
     } // zwraca komentarze do danego artykulu
 
     /* private articles: Article[] = [

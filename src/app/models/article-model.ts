@@ -1,13 +1,14 @@
 import { User } from './user-model';
+import { Category } from './category-model';
 
 export class Article {
     public id: number; 
     public title: string;
     public content: string;
-    public created : String;
+    public created : string;
     public likesCount: number;
     public user: User;
-    public categoryName: string;
+    public category: Category;
     public liked: boolean; 
     public commentsCount: number;
 
@@ -18,12 +19,12 @@ export class Article {
             this.created = this.prettifyDate(jsonArticle.created)
             this.likesCount = jsonArticle.likesCount;
             this.user = jsonArticle.user;
-            this.categoryName = jsonArticle.categoryName;
+            this.category = jsonArticle.category;
             this.liked = jsonArticle.liked;
             this.commentsCount = jsonArticle.commentsCount;
         }
 
-        private prettifyDate(input: string) : String{
+        private prettifyDate(input: string) : string{
             let date : Date = new Date(input);
             let dateOptions: Intl.DateTimeFormatOptions = {
               day: "numeric", month: "numeric", year: "numeric"
