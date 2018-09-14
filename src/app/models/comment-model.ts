@@ -7,7 +7,7 @@ export class Comment {
     public likesCount: number;
     public user: User;
     public comments: Comment[];
-    public liked: boolean
+    public liked: boolean;
     constructor(commentJson) {
         this.id = commentJson.id;
         this.content = commentJson.content;
@@ -18,16 +18,15 @@ export class Comment {
         this.liked = commentJson.liked;
     }
 
-    private prettifyDate(input: string) : string{
-        let date : Date = new Date(input);
-        let dateOptions: Intl.DateTimeFormatOptions = {
-          day: "numeric", month: "numeric", year: "numeric"
+    private prettifyDate(input: string): string {
+        const date: Date = new Date(input);
+        const dateOptions: Intl.DateTimeFormatOptions = {
+          day: 'numeric', month: 'numeric', year: 'numeric'
         };
-        let timeOptions: Intl.DateTimeFormatOptions = {
-            hour: "2-digit", minute: "2-digit"
-        }
-        
-      return date.toLocaleDateString("pl-PL", dateOptions) + " " + date.toLocaleTimeString("pl-PL", timeOptions);
+        const timeOptions: Intl.DateTimeFormatOptions = {
+            hour: '2-digit', minute: '2-digit'
+        };
+      return date.toLocaleDateString('pl-PL', dateOptions) + ' ' + date.toLocaleTimeString('pl-PL', timeOptions);
     }
 
     deserialize(input: any): this {

@@ -2,14 +2,14 @@ import { User } from './user-model';
 import { Category } from './category-model';
 
 export class Article {
-    public id: number; 
+    public id: number;
     public title: string;
     public content: string;
-    public created : string;
+    public created: string;
     public likesCount: number;
     public user: User;
     public category: Category;
-    public liked: boolean; 
+    public liked: boolean;
     public commentsCount: number;
 
     constructor(jsonArticle) {
@@ -24,16 +24,15 @@ export class Article {
             this.commentsCount = jsonArticle.commentsCount;
         }
 
-        private prettifyDate(input: string) : string{
-            let date : Date = new Date(input);
-            let dateOptions: Intl.DateTimeFormatOptions = {
-              day: "numeric", month: "numeric", year: "numeric"
+        private prettifyDate(input: string): string {
+            const date: Date = new Date(input);
+            const dateOptions: Intl.DateTimeFormatOptions = {
+              day: 'numeric', month: 'numeric', year: 'numeric'
             };
-            let timeOptions: Intl.DateTimeFormatOptions = {
-                hour: "2-digit", minute: "2-digit"
-            }
-            
-          return date.toLocaleDateString("pl-PL", dateOptions) + " " + date.toLocaleTimeString("pl-PL", timeOptions);
+            const timeOptions: Intl.DateTimeFormatOptions = {
+                hour: '2-digit', minute: '2-digit'
+            };
+          return date.toLocaleDateString('pl-PL', dateOptions) + ' ' + date.toLocaleTimeString('pl-PL', timeOptions);
         }
 
         deserialize(input: any): this {

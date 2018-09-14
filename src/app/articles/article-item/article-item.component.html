@@ -1,10 +1,10 @@
 <div class="article">
   <div class="article-top">
       <div class="article-title">
-        <p class="title"><a [routerLink]="[article.id]">{{ article.title }}</a></p>
+        <p class="title"><a [routerLink]="['/articles', article.id]">{{ article.title }}</a></p>
         <span class="comments"><i class="far fa-comment"></i> {{ article.commentsCount }}</span>
       </div>
-      <p class="category">{{ article.category.name }}</p>
+      <p class="category"><a [routerLink]="['/articles']" [queryParams]="{category: article.category.name}">{{ article.category.name }}</a></p>
   </div>
   <div class="article-content">
       <iframe class="e2e-iframe-trusted-src" width="100%" height="100%"

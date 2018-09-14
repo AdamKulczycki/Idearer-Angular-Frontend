@@ -17,8 +17,7 @@ export class ArticleItemComponent implements OnInit {
  }
 
   ngOnInit() {
-    this.safeURL = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/"+this.article.content);
-    
+    this.safeURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.article.content);
   }
 
   addLike() {

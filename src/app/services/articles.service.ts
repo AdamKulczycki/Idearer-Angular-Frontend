@@ -11,30 +11,36 @@ import { map } from 'rxjs/operators';
 export class ArticlesService {
     constructor(private http: HttpClient) {}
 
-    getArticles() : Observable<Article[]> {
+    getArticles(): Observable<Article[]> {
         return this.http.get(api + 'articles')
         .pipe(
-            map((data : any[]) => data.map((article) => new Article(article))
-            )  
-        )       
+            map((data: any[]) => data.map((article) => new Article(article))
+            )
+        );
     }// zwraca artykuly na glowna strone, co 10 na przyklad, te najnowsze
 
 
     getArticle(index: number) {
         return this.http.get<Article>(api + 'articles/' + index)
         .pipe(
-            map((data : any) => new Article(data))
-        )
+            map((data: any) => new Article(data))
+        );
     }
 
-    getArtcilesByCategory() {} // zwraca artykulu danej kategori co 10 na przyklad
+    getArtcilesByCategory(categoryName: string): Observable<Article[]> {
+        return this.http.get(api + 'articles?categoryName=' + categoryName)
+            .pipe(
+                map((data: any[]) => data.map((article) => new Article(article))
+                )
+            );
+    } // zwraca artykulu danej kategori co 10 na przyklad
 
-    getComments(index: number) : Observable<Comment[]>{
+    getComments(index: number): Observable<Comment[]> {
         return this.http.get(api + 'comments?articleId=' + index)
         .pipe(
-            map((data : any[]) => data.map((comment) => new Comment(comment))
-            )  
-        );  
+            map((data: any[]) => data.map((comment) => new Comment(comment))
+            )
+        );
     } // zwraca komentarze do danego artykulu
 
     /* private articles: Article[] = [

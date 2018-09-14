@@ -12,25 +12,32 @@ import { User } from '../models/user-model';
 })
 export class ArticlesComponent implements OnInit {
 
-  constructor(private articleService: ArticlesService, private route: ActivatedRoute) {
-    this.articleService.getArticles()
-      .subscribe(
-        (articles) => {
-          this.articles = articles;
-        },
-        (error) => console.log(error)
-      );
-   }
+  constructor(private articleService: ArticlesService, private route: ActivatedRoute) {}
   articles: Article[] = [];
-  category = 'nic';
+  category = '';
 
   ngOnInit() {
-    /* this.route.queryParams.subscribe( (params: Params) => {
+    this.route.queryParams.subscribe( (params: Params) => {
       if ( params['category']) {
         this.category = params['category'];
-        // funckja z articleservice co z serwera wyciaga artykulu danej kategorii i dla danej strony
+        this.articleService.getArtcilesByCategory(this.category)
+          .subscribe(
+            (articles) => {
+              this.articles = articles;
+              console.log(articles);
+            },
+            (error) => console.log(error)
+          );
+      } else {
+        this.articleService.getArticles()
+        .subscribe(
+          (articles) => {
+            this.articles = articles;
+          },
+          (error) => console.log(error)
+        );
       }
-    }); */
+    });
   }
 
 }
