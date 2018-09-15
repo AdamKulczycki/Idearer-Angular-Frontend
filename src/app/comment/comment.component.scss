@@ -1,0 +1,53 @@
+@import '~src/assets/scss/main.scss';
+
+.comment {
+    background-color: $mainTheme;
+    color: white;
+    margin-bottom: 5px;
+    border-radius: 15px;
+
+    .comment-top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom: 1px solid white;
+        padding: 10px 20px;
+
+        @media (max-width: 380px) {
+            flex-direction: column;
+        }
+
+        .autor-created-container{
+
+            @media (max-width: 380px) {
+                display: flex;
+                flex-direction: column;
+            }
+            .author{
+                margin-right: 20px;
+                color: yellow;
+            }
+
+            .created {
+
+            }
+        }
+
+        .likes {
+        }
+    }
+
+    .content {
+        // text-align: center;
+        padding: 20px 20px;
+        word-wrap: break-word;
+    }
+}
+
+.subcomments {
+    margin-left: 20px;
+}
+.subcomments {
+    border-left: 1px solid white;
+    padding-left: 35px;
+}

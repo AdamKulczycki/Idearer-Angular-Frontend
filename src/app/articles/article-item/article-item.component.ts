@@ -11,18 +11,16 @@ export class ArticleItemComponent implements OnInit {
 
   @Input() article: Article;
   safeURL;
-  NumberOfComments = 41;
 
   constructor(private sanitizer: DomSanitizer) {
     // this.safeURL = sanitizer.bypassSecurityTrustResourceUrl(this.article.content);
  }
 
   ngOnInit() {
-    this.safeURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.article.content);
+    this.safeURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.article.content);
   }
 
   addLike() {
-    this.article.likes ++;
+    this.article.likesCount ++;
   }
-
 }

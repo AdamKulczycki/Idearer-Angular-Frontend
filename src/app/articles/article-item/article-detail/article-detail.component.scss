@@ -7,11 +7,6 @@
 .col-lg-10 {
     margin: auto;
 }
-.comment {
-    background-color: $mainTheme;
-    color: white;
-    margin-bottom: 5px;
-    border-radius: 15px;
 
     .comment-top {
         display: flex;
@@ -47,7 +42,6 @@
         // text-align: center;
         padding: 20px 20px;
     }
-}
 
 .comment-v2 {
     background-color: $mainTheme;;

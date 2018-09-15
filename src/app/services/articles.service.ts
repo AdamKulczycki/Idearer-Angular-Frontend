@@ -1,17 +1,50 @@
 import { Article } from '../models/article-model';
+import { User } from '../models/user-model';
+import { Injectable } from '@angular/core';
+import { api } from './global-variables';
+import { HttpClient } from '@angular/common/http';
+import { Comment } from '../models/comment-model';
+import { Observable, Subject, throwError} from 'rxjs';
+import { map } from 'rxjs/operators';
 
+@Injectable()
 export class ArticlesService {
-    getArticles() {
-        return this.articles;
-    } // zwraca artykuly na glowna strone, co 10 na przyklad, te najnowsze
-    getArtcile(index: number) {
-        return this.articles[index - 1];
-    }
-    getArtcilesByCategory() {} // zwraca artykulu danej kategori co 10 na przyklad
-    getComments() {} // zwraca komentarze do danego artykulu
+    constructor(private http: HttpClient) {}
 
-    private articles: Article[] = [
-        new Article(1, 'Ramen', 'https://www.youtube.com/embed/B8y3SSmz4sg', '10/01/2018', 201, 'Admin', 'Kitchen'),
-        new Article(2, 'lol', 'https://www.youtube.com/embed/7kSPCWcs7cc', '10/01/2018', 201, 'chinkchiankchionk', 'Tools')
-    ];
+    getArticles(): Observable<Article[]> {
+        return this.http.get(api + 'articles')
+        .pipe(
+            map((data: any[]) => data.map((article) => new Article(article))
+            )
+        );
+    }// zwraca artykuly na glowna strone, co 10 na przyklad, te najnowsze
+
+
+    getArticle(index: number) {
+        return this.http.get<Article>(api + 'articles/' + index)
+        .pipe(
+            map((data: any) => new Article(data))
+        );
+    }
+
+    getArtcilesByCategory(categoryName: string): Observable<Article[]> {
+        return this.http.get(api + 'articles?categoryName=' + categoryName)
+            .pipe(
+                map((data: any[]) => data.map((article) => new Article(article))
+                )
+            );
+    } // zwraca artykulu danej kategori co 10 na przyklad
+
+    getComments(index: number): Observable<Comment[]> {
+        return this.http.get(api + 'comments?articleId=' + index)
+        .pipe(
+            map((data: any[]) => data.map((comment) => new Comment(comment))
+            )
+        );
+    } // zwraca komentarze do danego artykulu
+
+    /* private articles: Article[] = [
+        new Article(1, 'Ramen', 'https://www.youtube.com/embed/B8y3SSmz4sg', '10/01/2018', 201, new User(1, 'Admin'), 'Kitchen', false),
+        new Article(2, 'lol', 'https://www.youtube.com/embed/7kSPCWcs7cc', '10/01/2018', 201, new User(2, 'chinkchiankchionk'), 'Tools', false)
+    ]; */
 }
