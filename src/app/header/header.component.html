@@ -16,8 +16,8 @@
           Categories
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="#">Sexy z Adamem</a>
-          <a class="dropdown-item" routerLink="#">#witam</a>
+          <a class="dropdown-item" [routerLink]="['/articles']" [queryParams]="{category: 'Gry'}">Gry</a>
+          <a class="dropdown-item" [routerLink]="['/articles']" [queryParams]="{category: 'Jedzenie'}">Jedzenie</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" routerLink="#">Nie zaglądaj</a>
         </div>

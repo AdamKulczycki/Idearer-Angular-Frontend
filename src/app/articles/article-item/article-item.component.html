@@ -1,13 +1,8 @@
 <div class="article">
   <div class="article-top">
       <div class="article-title">
-<<<<<<< HEAD
-        <p class="title"><a [routerLink]="[article.id]">{{ article.title }}</a></p>
-        <span class="comments"><i class="far fa-comment"></i> {{ NumberOfComments }}</span>
-=======
         <p class="title"><a [routerLink]="['/articles', article.id]">{{ article.title }}</a></p>
         <span class="comments"><i class="far fa-comment"></i> {{ article.commentsCount }}</span>
->>>>>>> 59e53bf4fb797e3e57bc4c2fa294d1360bbf0fc5
       </div>
       <p class="category"><a [routerLink]="['/articles']" [queryParams]="{category: article.category.name}">{{ article.category.name }}</a></p>
   </div>

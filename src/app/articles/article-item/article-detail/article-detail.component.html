@@ -1,37 +1,15 @@
 <!-- <p>
   ARTICLE AJDI {{ id }}
 </p> -->
-<<<<<<< HEAD
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <app-article-item 
-      [article] = article>
-    </app-article-item>
-  </div>
-</div>
-<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
-    <div class="comment" *ngFor="let item of comments">
-        <div class="comment-top">
-          <div class="autor-created-container">
-              <span class="author">{{ item.author }}</span>
-              <span class="created">{{ item.created }}</span>
-          </div>
-          <div class="likes">
-              <span class="likesNumber"><i class="far fa-thumbs-up"></i> {{ item.likes }}</span>
-          </div>
-        </div>
-      <div class="content">{{ item.content }}</div>
-=======
 <div *ngIf="article">
   <div class="row">
-      <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <app-article-item
           [article] = article>
         </app-article-item>
       </div>
->>>>>>> 59e53bf4fb797e3e57bc4c2fa294d1360bbf0fc5
     </div>
-    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
         <div class="commentsSection" *ngFor="let comment of comments">
           <app-comment [comment]="comment"></app-comment>
         </div>
