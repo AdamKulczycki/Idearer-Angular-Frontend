@@ -1,10 +1,10 @@
 @import '~src/assets/scss/main.scss';
 
-.col-lg-7 {
+.col-lg-12 {
     margin: auto;
 }
 
-.col-lg-5 {
+.col-lg-10 {
     margin: auto;
 }
 .comment {
@@ -24,7 +24,7 @@
             flex-direction: column;
         }
 
-        .autor-created-container{
+        .autor-created-container {
 
             @media (max-width: 380px) {
                 display: flex;
