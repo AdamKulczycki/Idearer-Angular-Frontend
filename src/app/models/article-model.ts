@@ -16,7 +16,7 @@ export class Article {
             this.id = jsonArticle.id;
             this.title = jsonArticle.title;
             this.content = jsonArticle.content;
-            this.created = this.prettifyDate(jsonArticle.created)
+            this.created = this.prettifyDate(jsonArticle.created);
             this.likesCount = jsonArticle.likesCount;
             this.user = jsonArticle.user;
             this.category = jsonArticle.category;

@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+      <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+          <div 
+          id="user-data"
+          ngModelGroup="userData"
+          #userData="ngModelGroup">
+            <div class="top">
+              <div class="title-input">
+                <div class="form-group">
+                  <label for="title">Title</label>
+                  <input 
+                    type="text" 
+                    id="title" 
+                    class="form-control" 
+                    ngModel 
+                    name="title" 
+                    required
+                    #title="ngModel">
+                </div>
+              </div>
+              <div class="category-input">
+                <div class="form-group">
+                  <label for="category">Category</label>
+                  <select 
+                    class="form-control" 
+                    id="category" 
+                    name="category" 
+                    ngModel
+                    required>
+                    <option *ngFor="let category of categories"
+                      [value]="category.name">
+                      {{ category.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="down">
+              <div class="form-group">
+                <label for="content">Content</label>
+                <input 
+                  type="text" 
+                  id="content" 
+                  class="form-control" 
+                  ngModel 
+                  name="content" 
+                  required>
+              </div>
+            </div>
+          </div>
+          <button
+            class="btn btn-dark"
+            type="submit" 
+            [disabled]="!f.valid"
+            >Submit
+          </button>
+        </form>
+      </div>
+  </div>  
+</div>

@@ -1,0 +1,50 @@
+@import '~src/assets/scss/main.scss';
+
+.col-lg-8 {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+input.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+
+select.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+select.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+.top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .title-input {
+        width: 49%;
+    }
+    
+    .category-input {
+        width: 49%;
+    }
+}
+
+select {
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    background-color:$mainTheme;
+}
+
+label {
+    width: 100%;
+    border-top: 1px solid $mainTheme;
+    border-bottom: 1px solid $mainTheme;
+    color: white;
+}
