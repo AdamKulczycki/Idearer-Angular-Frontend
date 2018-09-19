@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CategoriesService } from '../services/categories.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,13 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  isOpen = false;
-  constructor() { }
+  constructor(private categoriesSrv: CategoriesService) { }
+
+  categories = [];
 
   ngOnInit() {
+    this.getCategories();
   }
 
-  openDropdown() {
-    this.isOpen = !this.isOpen;
+  getCategories() {
+    this.categoriesSrv.getCategories().subscribe(
+      (categories) => {
+        this.categories = categories;
+      }
+    );
   }
 }

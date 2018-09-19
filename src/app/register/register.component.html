@@ -1,0 +1,14 @@
+<div class="container">
+  <h2 class="title-form">Create an account</h2>
+  <form class="form" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+    <input class="form-input" type="email" placeholder="EMAIL" name="email" ngModel>
+    <input class="form-input" type="email" placeholder="REPEAT EMAIL" name="emailRepeat" ngModel>
+    <input class="form-input" type="password" placeholder="PASSWORD" name="password" ngModel>
+    <input class="form-input" type="password" placeholder="REPEAT PASSWORD" name="passwordRepeat" ngModel>
+    <div class="form-auth-group">
+      <button type="submit" class="button btn btn-danger btn-lg btn-block">
+        SIGN UP
+      </button>
+    </div>
+  </form>
+</div>

@@ -16,10 +16,9 @@
           Categories
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/articles']" [queryParams]="{category: 'Gry'}">Gry</a>
-          <a class="dropdown-item" [routerLink]="['/articles']" [queryParams]="{category: 'Jedzenie'}">Jedzenie</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" routerLink="#">Nie zaglądaj</a>
+          <a class="dropdown-item" [routerLink]="['/articles']" [queryParams]="{category: itemOfCategory.name}" *ngFor="let itemOfCategory of categories">{{ itemOfCategory.name }}</a>
+          <!-- <div class="dropdown-divider"></div>
+          <a class="dropdown-item" routerLink="#">Nie zaglądaj</a> -->
         </div>
       </li>
     </ul>
@@ -27,7 +26,7 @@
       <button class="btn btn-outline-success" type="button" routerLink="login">Login</button>
     </div>
     <div class="register-btn">
-      <button class="btn btn-outline-danger" type="button">Register</button>
+      <button class="btn btn-outline-danger" type="button" routerLink="register">Register</button>
     </div>
   </div>
 </nav>
