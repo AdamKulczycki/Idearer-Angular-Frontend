@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ArticleFormComponent } from './articles/article-form/article-form.component';
 import { FormsModule } from '@angular/forms';
 import { CategoriesService } from './services/categories.service';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CategoriesService } from './services/categories.service';
     ArticleDetailComponent,
     LoginComponent,
     CommentComponent,
-    ArticleFormComponent
+    ArticleFormComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
