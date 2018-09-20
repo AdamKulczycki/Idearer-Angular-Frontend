@@ -14,7 +14,7 @@
                     type="text" 
                     id="title" 
                     class="form-control" 
-                    ngModel 
+                    ngModel
                     name="title" 
                     required
                     #title="ngModel">
@@ -29,8 +29,8 @@
                     name="category" 
                     ngModel
                     required>
-                    <option *ngFor="let category of categories"
-                      [value]="category.name">
+                    <option *ngFor="let category of categories; let i = index"
+                      [value]="i">
                       {{ category.name }}
                     </option>
                   </select>
@@ -44,7 +44,7 @@
                   type="text" 
                   id="content" 
                   class="form-control" 
-                  ngModel 
+                  ngModel
                   name="content" 
                   required>
               </div>
@@ -56,6 +56,9 @@
             [disabled]="!f.valid"
             >Submit
           </button>
+          <div>
+            <app-article-item  [article]="newArticle"></app-article-item>
+          </div>
         </form>
       </div>
   </div>  

@@ -9,15 +9,27 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ArticleItemComponent implements OnInit {
 
-  @Input() article: Article;
+  private _article: Article;
   safeURL;
+
+  @Input()
+    set article(article: Article) {
+      this._article = article;
+      if (this.article) {
+      this.safeURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.article.content);
+      }
+      console.log('wywolalem sie');
+    }
+  get article(): Article {
+    return this._article;
+  }
+
 
   constructor(private sanitizer: DomSanitizer) {
     // this.safeURL = sanitizer.bypassSecurityTrustResourceUrl(this.article.content);
  }
 
   ngOnInit() {
-    this.safeURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.article.content);
   }
 
   addLike() {

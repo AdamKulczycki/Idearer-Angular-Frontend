@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/category-model';
+import { User } from '../../models/user-model';
+import { Article } from '../../models/article-model';
 
 @Component({
   selector: 'app-article-form',
@@ -10,19 +12,25 @@ import { Category } from '../../models/category-model';
 })
 export class ArticleFormComponent implements OnInit {
 
-  @ViewChild('f') signupForm: NgForm;
+  @ViewChild('f') Articleform: NgForm;
   categories: Category[];
-  article = {
-    title: '',
-    content: '',
-    category: ''
+  articleObject = {
+    id: undefined,
+    title: 'Your title',
+    content: 'iuBngI-GlWU',
+    created: new Date(),
+    likesCount: 5,
+    user: new User(1, 'admin'),
+    category: undefined,
+    liked: true,
+    commentsCount: 0
   };
-
+  newArticle = new Article(this.articleObject);
   onSubmit() {
-    this.article.title = this.signupForm.value.userData.title;
-    this.article.content = this.signupForm.value.userData.content;
-    this.article.category = this.signupForm.value.userData.category;
-    console.log(this.article);
+    this.articleObject.title = this.Articleform.value.userData.title;
+    this.articleObject.content = this.Articleform.value.userData.content;
+    this.articleObject.category = this.categories[this.Articleform.value.userData.category];
+    console.log(this.articleObject);
   }
   constructor(private categoriesService: CategoriesService) {
     this.categoriesService.getCategories()
@@ -33,6 +41,22 @@ export class ArticleFormComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.Articleform.form.valueChanges.subscribe(x => {
+      if (x.userData.title) {
+        this.articleObject.title = x.userData.title;
+      }
+      if (this.categories && x.userData.category) {
+        this.articleObject.category = this.categories[x.userData.category];
+      }
+      if (x.userData.content) {
+        this.articleObject.content = x.userData.content;
+      }
+      this.newArticle = new Article(this.articleObject);
+      // console.log(this.newArticle);
+    });
   }
+  /* ngOnDestroy() {
+    this.formChangesSubscription.unsubscribe();
+  } */
 
 }
