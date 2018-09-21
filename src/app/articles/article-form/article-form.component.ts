@@ -14,6 +14,7 @@ export class ArticleFormComponent implements OnInit {
 
   @ViewChild('f') Articleform: NgForm;
   categories: Category[];
+  categoryPlaceholder = -1;
   articleObject = {
     id: undefined,
     title: 'Your title',
@@ -30,7 +31,8 @@ export class ArticleFormComponent implements OnInit {
     this.articleObject.title = this.Articleform.value.userData.title;
     this.articleObject.content = this.Articleform.value.userData.content;
     this.articleObject.category = this.categories[this.Articleform.value.userData.category];
-    console.log(this.articleObject);
+    this.newArticle = new Article(this.articleObject);
+    console.log(this.newArticle);
   }
   constructor(private categoriesService: CategoriesService) {
     this.categoriesService.getCategories()
@@ -52,7 +54,6 @@ export class ArticleFormComponent implements OnInit {
         this.articleObject.content = x.userData.content;
       }
       this.newArticle = new Article(this.articleObject);
-      // console.log(this.newArticle);
     });
   }
   /* ngOnDestroy() {

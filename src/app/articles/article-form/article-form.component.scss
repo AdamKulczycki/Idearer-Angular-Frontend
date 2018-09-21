@@ -39,12 +39,25 @@ select {
 
 button {
     width: 100%;
-    background-color:$mainTheme;
 }
 
-label {
+input {
     width: 100%;
-    border-top: 1px solid $mainTheme;
-    border-bottom: 1px solid $mainTheme;
+    color: black;
+    border-radius: 10px;
+    border-width: 0;
+    padding: 20px 30px;
+}
+select{
+    color: black;
+    border-radius: 10px;
+}
+
+select.ng-pristine {
+    color: grey;
+}
+.title-form {
+    text-align: center;
     color: white;
+    margin-bottom: 20px;
 }

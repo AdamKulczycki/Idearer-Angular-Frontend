@@ -15,6 +15,7 @@ import { ArticleFormComponent } from './articles/article-form/article-form.compo
 import { FormsModule } from '@angular/forms';
 import { CategoriesService } from './services/categories.service';
 import { RegisterComponent } from './register/register.component';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RegisterComponent } from './register/register.component';
     LoginComponent,
     CommentComponent,
     ArticleFormComponent,
-    RegisterComponent
+    RegisterComponent,
+    SafeUrlPipe,
   ],
   imports: [
     BrowserModule,

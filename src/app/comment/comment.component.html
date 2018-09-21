@@ -9,6 +9,10 @@
     </div>
   </div>
 <div class="content">{{ comment.content }}</div>
+<div class="answerButton" (click)="answerVisibility()">+</div>
+<div *ngIf="answerClicked" class="answer">
+  <input placeholder="no wpisuj kurwa">
+</div>
 </div>
 <div class="subcomments" *ngFor="let subcomment of comment.comments">
   <app-comment [comment]="subcomment"></app-comment>

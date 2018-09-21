@@ -11,6 +11,10 @@ export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   constructor() { }
 
+  answerClicked = false;
+  answerVisibility() {
+    this.answerClicked = !this.answerClicked;
+  }
   ngOnInit() {
   }
 

@@ -4,7 +4,7 @@ import { Category } from './category-model';
 export class Article {
     public id: number;
     public title: string;
-    public content: string;
+    private _content: string;
     public created: string;
     public likesCount: number;
     public user: User;
@@ -15,7 +15,7 @@ export class Article {
     constructor(jsonArticle) {
             this.id = jsonArticle.id;
             this.title = jsonArticle.title;
-            this.content = jsonArticle.content;
+            this._content = jsonArticle.content;
             this.created = this.prettifyDate(jsonArticle.created);
             this.likesCount = jsonArticle.likesCount;
             this.user = jsonArticle.user;
@@ -38,5 +38,12 @@ export class Article {
         deserialize(input: any): this {
             Object.assign(this, input);
             return this;
+        }
+
+        set content(content: string) {
+            this._content = content;
+        }
+        get content() {
+            return 'https://www.youtube.com/embed/' + this._content;
         }
 }
