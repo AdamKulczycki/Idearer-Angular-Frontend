@@ -16,18 +16,16 @@ export class AuthService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
 
-  public signUp(payload: any): Observable<any> {
+  public signUp(payload: any): Observable<User>{
 
     return this.http.post('https://idearer.herokuapp.com/' + 'users', JSON.stringify(payload), this.httpOptions)
       .pipe(
-        map((data: any) => {
-          data;
-          console.log(data);
-        }, catchError((err: HttpErrorResponse) => {
-          console.log(err);
-          throw(err);
-        })
-      )
+        map((data: any) =>  
+          { return new User(data) }
+        , catchError((err: HttpErrorResponse) => 
+          {throw(err)}
+        )
+        )
     );
   }
 }
