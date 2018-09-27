@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 
 import { StorageService } from './storage.service';
 import { User } from '../models/user-model';
+import { api } from './global-variables';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,7 @@ export class AuthService {
 
   public signUp(payload: any): Observable<User>{
 
-    return this.http.post('https://idearer.herokuapp.com/' + 'users', JSON.stringify(payload), this.httpOptions)
+    return this.http.post(api + 'users', JSON.stringify(payload), this.httpOptions)
       .pipe(
         map((data: any) =>  
           { return new User(data) }
