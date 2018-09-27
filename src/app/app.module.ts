@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { CategoriesService } from './services/categories.service';
 import { RegisterComponent } from './register/register.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { AuthService } from './services/auth.service';
+import { StorageService } from './services/storage.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
   ],
   providers: [
     ArticlesService,
-    CategoriesService
+    CategoriesService,
+    AuthService,
+    StorageService
   ],
   bootstrap: [AppComponent]
 })

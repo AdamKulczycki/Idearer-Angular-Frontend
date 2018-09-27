@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { api } from './global-variables';
 import { HttpClient } from '@angular/common/http';
 import { Comment } from '../models/comment-model';
-import { Observable, Subject, throwError} from 'rxjs';
+import { Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable()

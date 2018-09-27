@@ -18,18 +18,21 @@
         min-width: 100%;
         margin-top: 20px;
 
+        .user-data {
+            width: 100%;
+        }
+
         // Margin na wszystkie elementy (dzieci) form
         & > * {
             margin: 10px 0;
         }
 
-        // form-input
-        &-input {
+        // form-control
+        &-control {
             width: 100%;
             color: black;
             border-radius: 10px;
-            border-width: 0;
-            padding: 20px 30px;
+            padding: 30px 30px;
         }
 
         // form-group
@@ -42,4 +45,19 @@
             margin-top: 30px !important;
         }
     }
+}
+
+.help-block {
+    display: flex;
+    color: white;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+input.ng-valid.ng-touched {
+    border: 1px solid green;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Testability } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/category-model';
@@ -15,13 +15,19 @@ export class ArticleFormComponent implements OnInit {
   @ViewChild('f') Articleform: NgForm;
   categories: Category[];
   categoryPlaceholder = -1;
+  user = {
+    email: 'test@test.pl',
+    id: 1,
+    password: 'test',
+    username: 'admin'
+  }
   articleObject = {
     id: undefined,
     title: 'Your title',
     content: 'iuBngI-GlWU',
     created: new Date(),
     likesCount: 5,
-    user: new User(1, 'admin'),
+    user: new User(this.user),
     category: undefined,
     liked: true,
     commentsCount: 0

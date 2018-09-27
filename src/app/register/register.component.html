@@ -1,12 +1,36 @@
 <div class="container">
   <h2 class="title-form">Create an account</h2>
   <form class="form" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
-    <input class="form-input" type="email" placeholder="EMAIL" name="email" ngModel>
-    <input class="form-input" type="email" placeholder="REPEAT EMAIL" name="emailRepeat" ngModel>
-    <input class="form-input" type="password" placeholder="PASSWORD" name="password" ngModel>
-    <input class="form-input" type="password" placeholder="REPEAT PASSWORD" name="passwordRepeat" ngModel>
+    <div class="user-data" id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
+      <div class="username-input">
+        <div class="form-group">
+          <input type="text" id="username" class="form-control" placeholder="USERNAME" name="username" required ngModel>
+        </div>
+      </div>
+      <div class="email-input">
+        <div class="form-group">
+          <input type="email" id="email" class="form-control" placeholder="EMAIL" name="email" #email="ngModel" required ngModel>
+          <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
+        </div>
+      </div>
+      <div class="email-input">
+        <div class="form-group">
+          <input type="email" id="emailRepeat" class="form-control" placeholder="REPEAT EMAIL" name="emailRepeat" required ngModel>
+        </div>
+      </div>
+      <div class="password-input">
+        <div class="form-group">
+          <input type="password" id="password" class="form-control" placeholder="PASSWORD" name="password" required ngModel>
+        </div>
+      </div>
+      <div class="password-input">
+        <div class="form-group">
+          <input type="password" id="passwordRepeat" class="form-control" placeholder="REPEAT PASSWORD" name="passwordRepeat" required ngModel>
+        </div>
+      </div>
+    </div>
     <div class="form-auth-group">
-      <button type="submit" class="button btn btn-danger btn-lg btn-block">
+      <button type="submit" class="button btn btn-danger btn-lg btn-block" [disabled]="!registerForm.valid && registerForm.value.userData.password !== registerForm.value.userData.passwordRepeat">
         SIGN UP
       </button>
     </div>

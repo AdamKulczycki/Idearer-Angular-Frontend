@@ -10,13 +10,20 @@ import { User } from '../../models/user-model';
 })
 export class ArticleItemComponent implements OnInit {
 
+  user = {
+    email: 'test@test.pl',
+    id: 1,
+    password: 'test',
+    username: 'admin'
+  }
+
   private _article = new Article({
     id: undefined,
     title: 'Your title',
     content: undefined,
     created: new Date(),
     likesCount: 5,
-    user: new User(1, 'admin'),
+    user: new User(this.user),
     category: undefined,
     liked: true,
     commentsCount: 0
