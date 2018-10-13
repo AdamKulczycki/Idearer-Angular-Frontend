@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
 
     this.authSrv.isLogged.subscribe( value => {
       this.isLogged = value;
+      this.username = this.storageSrv.get('username');
     });
   }
 
@@ -26,7 +27,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.getCategories();
     this.token = this.storageSrv.get('access_token');
-    this.username = this.storageSrv.get('username');
   }
 
   getCategories() {

@@ -15,10 +15,10 @@ export class AuthService {
 
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
+  }
   public isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  public signUp(payload: any): Observable<User> {
+  public signUp(payload: any): Observable<User>{
 
     return this.http.post(api + 'users', JSON.stringify(payload), this.httpOptions)
       .pipe(
@@ -41,16 +41,16 @@ export class AuthService {
 
     const headers = new HttpHeaders({
       'Content-Type': `application/x-www-form-urlencoded`,
-      'Authorization': `Basic Y2xpZW50OnNlY3JldA==`});
+      'Authorization': `Basic Y2xpZW50OnNlY3JldA==`})
 
     return this.http.post(api + 'oauth/token', body.toString(), { headers: headers, withCredentials: true })
       .pipe(
         map((res: any) => res),
-        catchError((err: any) => {throw(err); })
-      );
+        catchError((err: any) => {throw(err)})
+      )
   }
 
   public logOut() {
-    this.storageSrv.remove('access_token');
+    this.storageSrv.clear();
   }
 }

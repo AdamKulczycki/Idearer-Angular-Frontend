@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   user = {
     username: '',
     password: ''
-  };
+  }
 
   ngOnInit() {
   }
@@ -32,19 +32,19 @@ export class LoginComponent implements OnInit {
         this.storeUser(res);
         this.navToHome();
         this.authSrv.isLogged.next(true);
-        console.log(res);
       },
       (err) => {
         console.log(err);
       }
-    );
+    )
   }
 
   private storeUser(response) {
-    const { access_token } = response;
+    const { access_token, userId, userName } = response;
 
     this.storageSrv.set('access_token', access_token);
-    this.storageSrv.set('username', this.user.username);
+    this.storageSrv.set('id', userId);
+    this.storageSrv.set('username', userName);
   }
 
   private navToHome() {
