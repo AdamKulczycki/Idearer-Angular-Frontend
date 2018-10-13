@@ -20,7 +20,7 @@ export class ArticleFormComponent implements OnInit {
     id: 1,
     password: 'test',
     username: 'admin'
-  }
+  };
   articleObject = {
     id: undefined,
     title: 'Your title',

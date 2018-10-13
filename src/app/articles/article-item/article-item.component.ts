@@ -15,7 +15,7 @@ export class ArticleItemComponent implements OnInit {
     id: 1,
     password: 'test',
     username: 'admin'
-  }
+  };
 
   private _article = new Article({
     id: undefined,

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="view-select">
+        <span class="articles" (click)="viewSelectorChange('articles')"><span></span>articles<span class="number">0</span></span>
+        <span class="comments" (click)="viewSelectorChange('comments')"><span></span>comments<span class="number">9</span></span>
+        <span class="waiting-list" (click)="viewSelectorChange('waiting-list')"><span></span>waiting<span class="number">1</span></span>
+        <span class="rejected" (click)="viewSelectorChange('rejected')"><span></span>rejected<span class="number">29</span></span>
+      </div>
+      <div class="content" [ngSwitch]="viewSelector">
+        <div class="articles-content" *ngSwitchCase="'articles'">
+          <div class="col-lg-8">
+              <app-article-item [article]="article"></app-article-item>
+          </div>
+        </div>
+        <div class="comments-content" *ngSwitchCase="'comments'">comments-content</div>
+        <div class="waiting-list-content" *ngSwitchCase="'waiting-list'">waiting-list-content</div>
+        <div class="rejected-content" *ngSwitchCase="'rejected'">rejected-content</div>
+      </div>
+    </div>
+  </div>
+</div>

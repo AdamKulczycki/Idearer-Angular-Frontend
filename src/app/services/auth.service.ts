@@ -21,10 +21,11 @@ export class AuthService {
 
     return this.http.post(api + 'users', JSON.stringify(payload), this.httpOptions)
       .pipe(
-        map((data: any) =>  
-          { return new User(data) }
-        , catchError((err: HttpErrorResponse) => 
-          {throw(err)}
+        map((data: any) => {
+          return new User(data);
+        },
+        catchError((err: HttpErrorResponse) => {
+          throw(err); }
         )
         )
     );

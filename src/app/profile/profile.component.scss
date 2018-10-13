@@ -1,0 +1,38 @@
+
+.col-lg-12 { 
+    margin: auto;
+    text-align: center;
+}
+.col-lg-8 {
+    margin: auto;
+}
+
+.view-select {
+    background-color: red;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    & > span {
+        background-color: green;
+        width: 25%;
+        border-right: 1px solid white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .number {
+            background-color: red;
+            padding: 0 5px;
+        }
+    }
+    .rejected {
+        border: none;
+    }
+}
+
+.content {
+    background-color: white;
+
+    & > div{
+        padding-top: 10px;
+    }
+}
