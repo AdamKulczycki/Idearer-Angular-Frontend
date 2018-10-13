@@ -22,11 +22,17 @@
         </div>
       </li>
     </ul>
-    <div class="login-btn">
+    <div class="login-btn" *ngIf="!isLogged">
       <button class="btn btn-outline-success" type="button" routerLink="login">Login</button>
     </div>
-    <div class="register-btn">
+    <div class="register-btn" *ngIf="!isLogged">
       <button class="btn btn-outline-danger" type="button" routerLink="register">Register</button>
+    </div>
+    <div class="username-text" *ngIf="isLogged">
+      Welcome, {{ username }}
+    </div>
+    <div class="login-btn" *ngIf="isLogged">
+      <button class="btn btn-outline-danger" type="button" routerLink="/articles" (click)="logout()">Logout</button>
     </div>
   </div>
 </nav>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CategoriesService } from '../services/categories.service';
+import { StorageService } from '../services/storage.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +11,22 @@ import { CategoriesService } from '../services/categories.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private categoriesSrv: CategoriesService) { }
+  constructor(private categoriesSrv: CategoriesService, private storageSrv: StorageService, private authSrv: AuthService) {
+
+    this.authSrv.isLogged.subscribe( value => {
+      this.isLogged = value;
+    });
+  }
 
   categories = [];
+  token = '';
+  isLogged: boolean;
+  username = '';
 
   ngOnInit() {
     this.getCategories();
+    this.token = this.storageSrv.get('access_token');
+    this.username = this.storageSrv.get('username');
   }
 
   getCategories() {
@@ -23,5 +35,10 @@ export class HeaderComponent implements OnInit {
         this.categories = categories;
       }
     );
+  }
+
+  logout() {
+    this.authSrv.logOut();
+    this.authSrv.isLogged.next(false);
   }
 }

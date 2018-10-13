@@ -18,6 +18,7 @@ import { RegisterComponent } from './register/register.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { AuthService } from './services/auth.service';
 import { StorageService } from './services/storage.service';
+import { CompareValidatorDirective } from './shared/compare-validator.directive';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { StorageService } from './services/storage.service';
     ArticleFormComponent,
     RegisterComponent,
     SafeUrlPipe,
+    CompareValidatorDirective,
   ],
   imports: [
     BrowserModule,
