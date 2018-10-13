@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { StorageService } from './storage.service';
@@ -16,6 +16,7 @@ export class AuthService {
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
+  public isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public signUp(payload: any): Observable<User>{
 
@@ -29,5 +30,27 @@ export class AuthService {
         )
         )
     );
+  }
+
+  public signIn(user: string, password: string): Observable<any> {
+
+    const body = new HttpParams()
+      .set(`grant_type`, `password`)
+      .set(`username`, user)
+      .set(`password`, password);
+
+    const headers = new HttpHeaders({
+      'Content-Type': `application/x-www-form-urlencoded`,
+      'Authorization': `Basic Y2xpZW50OnNlY3JldA==`})
+
+    return this.http.post(api + 'oauth/token', body.toString(), { headers: headers, withCredentials: true })
+      .pipe(
+        map((res: any) => res),
+        catchError((err: any) => {throw(err)})
+      )
+  }
+
+  public logOut() {
+    this.storageSrv.remove('access_token');
   }
 }

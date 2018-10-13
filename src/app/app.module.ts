@@ -19,6 +19,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { AuthService } from './services/auth.service';
 import { StorageService } from './services/storage.service';
 import { ProfileComponent } from './profile/profile.component';
+import { CompareValidatorDirective } from './shared/compare-validator.directive';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ProfileComponent } from './profile/profile.component';
     RegisterComponent,
     SafeUrlPipe,
     ProfileComponent,
+    CompareValidatorDirective,
   ],
   imports: [
     BrowserModule,
