@@ -11,7 +11,7 @@
 <div class="content">{{ comment.content }}</div>
 <div class="answerButton" (click)="answerVisibility()">+</div>
 <div *ngIf="answerClicked" class="answer">
-  <input placeholder="no wpisuj kurwa">
+  <input placeholder="Write You'r answer">
 </div>
 </div>
 <div class="subcomments" *ngFor="let subcomment of comment.comments">

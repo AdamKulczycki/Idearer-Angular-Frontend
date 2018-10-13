@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   article = new Article({
     id: undefined,
     title: 'Your title',
-    content: undefined,
+    content: 'iuBngI-GlWU',
     created: new Date(),
     likesCount: 5,
     user: new User(this.user),
@@ -30,10 +30,20 @@ export class ProfileComponent implements OnInit {
     liked: true,
     commentsCount: 0
   });
-  articles: Article[];
-  comments: Comment[];
-  rejectedArticles: Article[];
-  waitingArticles: Article[];
+  comment = new Comment(
+    {
+      id: undefined,
+      content: 'no czesc',
+      created: new Date(),
+      likesCount: 210,
+      user: new User(this.user),
+      comments: [],
+      liked: true
+    });
+  articles: Article[] = [];
+  comments: Comment[] = [];
+  rejectedArticles: Article[] = [];
+  waitingArticles: Article[] = [];
   ngOnInit() {
   }
 

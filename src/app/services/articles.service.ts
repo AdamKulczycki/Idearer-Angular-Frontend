@@ -1,14 +1,15 @@
 import { Article } from '../models/article-model';
 import { Injectable } from '@angular/core';
 import { api } from './global-variables';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Comment } from '../models/comment-model';
 import { Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class ArticlesService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private localStorage: StorageService) {}
 
     getArticles(): Observable<Article[]> {
         return this.http.get(api + 'articles')
@@ -41,4 +42,17 @@ export class ArticlesService {
             )
         );
     } // zwraca komentarze do danego artykulu
+
+    // getUserArticles(id): Observable<Article[]> {
+
+    //     const Id = this.localStorage.get('');
+    //     const headers = new HttpHeaders({
+    //         'Authorization': `Bearer ` + token
+    //     });
+
+    //     return this.http.get(api + 'articles/?authorId=' + id)
+    //     .pipe(
+    //         map((data: any[]) => data.map((article) => new Article(article)))
+    //     );
+    // }
 }

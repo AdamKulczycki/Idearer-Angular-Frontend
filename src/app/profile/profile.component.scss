@@ -1,4 +1,8 @@
+@import '~src/assets/scss/main.scss';
 
+.container { 
+    font: 20px 'Open Sans',sans-serif;
+}
 .col-lg-12 { 
     margin: auto;
     text-align: center;
@@ -8,29 +12,35 @@
 }
 
 .view-select {
-    background-color: red;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     & > span {
-        background-color: green;
+        background-color: $mainTheme;
+        color: white;
         width: 25%;
-        border-right: 1px solid white;
+        //border-right: 1px solid white;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        padding: 5px;
+        cursor: pointer;
+        .name:hover {
+            color: rgb(230, 132, 52);
+        }
         .number {
-            background-color: red;
+            background-color: rgb(230, 132, 52);
             padding: 0 5px;
         }
     }
     .rejected {
-        border: none;
+        //border: none;
     }
 }
 
 .content {
-    background-color: white;
+    //background-color: rgb(52, 58, 64);
+    padding-bottom: 10px;
 
     & > div{
         padding-top: 10px;
