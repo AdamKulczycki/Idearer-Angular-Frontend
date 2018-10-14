@@ -10,25 +10,17 @@ import { User } from '../../models/user-model';
 })
 export class ArticleItemComponent implements OnInit {
 
-  user = {
-    email: 'test@test.pl',
-    id: 1,
-    password: 'test',
-    username: 'admin'
-  };
-
   private _article = new Article({
     id: undefined,
-    title: 'Your title',
+    title: undefined,
     content: undefined,
-    created: new Date(),
-    likesCount: 5,
-    user: new User(this.user),
+    created: undefined,
+    likesCount: undefined,
+    user: undefined,
     category: undefined,
-    liked: true,
-    commentsCount: 0
+    liked: undefined,
+    commentsCount: undefined
   });
-  safeURL;
 
   @Input()
     set article(article: Article) {

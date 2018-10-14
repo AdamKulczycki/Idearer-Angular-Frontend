@@ -2,15 +2,28 @@ import { Article } from '../models/article-model';
 import { Injectable } from '@angular/core';
 import { api } from './global-variables';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Comment } from '../models/comment-model';
 import { Observable} from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { StorageService } from './storage.service';
 
 @Injectable()
 export class ArticlesService {
     constructor(private http: HttpClient, private localStorage: StorageService) {}
 
+    makeArticle(payload) {
+        const token = this.localStorage.get('access_token');
+        const httpheaders = new HttpHeaders({
+            'Authorization' : 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(api + 'articles', JSON.stringify(payload), {headers: httpheaders})
+        .pipe(
+            map((res: any) => res),
+            catchError((err: any) => {
+                throw(err);
+            })
+        );
+    }
     getArticles(): Observable<Article[]> {
         return this.http.get(api + 'articles')
         .pipe(
@@ -35,24 +48,16 @@ export class ArticlesService {
             );
     } // zwraca artykulu danej kategori co 10 na przyklad
 
-    getComments(index: number): Observable<Comment[]> {
-        return this.http.get(api + 'comments?articleId=' + index)
+    getUserArticles(): Observable<Article[]> {
+
+        const Id = this.localStorage.get('id');
+        // const headers = new HttpHeaders({
+        //     'Authorization': `Bearer ` + token
+        // });
+
+        return this.http.get(api + 'articles/?authorId=' + Id)
         .pipe(
-            map((data: any[]) => data.map((comment) => new Comment(comment))
-            )
+            map((data: any[]) => data.map((article) => new Article(article)))
         );
-    } // zwraca komentarze do danego artykulu
-
-    // getUserArticles(id): Observable<Article[]> {
-
-    //     const Id = this.localStorage.get('');
-    //     const headers = new HttpHeaders({
-    //         'Authorization': `Bearer ` + token
-    //     });
-
-    //     return this.http.get(api + 'articles/?authorId=' + id)
-    //     .pipe(
-    //         map((data: any[]) => data.map((article) => new Article(article)))
-    //     );
-    // }
+    } // zwraca artykulu usera o danym ID
 }

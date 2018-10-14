@@ -10,16 +10,44 @@
       <div class="content" [ngSwitch]="viewSelector">
         <div class="articles-content" *ngSwitchCase="'articles'">
           <div class="col-lg-8">
-              <app-article-item [article]="article"></app-article-item>
+            <div *ngIf="articles.length > 0">
+                <app-article-item *ngFor="let articleItem of articles" [article]="articleItem"></app-article-item>
+            </div>
+            <div *ngIf="articles.length == 0">
+                <span class="noContentMessage">You have zero Articles, make some to see them here! </span>
+            </div>
           </div>
         </div>
         <div class="comments-content" *ngSwitchCase="'comments'">
           <div class="col-lg-8">
-            <app-comment [comment]="comment"></app-comment>
+            <div *ngIf="comments.length > 0">
+                <app-comment *ngFor="let commentItem of comments" [comment]="commentItem"></app-comment>
+            </div>
+            <div *ngIf="comments.length == 0">
+                <span class="noContentMessage">You have zero Comments, write some to see them here! </span>
+            </div>
           </div>
         </div>
-        <div class="waiting-list-content" *ngSwitchCase="'waiting-list'">waiting-list-content</div>
-        <div class="rejected-content" *ngSwitchCase="'rejected'">rejected-content</div>
+        <div class="waiting-list-content" *ngSwitchCase="'waiting-list'">
+          <div class="col-lg-8">
+              <div *ngIf="waitingArticles.length > 0">
+                  <app-article-item *ngFor="let waitingItem of waitingArticles" [article]="waitingItem"></app-article-item>
+              </div>
+              <div *ngIf="waitingArticles.length == 0">
+                <span class="noContentMessage">You have zero Articles in waiting list, make some to see them here! </span>
+              </div>
+            </div>
+        </div>
+        <div class="rejected-content" *ngSwitchCase="'rejected'">
+          <div class="col-lg-8">
+              <div *ngIf="rejectedArticles.length > 0">
+                  <app-article-item *ngFor="let rejectedItem of rejectedArticles" [article]="rejectedItem"></app-article-item>
+              </div>
+              <div *ngIf="rejectedArticles.length == 0">
+                <span class="noContentMessage">You have zero rejected Articles request</span>
+              </div>
+            </div>
+        </div>
       </div>
     </div>
   </div>

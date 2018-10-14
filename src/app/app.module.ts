@@ -20,6 +20,7 @@ import { AuthService } from './services/auth.service';
 import { StorageService } from './services/storage.service';
 import { ProfileComponent } from './profile/profile.component';
 import { CompareValidatorDirective } from './shared/compare-validator.directive';
+import { CommentsService } from './services/comments.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { CompareValidatorDirective } from './shared/compare-validator.directive'
     ArticlesService,
     CategoriesService,
     AuthService,
-    StorageService
+    StorageService,
+    CommentsService
   ],
   bootstrap: [AppComponent]
 })

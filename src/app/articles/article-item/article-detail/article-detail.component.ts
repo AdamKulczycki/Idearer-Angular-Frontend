@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Article } from '../../../models/article-model';
 import { Comment } from '../../../models/comment-model';
 import { ArticlesService } from '../../../services/articles.service';
+import { CommentsService } from '../../../services/comments.service';
 
 @Component({
   selector: 'app-article-detail',
@@ -11,7 +12,7 @@ import { ArticlesService } from '../../../services/articles.service';
 })
 export class ArticleDetailComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private articlesService: ArticlesService) {
+  constructor(private router: Router, private route: ActivatedRoute, private articlesService: ArticlesService, private commentsService: CommentsService) {
     this.route.params.subscribe( (params: Params) => {
       this.id = params['id'];
       console.log(this.id);
@@ -23,7 +24,7 @@ export class ArticleDetailComponent implements OnInit {
         },
         (error) => console.log(error)
       );
-    this.articlesService.getComments(this.id)
+    this.commentsService.getComments(this.id)
       .subscribe(
         (comments) => {
           this.comments = comments;

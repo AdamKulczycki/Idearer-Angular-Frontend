@@ -4,6 +4,7 @@ import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/category-model';
 import { User } from '../../models/user-model';
 import { Article } from '../../models/article-model';
+import { ArticlesService } from '../../services/articles.service';
 
 @Component({
   selector: 'app-article-form',
@@ -15,19 +16,20 @@ export class ArticleFormComponent implements OnInit {
   @ViewChild('f') Articleform: NgForm;
   categories: Category[];
   categoryPlaceholder = -1;
-  user = {
-    email: 'test@test.pl',
-    id: 1,
-    password: 'test',
-    username: 'admin'
-  };
+  URL_content_REGEX = new RegExp('^[\s\S]*watch\?v=([\s\S]*)$');
+
   articleObject = {
     id: undefined,
     title: 'Your title',
     content: 'iuBngI-GlWU',
     created: new Date(),
-    likesCount: 5,
-    user: new User(this.user),
+    likesCount: 0,
+    user: new User({
+      email: undefined,
+      id: undefined,
+      password: undefined,
+      username: 'You'
+    }),
     category: undefined,
     liked: true,
     commentsCount: 0
@@ -35,12 +37,23 @@ export class ArticleFormComponent implements OnInit {
   newArticle = new Article(this.articleObject);
   onSubmit() {
     this.articleObject.title = this.Articleform.value.userData.title;
-    this.articleObject.content = this.Articleform.value.userData.content;
+    if ((this.Articleform.value.userData.content).match(/^[\s\S]*watch\?v=([\s\S]{11})$/)[1]) {
+      this.articleObject.content = this.Articleform.value.userData.content.match(/^[\s\S]*watch\?v=([\s\S]{11})$/)[1];
+    }
     this.articleObject.category = this.categories[this.Articleform.value.userData.category];
     this.newArticle = new Article(this.articleObject);
     console.log(this.newArticle);
+    this.articlesService.makeArticle(this.newArticle)
+    .subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
-  constructor(private categoriesService: CategoriesService) {
+  constructor(private categoriesService: CategoriesService, private articlesService: ArticlesService) {
     this.categoriesService.getCategories()
       .subscribe(
         (categories) => this.categories = categories,
@@ -57,7 +70,9 @@ export class ArticleFormComponent implements OnInit {
         this.articleObject.category = this.categories[x.userData.category];
       }
       if (x.userData.content) {
-        this.articleObject.content = x.userData.content;
+        if (x.userData.content.match(/^[\s\S]*watch\?v=([\s\S]{11})$/)) {
+          this.articleObject.content = x.userData.content.match(/^[\s\S]*watch\?v=([\s\S]{11})$/)[1];
+        }
       }
       this.newArticle = new Article(this.articleObject);
     });
