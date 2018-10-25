@@ -11,7 +11,7 @@
     </div>
     <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
         <div class="commentsSection" *ngFor="let comment of comments">
-          <app-comment [comment]="comment"></app-comment>
+          <app-comment [comment]="comment" [articleId]="article.id"></app-comment>
         </div>
     </div>
 </div>

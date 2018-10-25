@@ -5,15 +5,16 @@
         <span class="created">{{ comment.created }}</span>
     </div>
     <div class="likes">
-        <span class="likesNumber"><i class="far fa-thumbs-up"></i> {{ comment.likesCount }}</span>
+        <span class="likesNumber"><i class="far fa-thumbs-up"></i>{{ comment.likesCount }}</span>
     </div>
   </div>
 <div class="content">{{ comment.content }}</div>
-<div class="answerButton" (click)="answerVisibility()">+</div>
+<div *ngIf="!answerClicked" class="answerButton" (click)="answerVisibility()">Answer</div>
 <div *ngIf="answerClicked" class="answer">
-  <input placeholder="Write You'r answer">
+  <input class="answerInput" placeholder="Write You'r answer" #input>
+  <div class="answerSubmit" (click)="submitComment(input.value)">Submit</div>
 </div>
 </div>
 <div class="subcomments" *ngFor="let subcomment of comment.comments">
-  <app-comment [comment]="subcomment"></app-comment>
+  <app-comment [comment]="subcomment" [articleId]="articleId"></app-comment>
 </div>

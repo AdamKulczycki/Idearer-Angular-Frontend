@@ -6,6 +6,7 @@
     margin-bottom: 5px;
     border-radius: 15px;
 
+
     .comment-top {
         display: flex;
         flex-direction: row;
@@ -41,6 +42,40 @@
         // text-align: center;
         padding: 20px 20px;
         word-wrap: break-word;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .answerButton {
+        cursor: pointer;
+        background-color: white;
+        color: black;
+        text-align: center;
+        padding: 2px;
+        width: 70px;
+        border-radius: 5px 5px 5px 15px;
+    }
+
+    .answer {
+        display: flex;
+        flex-direction: row;
+
+        .answerInput {
+            width: 80%;
+            border-radius: 0 0 0 15px;
+            padding-left: 10px;
+        }
+        
+        .answerSubmit {
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            width: 20%;
+            text-align: center;
+            padding: 2px;
+            border-left: 1px solid black;
+            border-radius: 0 0 15px 0;
+        }
     }
 }
 
@@ -51,3 +86,4 @@
     border-left: 1px solid white;
     padding-left: 35px;
 }
+

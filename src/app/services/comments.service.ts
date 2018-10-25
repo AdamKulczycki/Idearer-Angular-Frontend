@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { api } from './global-variables';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Comment } from '../models/comment-model';
 import { StorageService } from './storage.service';
 
@@ -11,7 +11,8 @@ export class CommentsService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
     getComments(index: number): Observable<Comment[]> {
-        return this.http.get(api + 'comments?articleId=' + index)
+        return this.http.get(api + 'comments?articleId=' + index + '&parentCommentId=0') 
+        // &parentCommentId=0 zwraca glowne komentarze artykulu
         .pipe(
             map((data: any[]) => data.map((comment) => new Comment(comment))
             )
@@ -24,6 +25,21 @@ export class CommentsService {
         .pipe(
             map((data: any[]) => data.map((comment) => new Comment(comment))
             )
+        );
+    }
+
+    makeComment(payload) {
+        const token = this.storageService.get('access_token');
+        const httpheaders = new HttpHeaders({
+            'Authorization' : 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(api + 'comments', JSON.stringify(payload), {headers: httpheaders})
+        .pipe(
+            map((res: any) => new Comment(res)),
+            catchError((err: any) => {
+                throw(err);
+            })
         );
     }
 }

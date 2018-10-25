@@ -8,10 +8,10 @@ import { StorageService } from './storage.service';
 
 @Injectable()
 export class ArticlesService {
-    constructor(private http: HttpClient, private localStorage: StorageService) {}
+    constructor(private http: HttpClient, private storageService: StorageService) {}
 
     makeArticle(payload) {
-        const token = this.localStorage.get('access_token');
+        const token = this.storageService.get('access_token');
         const httpheaders = new HttpHeaders({
             'Authorization' : 'Bearer ' + token,
             'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ export class ArticlesService {
 
     getUserArticles(): Observable<Article[]> {
 
-        const Id = this.localStorage.get('id');
+        const Id = this.storageService.get('id');
         // const headers = new HttpHeaders({
         //     'Authorization': `Bearer ` + token
         // });
