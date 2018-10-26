@@ -11,9 +11,30 @@
 <div class="content">{{ comment.content }}</div>
 <div *ngIf="!answerClicked" class="answerButton" (click)="answerVisibility()">Answer</div>
 <div *ngIf="answerClicked" class="answer">
+  <form (ngSubmit)="submitComment(f)" #f="ngForm">
+    <div class="form-group">
+      <input 
+        type="text" 
+        id="comment" 
+        class="form-control" 
+        ngModel
+        name="comment" 
+        required
+        #title="ngModel"
+        placeholder="Write You'r Answer">
+    </div>
+    <button
+      class="answerSubmit"
+      type="submit" 
+      [disabled]="!f.valid">
+      Submit
+    </button>
+  </form>
+</div>
+<!-- <div *ngIf="answerClicked" class="answer">
   <input class="answerInput" placeholder="Write You'r answer" #input>
   <div class="answerSubmit" (click)="submitComment(input.value)">Submit</div>
-</div>
+</div> -->
 </div>
 <div class="subcomments" *ngFor="let subcomment of comment.comments">
   <app-comment [comment]="subcomment" [articleId]="articleId"></app-comment>

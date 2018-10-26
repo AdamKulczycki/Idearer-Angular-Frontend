@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Testability } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/category-model';

@@ -56,25 +56,34 @@
         border-radius: 5px 5px 5px 15px;
     }
 
-    .answer {
+    form {
         display: flex;
         flex-direction: row;
-
-        .answerInput {
+    
+        .form-group {
             width: 80%;
-            border-radius: 0 0 0 15px;
-            padding-left: 10px;
+            margin-bottom: 0;
+    
+            input {
+                border-radius: 0 0 0 15px;
+                padding-left: 10px;
+            }
         }
-        
+    
         .answerSubmit {
             cursor: pointer;
             background-color: white;
             color: black;
             width: 20%;
             text-align: center;
-            padding: 2px;
+            padding: 0px;
+            border: 0;
             border-left: 1px solid black;
             border-radius: 0 0 15px 0;
+            &:disabled {
+                background-color: grey;
+                cursor: default;
+            }
         }
     }
 }
@@ -86,4 +95,8 @@
     border-left: 1px solid white;
     padding-left: 35px;
 }
+
+
+
+
 
