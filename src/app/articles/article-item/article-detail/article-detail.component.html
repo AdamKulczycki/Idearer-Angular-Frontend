@@ -7,6 +7,28 @@
           <app-article-item
           [article] = article>
         </app-article-item>
+        <div *ngIf="!answerClicked" class="answerButton" (click)="answerVisibility()">ADD COMMENT</div>
+        <div *ngIf="answerClicked" class="answer">
+          <form (ngSubmit)="submitComment(f)" #f="ngForm">
+            <div class="form-group">
+              <input 
+                type="text" 
+                id="comment" 
+                class="form-control" 
+                ngModel
+                name="comment" 
+                required
+                #title="ngModel"
+                placeholder="Write You'r Comment">
+            </div>
+            <button
+              class="answerSubmit"
+              type="submit" 
+              [disabled]="!f.valid">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </div>
     <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">

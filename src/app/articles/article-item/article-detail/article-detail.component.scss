@@ -2,6 +2,54 @@
 
 .col-lg-12 {
     margin: auto;
+
+    .answerButton {
+        cursor: pointer;
+        background-color: white;
+        color: black;
+        text-align: center;
+        padding: 5px;
+        width: 80%;
+        border-radius: 5px 5px 15px 15px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        margin: 0 auto 10px auto;
+    }
+
+    .answer {
+        margin-bottom: 10px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: row;
+    
+        .form-group {
+            width: 80%;
+            margin-bottom: 0;
+    
+            input {
+                border-radius: 0 0 0 15px;
+                padding-left: 10px;
+            }
+        }
+
+        .answerSubmit {
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            width: 20%;
+            text-align: center;
+            padding: 0px;
+            border: 0;
+            border-left: 1px solid black;
+            border-radius: 0 0 15px 0;
+            &:disabled {
+                background-color: grey;
+                cursor: default;
+            }
+        }
+    }
 }
 
 .col-lg-10 {
