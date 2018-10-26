@@ -21,30 +21,29 @@ export class CommentComponent implements OnInit {
     this.answerClicked = !this.answerClicked;
   }
 
-  submitComment(text) {
-    console.log(text.value.comment);
-    // const payload = {
-    //   article: {
-    //     id: this.articleId
-    //   },
-    //   content: text,
-    //   parentComment: {
-    //     id: this.comment.id
-    //   }
-    // };
+  submitComment(form) {
+    const payload = {
+      article: {
+        id: this.articleId
+      },
+      content: form.value.comment,
+      parentComment: {
+        id: this.comment.id
+      }
+    };
 
-    // this.commentsService.makeComment(payload)
-    // .subscribe(
-    //   (comment) => {
-    //     const commentItem = comment;
-    //     commentItem.user.username = this.storageService.get('username');
-    //     this.comment.comments.push(commentItem);
-    //     this.answerClicked = false;
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
+    this.commentsService.makeComment(payload)
+    .subscribe(
+      (comment) => {
+        const commentItem = comment;
+        commentItem.user.username = this.storageService.get('username');
+        this.comment.comments.push(commentItem);
+        this.answerClicked = false;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
   ngOnInit() {
   }
