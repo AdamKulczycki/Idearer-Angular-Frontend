@@ -11,7 +11,7 @@ export class CommentsService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
     getComments(index: number): Observable<Comment[]> {
-        return this.http.get(api + 'comments?articleId=' + index + '&parentCommentId=0') 
+        return this.http.get(api + 'comments?articleId=' + index + '&parentCommentId=0')
         // &parentCommentId=0 zwraca glowne komentarze artykulu
         .pipe(
             map((data: any[]) => data.map((comment) => new Comment(comment))

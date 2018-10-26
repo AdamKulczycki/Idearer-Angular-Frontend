@@ -23,7 +23,6 @@ export class ArticleDetailComponent implements OnInit {
     private storageService: StorageService) {
     this.route.params.subscribe( (params: Params) => {
       this.id = params['id'];
-      console.log(this.id);
     });
     this.articlesService.getArticle(this.id)
       .subscribe(

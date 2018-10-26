@@ -21,6 +21,7 @@ import { StorageService } from './services/storage.service';
 import { ProfileComponent } from './profile/profile.component';
 import { CompareValidatorDirective } from './shared/compare-validator.directive';
 import { CommentsService } from './services/comments.service';
+import { LikesService } from './services/likes.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { CommentsService } from './services/comments.service';
     CategoriesService,
     AuthService,
     StorageService,
-    CommentsService
+    CommentsService,
+    LikesService
   ],
   bootstrap: [AppComponent]
 })
