@@ -11,12 +11,24 @@ export class CommentsService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
     getComments(index: number): Observable<Comment[]> {
-        return this.http.get(api + 'comments?articleId=' + index + '&parentCommentId=0')
+        const token = this.storageService.get('access_token');
+        if (token) {
+            const httpheaders = new HttpHeaders({
+                'Authorization' : 'Bearer ' + token
+            });
+            return this.http.get(api + 'comments?articleId=' + index + '&parentCommentId=0', {headers: httpheaders})
+            .pipe(
+                map((data: any[]) => data.map((comment) => new Comment(comment))
+                )
+            );
+        } else {
+            return this.http.get(api + 'comments?articleId=' + index + '&parentCommentId=0')
         // &parentCommentId=0 zwraca glowne komentarze artykulu
-        .pipe(
-            map((data: any[]) => data.map((comment) => new Comment(comment))
-            )
-        );
+            .pipe(
+                map((data: any[]) => data.map((comment) => new Comment(comment))
+                )
+            );
+        }
     } // zwraca komentarze do danego artykulu
 
     getUserComments(): Observable<Comment[]> {

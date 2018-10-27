@@ -25,11 +25,24 @@ export class ArticlesService {
         );
     }
     getArticles(): Observable<Article[]> {
-        return this.http.get(api + 'articles')
-        .pipe(
-            map((data: any[]) => data.map((article) => new Article(article))
-            )
-        );
+        const token = this.storageService.get('access_token');
+        console.log(token);
+        if (token) {
+            const httpheaders = new HttpHeaders({
+                'Authorization' : 'Bearer ' + token,
+            });
+            return this.http.get(api + 'articles', {headers: httpheaders})
+            .pipe(
+                map((data: any[]) => data.map((article) => new Article(article))
+                )
+            );
+        } else {
+            return this.http.get(api + 'articles')
+            .pipe(
+                map((data: any[]) => data.map((article) => new Article(article))
+                )
+            );
+        }
     }// zwraca artykuly na glowna strone, co 10 na przyklad, te najnowsze
 
 
