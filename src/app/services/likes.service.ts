@@ -8,7 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 export class LikesService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
-    articleLike(payload) {
+    articleChangeLike(payload) {
         const articleId = payload.articleId;
         const body = {
             liked: payload.liked
@@ -27,7 +27,22 @@ export class LikesService {
         );
     }
 
-    articleDislike(payload) {
-
+    commentChangeLike(payload) {
+        const commentId = payload.commentId;
+        const body = {
+            liked: payload.liked
+        };
+        const token = this.storageService.get('access_token');
+        const httpheaders = new HttpHeaders({
+            'Authorization' : 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.patch(api + 'comments/' + commentId, JSON.stringify(body), {headers: httpheaders})
+        .pipe(
+            map((res: any) => res),
+            catchError((err: any) => {
+                throw(err);
+            })
+        );
     }
 }

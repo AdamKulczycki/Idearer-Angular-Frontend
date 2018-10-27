@@ -5,7 +5,10 @@
         <span class="created">{{ comment.created }}</span>
     </div>
     <div class="likes">
-        <span class="likesNumber"><i class="far fa-thumbs-up"></i>{{ comment.likesCount }}</span>
+        <!-- <span class="likesNumber"><i class="far fa-thumbs-up"></i>{{ comment.likesCount }}</span> -->
+        <span *ngIf="!comment.liked" class="like-button" (click)="changeLike(true)"><i class="far fa-thumbs-up"></i></span>
+        <span *ngIf="comment.liked" class="like-button" (click)="changeLike(false)"><i class="far fa-thumbs-down"></i></span>
+        {{ comment.likesCount }}
     </div>
   </div>
 <div class="content">{{ comment.content }}</div>

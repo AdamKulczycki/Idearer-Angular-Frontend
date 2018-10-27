@@ -32,7 +32,7 @@ export class ArticleItemComponent implements OnInit {
         }
     }
   get article(): Article {
-    //console.log(this._article); /// PRZEJRZYJ TO!
+    // console.log(this._article); /// PRZEJRZYJ TO!
     return this._article;
   }
 
@@ -44,28 +44,26 @@ export class ArticleItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  addLike() {
+  changeLike(liked) {
     const payload = {
       articleId: this._article.id,
-      liked: true
+      liked: liked
     };
     console.log(payload);
-    this.likesService.articleLike(payload)
+    this.likesService.articleChangeLike(payload)
     .subscribe(
       (res) => {
         console.log(res);
-        alert('zalajkowales!');
-        this.article.liked = true;
-        this.article.likesCount ++;
+        if (payload.liked) {
+          this.article.likesCount ++;
+        } else {
+          this.article.likesCount --;
+        }
+        this.article.liked = payload.liked;
       },
       (err) => {
         console.log(err);
       }
     );
-  }
-  dislike() {
-    this.article.liked = false;
-    this.article.likesCount --;
-    alert('odlajkowales!');
   }
 }

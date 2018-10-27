@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Comment } from '../models/comment-model';
 import { CommentsService } from '../services/comments.service';
 import { StorageService } from '../services/storage.service';
+import { LikesService } from '../services/likes.service';
 
 @Component({
   selector: 'app-comment',
@@ -14,7 +15,7 @@ export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   @Input() articleId: number;
   @ViewChild('f') Articleform: NgForm;
-  constructor(private commentsService: CommentsService, private storageService: StorageService) { }
+  constructor(private commentsService: CommentsService, private storageService: StorageService, private likesService: LikesService) { }
 
   answerClicked = false;
   answerVisibility() {
@@ -39,6 +40,29 @@ export class CommentComponent implements OnInit {
         commentItem.user.username = this.storageService.get('username');
         this.comment.comments.push(commentItem);
         this.answerClicked = false;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  changeLike(liked) {
+    const payload = {
+      commentId: this.comment.id,
+      liked: liked
+    };
+    console.log(payload);
+    this.likesService.commentChangeLike(payload)
+    .subscribe(
+      (res) => {
+        console.log(res);
+        if (payload.liked) {
+          this.comment.likesCount ++;
+        } else {
+          this.comment.likesCount --;
+        }
+        this.comment.liked = payload.liked;
       },
       (err) => {
         console.log(err);
