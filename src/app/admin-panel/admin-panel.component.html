@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="content" *ngFor="let item of articles">
+        <app-article-item [article]="item"></app-article-item>
+        <div class="managment-bar">
+          <div class="status">
+            Status: Waiting
+          </div>
+          <div class="change-status">
+              <form (ngSubmit)="onSubmit(f, item.id)" #f="ngForm">
+                <div class="form-group">
+                    Change for:
+                    <select 
+                      class="form-control" 
+                      id="status" 
+                      name="status"
+                      ngModel
+                      required>
+                      <option value="accepted">Accepted</option>
+                      <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div *ngIf="f.value.status == 'rejected'" class="rejected-reason">
+                  <div class="form-group">
+                    Reason:
+                    <select 
+                      class="form-control" 
+                      id="reason" 
+                      name="reason"
+                      ngModel
+                      required>
+                      <option value="wrong title">Wrong Title</option>
+                      <option value="wrong content">Wrong Content</option>
+                      <option value="other">Other...</option>
+                    </select>
+                  </div>
+                </div>
+                <div *ngIf="f.value.reason == 'other'" class="otherReason">
+                    <div class="form-group">
+                      Write reason:
+                      <input 
+                        type="text" 
+                        id="otherReason" 
+                        class="form-control" 
+                        name="otherReason"
+                        ngModel
+                        required
+                        placeholder="reason...">
+                    </div>
+                  </div>
+                <button
+                  class="button btn btn-warning btn-lg btn-block"
+                  type="submit" 
+                  [disabled]="!f.valid">
+                  SUBMIT
+                </button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

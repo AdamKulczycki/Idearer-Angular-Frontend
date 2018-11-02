@@ -22,6 +22,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CompareValidatorDirective } from './shared/compare-validator.directive';
 import { CommentsService } from './services/comments.service';
 import { LikesService } from './services/likes.service';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { LikesService } from './services/likes.service';
     SafeUrlPipe,
     ProfileComponent,
     CompareValidatorDirective,
+    AdminPanelComponent,
   ],
   imports: [
     BrowserModule,
