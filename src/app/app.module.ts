@@ -23,6 +23,8 @@ import { CompareValidatorDirective } from './shared/compare-validator.directive'
 import { CommentsService } from './services/comments.service';
 import { LikesService } from './services/likes.service';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { ReportsPanelComponent } from './reports-panel/reports-panel.component';
+import { ReportModalComponent } from './modals/report-modal/report-modal.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
     ProfileComponent,
     CompareValidatorDirective,
     AdminPanelComponent,
+    ReportsPanelComponent,
+    ReportModalComponent,
   ],
   imports: [
     BrowserModule,

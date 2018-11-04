@@ -4,9 +4,10 @@
       <div class="content" *ngFor="let item of articles">
         <app-article-item [article]="item"></app-article-item>
         <div class="managment-bar">
-          <div class="status">
-            Status: Waiting
-          </div>
+          <div class="info">
+              <div>Status:<span class="status-name">Waiting</span></div>
+              <div>id:<span>{{item.id}}</span></div>
+            </div>
           <div class="change-status">
               <form (ngSubmit)="onSubmit(f, item.id)" #f="ngForm">
                 <div class="form-group">

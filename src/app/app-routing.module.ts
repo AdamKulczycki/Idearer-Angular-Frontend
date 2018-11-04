@@ -7,6 +7,8 @@ import { ArticleFormComponent } from './articles/article-form/article-form.compo
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { ReportsPanelComponent } from './reports-panel/reports-panel.component';
+import { ReportModalComponent } from './modals/report-modal/report-modal.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/articles', pathMatch: 'full' },
@@ -17,6 +19,8 @@ const appRoutes: Routes = [
     { path: 'create', component: ArticleFormComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'admin', component: AdminPanelComponent },
+    { path: 'reports', component: ReportsPanelComponent },
+    { path: 'modal', component: ReportModalComponent },
     { path: '**', redirectTo: '/articles'}
 ];
 

@@ -24,7 +24,12 @@
                 margin-bottom: 0px;
             }
             .comments {
-                padding: 10px 15px 10px 15px; 
+                padding: 10px 15px 10px 15px;
+
+                .fas {
+                    color: rgba(255, 0, 0, 0.425);
+                    margin-right: 5px;
+                }
             }
         }  
 
