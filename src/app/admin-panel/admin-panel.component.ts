@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Article } from '../models/article-model';
 import { User } from '../models/user-model';
 import { Category } from '../models/category-model';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-panel',
@@ -11,7 +10,6 @@ import { NgForm } from '@angular/forms';
 })
 export class AdminPanelComponent implements OnInit {
 
-  @ViewChild('f') statusForm: NgForm;
   constructor() { }
 
   articles = [
@@ -59,12 +57,12 @@ export class AdminPanelComponent implements OnInit {
 
   /// polaczenie z serwerem
   onSubmit(f, id) {
-    console.log(this.statusForm.value.status);
-    if (this.statusForm.value.reason) {
-      console.log(this.statusForm.value.reason);
+    console.log(f.value.status);
+    if (f.value.reason) {
+      console.log(f.value.reason);
     }
-    if (this.statusForm.value.otherReason) {
-      console.log(this.statusForm.value.otherReason);
+    if (f.value.otherReason) {
+      console.log(f.value.otherReason);
     }
     console.log(id);
   }
