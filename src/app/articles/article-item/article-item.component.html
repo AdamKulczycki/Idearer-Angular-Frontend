@@ -1,9 +1,10 @@
 <div class="article" *ngIf="article">
   <div class="article-top">
       <div class="article-title">
-        <p *ngIf="article.id" class="title"><a [routerLink]="['/articles', article.id]">{{ article.title }}</a></p>
+        <p *ngIf="article.id" class="title"><a [routerLink]="['/articles', article.id]">{{ article.title }}</a><span class="report" (click)="showReportModal()">report!</span></p>
+        <app-report-modal *ngIf="showModal" [articleId]="article.id" (closeModal)="closeReportModal()"></app-report-modal>
         <p *ngIf="!article.id" class="title">{{ article.title }}</p>
-        <span class="comments"><i class="fas fa-exclamation-circle"></i><i class="far fa-comment"></i> {{ article.commentsCount }}</span>
+        <span class="comments"><i class="far fa-comment"></i> {{ article.commentsCount }}</span>
       </div>
       <p *ngIf="article.category" class="category"><a [routerLink]="['/articles']" [queryParams]="{category: article.category.name}">{{ article.category.name }}</a></p>
       <p *ngIf="!article.category" class="category">Your selected Category</p>

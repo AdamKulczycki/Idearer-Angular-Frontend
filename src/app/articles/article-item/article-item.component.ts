@@ -23,6 +23,17 @@ export class ArticleItemComponent implements OnInit {
     commentsCount: undefined
   });
 
+  showModal = false;
+
+  showReportModal() {
+    this.showModal = true;
+    console.log('otwieram modal');
+  }
+  closeReportModal() {
+    this.showModal = false;
+    console.log('zamykam modal');
+  }
+
   @Input()
     set article(article: Article) {
         for (const property in this._article) {
@@ -32,7 +43,6 @@ export class ArticleItemComponent implements OnInit {
         }
     }
   get article(): Article {
-    // console.log(this._article); /// PRZEJRZYJ TO!
     return this._article;
   }
 
