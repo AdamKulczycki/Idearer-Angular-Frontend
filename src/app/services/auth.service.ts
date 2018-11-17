@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -11,7 +12,7 @@ import { api } from './global-variables';
 @Injectable()
 export class AuthService {
 
-  constructor(private http: HttpClient, private storageSrv: StorageService) { }
+  constructor(private http: HttpClient, private storageSrv: StorageService, private router: Router) { }
 
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -52,5 +53,11 @@ export class AuthService {
 
   public logOut() {
     this.storageSrv.clear();
+    this.setIsLogged(false);
+    this.router.navigateByUrl('');
+  }
+
+  public setIsLogged(value: boolean) {
+    this.isLogged.next(value);
   }
 }

@@ -1,3 +1,25 @@
+<div class="container articles-filters">
+  <div class="articles-filters__list">
+    <div class="articles-filters__list-element">
+      <p>Sort by:</p>
+    </div>
+    <div class="articles-filters__list-element">
+      <p>Date</p>
+      <i class="fas fa-sort-numeric-down" aria-hidden="true"></i>
+    </div>
+    <div class="articles-filters__list-element">
+      <p>Title</p>
+      <i class="fas fa-sort-alpha-down"></i>
+    </div>
+    <div class="articles-filters__list-element">
+      <p>Likes</p>
+      <i class="fas fa-sort-amount-down"></i>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="add-article-btn" *ngIf="isLogged" routerLink="/create">ADD ARTICLE</div>
+</div>
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <app-article-item *ngFor="let item of articles"

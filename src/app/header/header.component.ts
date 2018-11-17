@@ -20,13 +20,11 @@ export class HeaderComponent implements OnInit {
   }
 
   categories = [];
-  token = '';
   isLogged: boolean;
   username = '';
 
   ngOnInit() {
     this.getCategories();
-    this.token = this.storageSrv.get('access_token');
   }
 
   getCategories() {
@@ -39,6 +37,5 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authSrv.logOut();
-    this.authSrv.isLogged.next(false);
   }
 }

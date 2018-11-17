@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Article } from '../models/article-model';
 import { ArticlesService } from '../services/articles.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Response } from '@angular/http';
-import { User } from '../models/user-model';
 import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
 
@@ -16,17 +14,14 @@ export class ArticlesComponent implements OnInit {
 
   constructor(private articleService: ArticlesService, private route: ActivatedRoute, private storageSrv: StorageService, private authSrv: AuthService) {
 
-    this.token = this.storageSrv.get('access_token');
-
-    if(this.token) {
-      this.authSrv.isLogged.next(true);
-    } else {
-      this.authSrv.isLogged.next(false);
-    }
+    this.authSrv.isLogged.subscribe( value => {
+      this.isLogged = value;
+    });
   }
+
   articles: Article[] = [];
   category = '';
-  token = '';
+  isLogged: boolean;
 
   ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {

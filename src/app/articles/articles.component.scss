@@ -2,3 +2,53 @@
     margin: auto;
     text-align: center;
 }
+
+.add-article-btn {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    text-align: center;
+    padding: 5px;
+    width: 80%;
+    border-radius: 15px 15px 5px 5px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin: 0 auto 10px auto;
+}
+
+.articles {
+
+    &-filters {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 40px 20px;
+
+        &__list {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            color: white;
+            
+            &-element {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                margin-right: 20px;
+                cursor: pointer;
+
+                &:first-of-type {
+                    cursor: default;
+                }
+
+                &> p {
+                    margin-right: 10px;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

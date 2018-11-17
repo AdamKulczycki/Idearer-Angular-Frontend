@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       (res) => {
         this.storeUser(res);
         this.navToHome();
-        this.authSrv.isLogged.next(true);
+        this.authSrv.setIsLogged(true);
       },
       (err) => {
         console.log(err);
