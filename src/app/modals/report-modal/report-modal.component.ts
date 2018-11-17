@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-report-modal',
@@ -7,22 +7,23 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ReportModalComponent implements OnInit {
 
-  // @Input() display = true;
-  display = true;
-  constructor() {
-  }
+  @Output() closeModal: EventEmitter<any> = new EventEmitter();
+  @Input() articleId: number;
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   close() {
-    console.log('click');
-    this.display = false;
+    this.closeModal.emit();
   }
 
   stop(event) {
-    console.log('stop click');
     event.stopPropagation();
+  }
+
+  onSubmit(f) {
+    console.log('id: ' + this.articleId);
+    console.log('reason: ' + f.value.reportReason);
   }
 
 }

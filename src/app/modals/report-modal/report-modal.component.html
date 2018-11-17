@@ -1,8 +1,24 @@
-<div *ngIf="display === true" class="custom-modal-box"  (click)="close()">
+<div class="custom-modal-box"  (click)="close()">
   <div class="custom-modal">
       <div class="custom-modal-body" (click)="stop($event)">
-        ADADSFSDFDSAFSFSF
-        {{display}}
+        <span class="message">You want to report this article. Make sure you know what you are doing.</span>
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+          <div class="form-group">
+            <input
+              type="text"
+              id="reportReason"
+              class="form-control"
+              name="reportReason"
+              ngModel
+              required
+              placeholder="Report reason...">
+          </div>
+          <button
+            type="submit"
+            [disabled]="!f.valid">
+            Submit
+          </button>
+        </form>
       </div>
   </div>
 </div>

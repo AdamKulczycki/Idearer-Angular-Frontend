@@ -1,48 +1,9 @@
-// .custom-modal {
-//     /* modal container fixed across whole screen */
-//     position: fixed;
-//     top: 0;
-//     right: 0;
-//     bottom: 0;
-//     left: 0;
-
-//     /* z-index must be higher than .jw-modal-background */
-//     z-index: 1000;
-     
-//     /* enables scrolling for tall modals */
-//     overflow: auto;
-
-//     .custom-modal-body {
-//         padding: 20px;
-//         background: #fff;
-
-//         /* margin exposes part of the modal background */
-//         margin: 40px;
-//     }
-// }
-
-// .custom-modal-background {
-//     /* modal background fixed across whole screen */
-//     position: fixed;
-//     top: 0;
-//     right: 0;
-//     bottom: 0;
-//     left: 0;
-
-//     /* semi-transparent black  */
-//     background-color: #000;
-//     opacity: 0.75;
-     
-//     /* z-index must be below .jw-modal and above everything else  */
-//     z-index: 900;
-// }
-
 .custom-modal {
 
     .custom-modal-body {
         padding: 20px;
         background: #fff;
-        margin: 40px;
+        margin: 20% 20%;
     }
 }
 
@@ -55,4 +16,8 @@
 
     background-color: black;
     opacity: 0.75;
+
+    .message {
+        color: black;
+    }
 }

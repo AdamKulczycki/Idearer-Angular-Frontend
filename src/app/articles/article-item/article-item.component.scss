@@ -22,6 +22,16 @@
             .title {
                 padding: 10px 15px 10px 15px;    
                 margin-bottom: 0px;
+
+                .report {
+                    color: rgb(163, 17, 17);
+                    font: 16px 'Open Sans',sans-serif;
+                    margin-left: 10px;
+                    cursor: pointer;
+                    &:hover {
+                        color: red;
+                    }
+                }
             }
             .comments {
                 padding: 10px 15px 10px 15px;
