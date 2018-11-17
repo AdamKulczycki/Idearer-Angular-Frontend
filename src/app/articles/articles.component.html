@@ -3,17 +3,20 @@
     <div class="articles-filters__list-element">
       <p>Sort by:</p>
     </div>
-    <div class="articles-filters__list-element">
+    <div class="articles-filters__list-element" (click)="this.sortByDate(this.sortDateReverse)">
       <p>Date</p>
-      <i class="fas fa-sort-numeric-down" aria-hidden="true"></i>
+      <i *ngIf="!this.sortDateReverse" class="fas fa-sort-numeric-down"></i>
+      <i *ngIf="this.sortDateReverse" class="fas fa-sort-numeric-up"></i>
     </div>
-    <div class="articles-filters__list-element">
+    <div class="articles-filters__list-element" (click)="this.sortByTitle(this.sortTitleReverse)">
       <p>Title</p>
-      <i class="fas fa-sort-alpha-down"></i>
+      <i *ngIf="!this.sortTitleReverse" class="fas fa-sort-alpha-down"></i>
+      <i *ngIf="this.sortTitleReverse" class="fas fa-sort-alpha-up"></i>
     </div>
-    <div class="articles-filters__list-element">
+    <div class="articles-filters__list-element" (click)="this.sortByLikes(this.sortLikesReverse)">
       <p>Likes</p>
-      <i class="fas fa-sort-amount-down"></i>
+      <i *ngIf="!this.sortLikesReverse" class="fas fa-sort-amount-down"></i>
+      <i *ngIf="this.sortLikesReverse" class="fas fa-sort-amount-up"></i>
     </div>
   </div>
 </div>
