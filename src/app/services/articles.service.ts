@@ -24,20 +24,20 @@ export class ArticlesService {
             })
         );
     }
-    getArticles(): Observable<Article[]> {
+    getArticles(page): Observable<Article[]> {
         const token = this.storageService.get('access_token');
         console.log(token);
         if (token) {
             const httpheaders = new HttpHeaders({
                 'Authorization' : 'Bearer ' + token,
             });
-            return this.http.get(api + 'articles', {headers: httpheaders})
+            return this.http.get(api + 'articles?page=' + page + '&pageSize=2', {headers: httpheaders})
             .pipe(
                 map((data: any[]) => data.map((article) => new Article(article))
                 )
             );
         } else {
-            return this.http.get(api + 'articles')
+            return this.http.get(api + 'articles?page=' + page + '&pageSize=2')
             .pipe(
                 map((data: any[]) => data.map((article) => new Article(article))
                 )
@@ -53,8 +53,8 @@ export class ArticlesService {
         );
     }
 
-    getArtcilesByCategory(categoryName: string): Observable<Article[]> {
-        return this.http.get(api + 'articles?categoryName=' + categoryName)
+    getArtcilesByCategory(categoryName: string, page): Observable<Article[]> {
+        return this.http.get(api + 'articles?categoryName=' + categoryName + '&page=' + page + '&pageSize=2')
             .pipe(
                 map((data: any[]) => data.map((article) => new Article(article))
                 )

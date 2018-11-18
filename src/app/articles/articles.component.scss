@@ -52,3 +52,21 @@
         }
     }
 }
+
+.page-panel {
+    width: 100%;
+    text-align: center;
+    i {
+        font-size: 58px;
+        padding: 0 15px;
+        padding-bottom: 15px;
+
+        &:hover {
+            color: white;
+        }
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}

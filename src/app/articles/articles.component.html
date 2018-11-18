@@ -29,4 +29,12 @@
       [article] = "item">
     </app-article-item>
   </div>
+  <div *ngIf="!currentCategory" class="page-panel">
+    <a *ngIf="currentPage > 1" [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage - 1}"><i class="fas fa-chevron-left"></i></a>
+    <a [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage + 1}"><i class="fas fa-chevron-right"></i></a>
+  </div>
+  <div *ngIf="currentCategory" class="page-panel">
+      <a *ngIf="currentPage > 1" [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage - 1, 'category': currentCategory}"><i class="fas fa-chevron-left"></i></a>
+      <a [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage + 1, 'category': currentCategory}"><i class="fas fa-chevron-right"></i></a>
+  </div>
 </div>

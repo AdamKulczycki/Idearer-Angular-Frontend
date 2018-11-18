@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../models/article-model';
 import { ArticlesService } from '../services/articles.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
 
@@ -12,40 +12,60 @@ import { AuthService } from '../services/auth.service';
 })
 export class ArticlesComponent implements OnInit {
 
-  constructor(private articleService: ArticlesService, private route: ActivatedRoute, private storageSrv: StorageService, private authSrv: AuthService) {
+  constructor(private articleService: ArticlesService, private route: ActivatedRoute,
+    private storageSrv: StorageService, private authSrv: AuthService,
+    private router: Router) {
 
     this.authSrv.isLogged.subscribe( value => {
       this.isLogged = value;
     });
   }
 
+  currentCategory;
+  currentPage;
   articles: Article[] = [];
   articlesList: Article[] = [];
   sortDateReverse: boolean = false;
   sortTitleReverse: boolean = false;
   sortLikesReverse: boolean = false;
-  category = '';
   isLogged: boolean;
 
   ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {
       if ( params['category']) {
-        this.category = params['category'];
-        this.articleService.getArtcilesByCategory(this.category)
+        if (params['page']) {
+          this.currentPage = params['page'];
+        } else {
+          this.currentPage = 1;
+        }
+        this.currentCategory = params['category'];
+        this.articleService.getArtcilesByCategory(this.currentCategory, this.currentPage)
           .subscribe(
             (articles) => {
               this.articles = articles;
               this.articlesList = articles;
               console.log(articles);
+              this.router.events.subscribe(() => { // take view to top of the page
+                window.scrollTo(0, 0);
+              });
             },
             (error) => console.log(error)
           );
       } else {
-        this.articleService.getArticles()
+        this.currentCategory = '';
+        if (params['page']) {
+          this.currentPage = params['page'];
+        } else {
+          this.currentPage = 1;
+        }
+        this.articleService.getArticles(this.currentPage) // pages from serwer started from 0 but we want to show form 1
         .subscribe(
           (articles) => {
             this.articles = articles;
             this.articlesList = articles;
+            this.router.events.subscribe(() => { // take view to top of the page
+              window.scrollTo(0, 0);
+            });
           },
           (error) => console.log(error)
         );
