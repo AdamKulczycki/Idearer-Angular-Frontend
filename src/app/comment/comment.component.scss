@@ -44,6 +44,10 @@
         word-wrap: break-word;
         display: flex;
         flex-direction: column;
+
+        .parentCommentAuthor {
+            font-weight: bold;
+        }
     }
     
     .answerButton {
@@ -88,13 +92,13 @@
     }
 }
 
-.subcomments {
-    margin-left: 20px;
-}
-.subcomments {
-    border-left: 1px solid white;
-    padding-left: 35px;
-}
+// .subcomments {
+//     margin-left: 20px;
+// }
+// .subcomments {
+//     border-left: 1px solid white;
+//     padding-left: 35px;
+// }
 
 
 

@@ -45,9 +45,6 @@ export class ArticlesComponent implements OnInit {
               this.articles = articles;
               this.articlesList = articles;
               console.log(articles);
-              this.router.events.subscribe(() => { // take view to top of the page
-                window.scrollTo(0, 0);
-              });
             },
             (error) => console.log(error)
           );
@@ -58,14 +55,11 @@ export class ArticlesComponent implements OnInit {
         } else {
           this.currentPage = 1;
         }
-        this.articleService.getArticles(this.currentPage) // pages from serwer started from 0 but we want to show form 1
+        this.articleService.getArticles(this.currentPage)
         .subscribe(
           (articles) => {
             this.articles = articles;
             this.articlesList = articles;
-            this.router.events.subscribe(() => { // take view to top of the page
-              window.scrollTo(0, 0);
-            });
           },
           (error) => console.log(error)
         );

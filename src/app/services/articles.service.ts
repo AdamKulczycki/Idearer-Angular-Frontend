@@ -33,13 +33,13 @@ export class ArticlesService {
             });
             return this.http.get(api + 'articles?page=' + page + '&pageSize=2', {headers: httpheaders})
             .pipe(
-                map((data: any[]) => data.map((article) => new Article(article))
+                map((data: any) => data.content.map((article) => new Article(article))
                 )
             );
         } else {
             return this.http.get(api + 'articles?page=' + page + '&pageSize=2')
             .pipe(
-                map((data: any[]) => data.map((article) => new Article(article))
+                map((data: any) => data.content.map((article) => new Article(article))
                 )
             );
         }

@@ -21,11 +21,11 @@ const appRoutes: Routes = [
     { path: 'admin', component: AdminPanelComponent },
     { path: 'reports', component: ReportsPanelComponent },
     { path: 'modal', component: ReportModalComponent },
-    { path: '**', redirectTo: '/articles'}
+    { path: '**', redirectTo: '/articles'},
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(appRoutes)],
+    imports: [RouterModule.forRoot(appRoutes, { anchorScrolling: 'enabled', scrollPositionRestoration: 'top'})],
     exports: [RouterModule]
 })
 
