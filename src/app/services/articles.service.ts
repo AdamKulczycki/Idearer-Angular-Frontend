@@ -56,7 +56,7 @@ export class ArticlesService {
     getArtcilesByCategory(categoryName: string, page): Observable<Article[]> {
         return this.http.get(api + 'articles?categoryName=' + categoryName + '&page=' + page + '&pageSize=2')
             .pipe(
-                map((data: any[]) => data.map((article) => new Article(article))
+                map((data: any) => data.content.map((article) => new Article(article))
                 )
             );
     } // zwraca artykulu danej kategori co 10 na przyklad
@@ -70,7 +70,7 @@ export class ArticlesService {
 
         return this.http.get(api + 'articles/?authorId=' + Id)
         .pipe(
-            map((data: any[]) => data.map((article) => new Article(article)))
+            map((data: any) => data.content.map((article) => new Article(article)))
         );
     } // zwraca artykulu usera o danym ID
 }
