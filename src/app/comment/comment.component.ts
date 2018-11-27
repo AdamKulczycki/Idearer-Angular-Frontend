@@ -13,6 +13,7 @@ import { ScrollService } from '../services/scroll.service';
 })
 export class CommentComponent implements OnInit {
 
+  @Input() mainComment: boolean;
   @Input() parentCommentAuthor: string;
   @Input() parentCommentId: string;
   @Input() comment: Comment;

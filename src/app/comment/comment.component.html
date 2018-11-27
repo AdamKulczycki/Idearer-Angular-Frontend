@@ -39,6 +39,6 @@
   <div class="answerSubmit" (click)="submitComment(input.value)">Submit</div>
 </div> -->
 </div>
-<div class="subcomments" *ngFor="let subcomment of comment.comments.slice().reverse()">
-  <app-comment [comment]="subcomment" [articleId]="articleId" [parentCommentAuthor]="comment.user.username" [parentCommentId]="comment.id"></app-comment>
+<div class="subcomments" *ngFor="let subcomment of comment.comments.slice().reverse()" [ngClass]="{'subcomments--top': mainComment}">
+  <app-comment [comment]="subcomment" [articleId]="articleId" [parentCommentAuthor]="comment.user.username" [parentCommentId]="comment.id"  [mainComment]="false"></app-comment>
 </div>

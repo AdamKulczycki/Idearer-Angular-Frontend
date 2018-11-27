@@ -33,7 +33,7 @@ export class CommentsService {
 
     getUserComments(): Observable<Comment[]> {
         const Id = this.storageService.get('id');
-        return this.http.get(api + 'comments?userId=' + Id)
+        return this.http.get(api + 'comments?userId=' + Id + '&hideSubcomments=true')
         .pipe(
             map((data: any[]) => data.map((comment) => new Comment(comment))
             )

@@ -68,7 +68,7 @@ export class ArticlesService {
         //     'Authorization': `Bearer ` + token
         // });
 
-        return this.http.get(api + 'articles/?authorId=' + Id)
+        return this.http.get(api + 'articles?authorId=' + Id)
         .pipe(
             map((data: any) => data.content.map((article) => new Article(article)))
         );

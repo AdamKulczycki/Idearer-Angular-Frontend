@@ -94,3 +94,15 @@
 .author {
     color: yellow;
 }
+
+// :host /deep/ .subcomments:first-child() {
+//     margin-left: 50px;
+// }
+
+.commentsSection {
+    .lel {
+        :host /deep/ .subcomments {
+            background-color: red;
+        }
+    }
+}
