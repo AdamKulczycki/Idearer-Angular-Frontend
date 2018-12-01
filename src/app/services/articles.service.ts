@@ -1,4 +1,5 @@
 import { Article } from '../models/article-model';
+import { Page } from '../models/page-model';
 import { Injectable } from '@angular/core';
 import { api } from './global-variables';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -24,22 +25,22 @@ export class ArticlesService {
             })
         );
     }
-    getArticles(page): Observable<Article[]> {
+    getArticles(page): Observable<Page> {
+
         const token = this.storageService.get('access_token');
-        console.log(token);
         if (token) {
             const httpheaders = new HttpHeaders({
                 'Authorization' : 'Bearer ' + token,
             });
             return this.http.get(api + 'articles?page=' + page + '&pageSize=2', {headers: httpheaders})
             .pipe(
-                map((data: any) => data.content.map((article) => new Article(article))
+                map((data: any) => new Page(data)
                 )
             );
         } else {
             return this.http.get(api + 'articles?page=' + page + '&pageSize=2')
             .pipe(
-                map((data: any) => data.content.map((article) => new Article(article))
+                map((data: any) => new Page(data)
                 )
             );
         }
@@ -53,24 +54,32 @@ export class ArticlesService {
         );
     }
 
-    getArtcilesByCategory(categoryName: string, page): Observable<Article[]> {
+    getArtcilesByCategory(categoryName: string, page): Observable<Page> {
         return this.http.get(api + 'articles?categoryName=' + categoryName + '&page=' + page + '&pageSize=2')
             .pipe(
-                map((data: any) => data.content.map((article) => new Article(article))
+                map((data: any) => new Page(data)
                 )
             );
     } // zwraca artykulu danej kategori co 10 na przyklad
 
-    getUserArticles(): Observable<Article[]> {
+    getUserArticles(status): Observable<Article[]> {
 
         const Id = this.storageService.get('id');
         // const headers = new HttpHeaders({
         //     'Authorization': `Bearer ` + token
         // });
 
-        return this.http.get(api + 'articles?authorId=' + Id)
+        return this.http.get(api + 'articles?authorId=' + Id + '&status=' + status)
         .pipe(
             map((data: any) => data.content.map((article) => new Article(article)))
         );
     } // zwraca artykulu usera o danym ID
+
+    getPendingArtciles(): Observable<Article[]> {
+
+        return this.http.get(api + 'articles?status=PENDING')
+        .pipe(
+            map((data: any) => data.content.map((article) => new Article(article)))
+        );
+    }
 }

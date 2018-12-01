@@ -22,7 +22,11 @@ export class ArticlesComponent implements OnInit {
   }
 
   currentCategory;
-  currentPage;
+  currentPage = {
+    page: null,
+    pageSize: null,
+    lastPage: null
+  };
   articles: Article[] = [];
   articlesList: Article[] = [];
   sortDateReverse: boolean = false;
@@ -34,32 +38,39 @@ export class ArticlesComponent implements OnInit {
     this.route.queryParams.subscribe( (params: Params) => {
       if ( params['category']) {
         if (params['page']) {
-          this.currentPage = params['page'];
+          this.currentPage.page = params['page'];
         } else {
-          this.currentPage = 1;
+          this.currentPage.page = 1;
         }
         this.currentCategory = params['category'];
-        this.articleService.getArtcilesByCategory(this.currentCategory, this.currentPage)
+        this.articleService.getArtcilesByCategory(this.currentCategory, this.currentPage.page)
           .subscribe(
-            (articles) => {
-              this.articles = articles;
-              this.articlesList = articles;
-              console.log(articles);
+            (page) => {
+              this.articles = page.articles;
+              this.articlesList = page.articles;
+              this.currentPage.page = page.page;
+              this.currentPage.pageSize = page.pageSize;
+              this.currentPage.lastPage = page.lastPage;
+              console.log(page);
             },
             (error) => console.log(error)
           );
       } else {
         this.currentCategory = '';
         if (params['page']) {
-          this.currentPage = params['page'];
+          this.currentPage.page = params['page'];
         } else {
-          this.currentPage = 1;
+          this.currentPage.page = 1;
         }
-        this.articleService.getArticles(this.currentPage)
+        this.articleService.getArticles(this.currentPage.page)
         .subscribe(
-          (articles) => {
-            this.articles = articles;
-            this.articlesList = articles;
+          (page) => {
+            this.articles = page.articles;
+            this.articlesList = page.articles;
+            this.currentPage.page = page.page;
+            this.currentPage.pageSize = page.pageSize;
+            this.currentPage.lastPage = page.lastPage;
+            console.log(page);
           },
           (error) => console.log(error)
         );
