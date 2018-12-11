@@ -33,7 +33,7 @@
     </div>
     <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
         <div class="commentsSection" *ngFor="let comment of comments.slice().reverse()">
-          <app-comment [comment]="comment" [articleId]="article.id" [parentCommentAuthor]="" [parentCommentId]="" [mainComment]="true"></app-comment>
+          <app-comment #myComments [comment]="comment" [articleId]="article.id" [parentCommentAuthor]="" [parentCommentId]="" [mainComment]="true"></app-comment>
         </div>
     </div>
 </div>

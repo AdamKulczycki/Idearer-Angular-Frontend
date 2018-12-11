@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Article } from '../../../models/article-model';
 import { Comment } from '../../../models/comment-model';
@@ -13,6 +13,7 @@ import { ScrollService } from 'src/app/services/scroll.service';
   styleUrls: ['./article-detail.component.scss']
 })
 export class ArticleDetailComponent implements OnInit, AfterViewInit {
+  @ViewChild('myComments') myComments: ElementRef;
 
   id: number;
   article: Article;
@@ -47,6 +48,7 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
   }
 
   submitComment(form) {
+    console.log(this.myComments);
     const payload = {
       article: {
         id: this.article.id
@@ -69,16 +71,16 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.route.queryParams.subscribe( (params: Params) => {
-      if (params['ScrollTo']) {
-        this.scrollService.triggerScrollTo(params['ScrollTo']);
-      }
-    });
+    setTimeout(() => {
+      console.log(this.myComments);
+      this.route.queryParams.subscribe( (params: Params) => {
+        if (params['ScrollTo']) {
+          this.scrollService.triggerScrollTo(params['ScrollTo']);
+        }
+        });
+    }, 2000);
   }
   ngOnInit() {
-    // this.router.events.subscribe(() => { // przenosi na gore strony po wczytaniu artykulu
-    //   window.scrollTo(0, 0);
-    // });
   }
 
 }
