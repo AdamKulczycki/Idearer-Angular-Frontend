@@ -44,7 +44,7 @@ export class ArticlesService {
                 )
             );
         }
-    }// zwraca artykuly na glowna strone, co 10 na przyklad, te najnowsze
+    }
 
 
     getArticle(index: number) {
@@ -67,12 +67,25 @@ export class ArticlesService {
     }
 
     getArtcilesByCategory(categoryName: string, page): Observable<Page> {
-        return this.http.get(api + 'articles?categoryName=' + categoryName + '&page=' + page + '&pageSize=2')
+
+        const token = this.storageService.get('access_token');
+        if (token) {
+            const httpheaders = new HttpHeaders({
+                'Authorization' : 'Bearer ' + token,
+            });
+            return this.http.get(api + 'articles?categoryName=' + categoryName + '&page=' + page + '&pageSize=2', {headers: httpheaders})
             .pipe(
                 map((data: any) => new Page(data)
                 )
             );
-    } // zwraca artykulu danej kategori co 10 na przyklad
+        } else {
+            return this.http.get(api + 'articles?categoryName=' + categoryName + '&page=' + page + '&pageSize=2')
+            .pipe(
+                map((data: any) => new Page(data)
+                )
+            );
+        }
+    }
 
     getUserArticles(status): Observable<Article[]> {
 
@@ -85,7 +98,7 @@ export class ArticlesService {
         .pipe(
             map((data: any) => data.content.map((article) => new Article(article)))
         );
-    } // zwraca artykulu usera o danym ID
+    }
 
     getPendingArtciles(): Observable<Article[]> {
 

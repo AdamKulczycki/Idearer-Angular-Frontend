@@ -5,6 +5,7 @@ import { CommentsService } from '../services/comments.service';
 import { StorageService } from '../services/storage.service';
 import { LikesService } from '../services/likes.service';
 import { ScrollService } from '../services/scroll.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comment',
@@ -20,14 +21,14 @@ export class CommentComponent implements OnInit {
   @Input() articleId: number;
   @ViewChild('f') Articleform: NgForm;
   constructor(private commentsService: CommentsService, private storageService: StorageService,
-    private likesService: LikesService, private scrollService: ScrollService) { }
+    private likesService: LikesService, private scrollService: ScrollService, private router: Router) { }
 
   answerClicked = false;
   answerVisibility() {
     this.answerClicked = !this.answerClicked;
   }
   scroll() {
-    this.scrollService.triggerScrollTo(this.parentCommentId);
+    this.scrollService.triggerScrollTo('comment-' + this.parentCommentId);
   }
 
   submitComment(form) {

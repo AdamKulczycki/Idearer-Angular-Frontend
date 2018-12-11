@@ -36,7 +36,7 @@ export class ArticlesComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {
-      if ( params['category']) {
+      if (params['category']) {
         if (params['page']) {
           this.currentPage.page = params['page'];
         } else {
