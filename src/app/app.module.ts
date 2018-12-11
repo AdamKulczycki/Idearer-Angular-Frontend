@@ -28,6 +28,7 @@ import { ReportModalComponent } from './modals/report-modal/report-modal.compone
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ScrollService } from './services/scroll.service';
 import { LoginGuard } from './services/login-guard.service';
+import { ReportsService } from './services/reports.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { LoginGuard } from './services/login-guard.service';
     CommentsService,
     LikesService,
     ScrollService,
-    LoginGuard
+    LoginGuard,
+    ReportsService
   ],
   bootstrap: [AppComponent]
 })

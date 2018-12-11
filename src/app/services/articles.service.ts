@@ -48,10 +48,22 @@ export class ArticlesService {
 
 
     getArticle(index: number) {
-        return this.http.get<Article>(api + 'articles/' + index)
-        .pipe(
-            map((data: any) => new Article(data))
-        );
+
+        const token = this.storageService.get('access_token');
+        if (token) {
+            const httpheaders = new HttpHeaders({
+                'Authorization' : 'Bearer ' + token,
+            });
+            return this.http.get<Article>(api + 'articles/' + index, {headers: httpheaders})
+            .pipe(
+                map((data: any) => new Article(data))
+            );
+        } else {
+            return this.http.get<Article>(api + 'articles/' + index)
+            .pipe(
+                map((data: any) => new Article(data))
+            );
+        }
     }
 
     getArtcilesByCategory(categoryName: string, page): Observable<Page> {
