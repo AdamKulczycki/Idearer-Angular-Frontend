@@ -24,7 +24,7 @@
     </div>
     <div class="article-likes">
         <span *ngIf="!article.liked" class="like-button" (click)="changeLike(true)"><i class="far fa-thumbs-up"></i></span>
-        <span *ngIf="article.liked" class="like-button" (click)="changeLike(false)"><i class="far fa-thumbs-down"></i></span>
+        <span *ngIf="article.liked" class="like-button" (click)="changeLike(false)"><i class="fas fa-thumbs-up"></i></span>
         {{ article.likesCount }}
     </div>
   </div>

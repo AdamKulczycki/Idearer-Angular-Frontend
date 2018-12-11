@@ -4,6 +4,7 @@ import { Comment } from '../models/comment-model';
 import { User } from '../models/user-model';
 import { ArticlesService } from '../services/articles.service';
 import { CommentsService } from '../services/comments.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -11,13 +12,16 @@ import { CommentsService } from '../services/comments.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  constructor(private articlesService: ArticlesService, private commentsService: CommentsService) { }
+  constructor(private articlesService: ArticlesService,
+    private commentsService: CommentsService,
+    private router: Router) { }
 
   viewSelector = 'articles';
   articles: Article[] = [];
   comments: Comment[] = [];
   rejectedArticles: Article[] = [];
   waitingArticles: Article[] = [];
+
   ngOnInit() {
     this.articlesService.getUserArticles('ACCEPTED_HOF').subscribe(
       (res) => {
