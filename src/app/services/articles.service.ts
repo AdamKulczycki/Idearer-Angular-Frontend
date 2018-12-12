@@ -74,6 +74,22 @@ export class ArticlesService {
             );
     } // zwraca artykulu danej kategori co 10 na przyklad
 
+    getSortArticles(sortName: string, page): Observable<Page> {
+        return this.http.get(api + 'articles?sort=' + sortName + '&page=' + page + '&pageSize=2')
+            .pipe(
+                map((data: any) => new Page(data)
+                )
+            );
+    }
+
+    getSortArticlesByCategory(categoryName: string, sortName, page): Observable<Page> {
+        return this.http.get(api + 'articles?categoryName=' + categoryName + '&sort=' + sortName + '&page=' + page + '&pageSize=2')
+            .pipe(
+                map((data: any) => new Page(data)
+                )
+            );
+    }
+
     getUserArticles(status): Observable<Article[]> {
 
         const Id = this.storageService.get('id');

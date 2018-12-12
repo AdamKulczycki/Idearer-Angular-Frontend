@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Article } from '../models/article-model';
 import { ArticlesService } from '../services/articles.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -12,8 +11,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class ArticlesComponent implements OnInit {
 
-  constructor(private articleService: ArticlesService, private route: ActivatedRoute,
-    private storageSrv: StorageService, private authSrv: AuthService,
+  constructor(private articleService: ArticlesService, private route: ActivatedRoute, private authSrv: AuthService,
     private router: Router) {
 
     this.authSrv.isLogged.subscribe( value => {
@@ -27,27 +25,36 @@ export class ArticlesComponent implements OnInit {
     pageSize: null,
     lastPage: null
   };
+  currentSort;
   articles: Article[] = [];
-  articlesList: Article[] = [];
-  sortDateReverse: boolean = false;
+  sortByTitle: string = "ASCENDING_TITLE";
+  sortByDate: string = "DESCENDING_CREATED";
+  sortByLikes: string = "DESCENDING_LIKES";
   sortTitleReverse: boolean = false;
+  sortDateReverse: boolean = false;
   sortLikesReverse: boolean = false;
   isLogged: boolean;
 
   ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {
       if ( params['category']) {
+        this.currentSort = '';
+        this.currentCategory = params['category'];
+
         if (params['page']) {
           this.currentPage.page = params['page'];
         } else {
           this.currentPage.page = 1;
         }
-        this.currentCategory = params['category'];
-        this.articleService.getArtcilesByCategory(this.currentCategory, this.currentPage.page)
+
+        if (params['sort']) {
+          this.currentSort = params['sort'];
+          this.sortArticlesByCategory(this.currentCategory, this.currentSort, this.currentPage.page);
+        } else {
+          this.articleService.getArtcilesByCategory(this.currentCategory, this.currentPage.page)
           .subscribe(
             (page) => {
               this.articles = page.articles;
-              this.articlesList = page.articles;
               this.currentPage.page = page.page;
               this.currentPage.pageSize = page.pageSize;
               this.currentPage.lastPage = page.lastPage;
@@ -55,65 +62,96 @@ export class ArticlesComponent implements OnInit {
             },
             (error) => console.log(error)
           );
-      } else {
-        this.currentCategory = '';
-        if (params['page']) {
-          this.currentPage.page = params['page'];
-        } else {
-          this.currentPage.page = 1;
         }
-        this.articleService.getArticles(this.currentPage.page)
-        .subscribe(
-          (page) => {
-            this.articles = page.articles;
-            this.articlesList = page.articles;
-            this.currentPage.page = page.page;
-            this.currentPage.pageSize = page.pageSize;
-            this.currentPage.lastPage = page.lastPage;
-            console.log(page);
-          },
-          (error) => console.log(error)
-        );
-      }
+      } else {
+          this.currentCategory = '';
+          this.currentSort = '';
+          if (params['page']) {
+            this.currentPage.page = params['page'];
+          } else {
+            this.currentPage.page = 1;
+          }
+
+          if (params['sort']) {
+            this.currentSort = params['sort'];
+            this.sortArticles(this.currentSort, this.currentPage.page);
+          } else {
+            this.articleService.getArticles(this.currentPage.page)
+            .subscribe(
+              (page) => {
+                this.articles = page.articles;
+                this.currentPage.page = page.page;
+                this.currentPage.pageSize = page.pageSize;
+                this.currentPage.lastPage = page.lastPage;
+                console.log(page);
+              },
+              (error) => console.log(error)
+            );
+          }
+        }
     });
   }
 
-  public sortByDate(reverse: boolean) {
-    this.articlesList = this.articles.sort((first, second) => this.compareDate(first, second, reverse));
-    this.sortDateReverse = !this.sortDateReverse;
+  sortArticles(sortName: string, page) {
+    this.articleService.getSortArticles(sortName, page)
+      .subscribe(
+        (page) => {
+          this.articles = page.articles;
+          this.currentPage.page = page.page;
+          this.currentPage.pageSize = page.pageSize;
+          this.currentPage.lastPage = page.lastPage;
+        },
+        (error) => console.log(error)
+      );
   }
 
-  public sortByTitle(reverse: boolean) {
-    this.articlesList = this.articles.sort((first, second) => this.compareTitle(first, second, reverse));
-    this.sortTitleReverse = !this.sortTitleReverse;
+  sortArticlesByCategory(categoryName: string, sortName: string, page) {
+    this.articleService.getSortArticlesByCategory(categoryName, sortName, page)
+      .subscribe(
+        (page) => {
+          this.articles = page.articles;
+          this.currentPage.page = page.page;
+          this.currentPage.pageSize = page.pageSize;
+          this.currentPage.lastPage = page.lastPage;
+        },
+        (error) => console.log(error)
+      );
   }
 
-  public sortByLikes(reverse: boolean) {
-    this.articlesList = this.articles.sort((first, second) => this.compareLikes(first, second, reverse));
-    this.sortLikesReverse = !this.sortLikesReverse;
-  }
-
-  public compareDate(first: Article, second: Article, reverse: boolean) {
-    if (reverse) {
-      return (first.created <= second.created) ? 1 : 0;
-    } else {
-      return (first.created > second.created) ? 1 : 0;
+  sortArticlesWithClicking(sortName: string) {
+    this.currentSort = sortName;
+    
+    switch (sortName) {
+      case "ASCENDING_TITLE":
+        this.sortByTitle = "DESCENDING_TITLE";
+        this.sortTitleReverse = !this.sortTitleReverse;
+        break;
+      case "DESCENDING_TITLE":
+        this.sortByTitle = "ASCENDING_TITLE";
+        this.sortTitleReverse = !this.sortTitleReverse;
+        break;
+      case "ASCENDING_CREATED":
+        this.sortByDate = "DESCENDING_CREATED";
+        this.sortDateReverse = !this.sortDateReverse;
+        break;
+      case "DESCENDING_CREATED":
+        this.sortByDate = "ASCENDING_CREATED";
+        this.sortDateReverse = !this.sortDateReverse;
+        break;
+      case "ASCENDING_LIKES":
+        this.sortByLikes = "DESCENDING_LIKES";
+        this.sortLikesReverse = !this.sortLikesReverse;
+        break;
+      case "DESCENDING_LIKES":
+        this.sortByLikes = "ASCENDING_LIKES";
+        this.sortLikesReverse = !this.sortLikesReverse;
+        break;
     }
-  }
 
-  public compareTitle(first: Article, second: Article, reverse: boolean) {
-    if (reverse) {
-      return (first.title <= second.title) ? 1 : 0;
+    if (this.currentCategory) {
+      this.router.navigate(['/articles'], {queryParams: {'page': 1, 'category': this.currentCategory, 'sort': this.currentSort}});
     } else {
-      return (first.title > second.title) ? 1 : 0;
-    }
-  }
-
-  public compareLikes(first: Article, second: Article, reverse: boolean) {
-    if (reverse) {
-      return (first.likesCount <= second.likesCount) ? 1 : 0;
-    } else {
-      return (first.likesCount > second.likesCount) ? 1 : 0;
+      this.router.navigate(['/articles'], {queryParams: {'page': 1, 'sort': this.currentSort}});
     }
   }
 

@@ -3,17 +3,17 @@
     <div class="articles-filters__list-element">
       <p>Sort by:</p>
     </div>
-    <div class="articles-filters__list-element" (click)="this.sortByDate(this.sortDateReverse)">
-      <p>Date</p>
-      <i *ngIf="!this.sortDateReverse" class="fas fa-sort-numeric-down"></i>
-      <i *ngIf="this.sortDateReverse" class="fas fa-sort-numeric-up"></i>
-    </div>
-    <div class="articles-filters__list-element" (click)="this.sortByTitle(this.sortTitleReverse)">
+    <div class="articles-filters__list-element" (click)="sortArticlesWithClicking(sortByTitle)">
       <p>Title</p>
       <i *ngIf="!this.sortTitleReverse" class="fas fa-sort-alpha-down"></i>
       <i *ngIf="this.sortTitleReverse" class="fas fa-sort-alpha-up"></i>
     </div>
-    <div class="articles-filters__list-element" (click)="this.sortByLikes(this.sortLikesReverse)">
+    <div class="articles-filters__list-element" (click)="sortArticlesWithClicking(sortByDate)">
+      <p>Date</p>
+      <i *ngIf="!this.sortDateReverse" class="fas fa-sort-numeric-up"></i>
+      <i *ngIf="this.sortDateReverse" class="fas fa-sort-numeric-down"></i>
+    </div>
+    <div class="articles-filters__list-element" (click)="sortArticlesWithClicking(sortByLikes)">
       <p>Likes</p>
       <i *ngIf="!this.sortLikesReverse" class="fas fa-sort-amount-down"></i>
       <i *ngIf="this.sortLikesReverse" class="fas fa-sort-amount-up"></i>
@@ -29,16 +29,28 @@
       [article] = "item">
     </app-article-item>
   </div>
-  <div *ngIf="!currentCategory" class="page-panel">
+  <div *ngIf="!currentCategory && !currentSort" class="page-panel">
     <span><a *ngIf="currentPage.page > 1" class="double-arrows" [routerLink]="['/articles']" [queryParams]="{page: 1}"><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i></a></span>
     <span><a *ngIf="currentPage.page > 1" [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage.page - 1}"><i class="fas fa-chevron-left"></i></a></span>
     <span><a *ngIf="currentPage.page < currentPage.lastPage" [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage.page + 1}"><i class="fas fa-chevron-right"></i></a></span>
     <span><a *ngIf="currentPage.page < currentPage.lastPage" class="double-arrows" [routerLink]="['/articles']" [queryParams]="{page: +currentPage.lastPage}"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></a></span>
   </div>
-  <div *ngIf="currentCategory" class="page-panel">
+  <div *ngIf="!currentCategory && currentSort" class="page-panel">
+    <span><a *ngIf="currentPage.page > 1" class="double-arrows" [routerLink]="['/articles']" [queryParams]="{page: 1, 'sort': currentSort}"><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i></a></span>
+    <span><a *ngIf="currentPage.page > 1" [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage.page - 1, 'sort': currentSort}"><i class="fas fa-chevron-left"></i></a></span>
+    <span><a *ngIf="currentPage.page < currentPage.lastPage" [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage.page + 1, 'sort': currentSort}"><i class="fas fa-chevron-right"></i></a></span>
+    <span><a *ngIf="currentPage.page < currentPage.lastPage" class="double-arrows" [routerLink]="['/articles']" [queryParams]="{page: +currentPage.lastPage, 'sort': currentSort}"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></a></span>
+  </div>
+  <div *ngIf="currentCategory && !currentSort" class="page-panel">
       <span><a *ngIf="currentPage.page > 1" class="double-arrows" [routerLink]="['/articles']" [queryParams]="{page: 1, 'category': currentCategory}"><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i></a></span>
       <span><a *ngIf="currentPage.page > 1" [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage.page - 1, 'category': currentCategory}"><i class="fas fa-chevron-left"></i></a></span>
       <span><a *ngIf="currentPage.page < currentPage.lastPage" [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage.page + 1, 'category': currentCategory}"><i class="fas fa-chevron-right"></i></a></span>
       <span><a *ngIf="currentPage.page < currentPage.lastPage" class="double-arrows" [routerLink]="['/articles']" [queryParams]="{page: +currentPage.lastPage, 'category': currentCategory}"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></a></span>
   </div>
+  <div *ngIf="currentCategory && currentSort" class="page-panel">
+    <span><a *ngIf="currentPage.page > 1" class="double-arrows" [routerLink]="['/articles']" [queryParams]="{page: 1, 'category': currentCategory, 'sort': currentSort}"><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i></a></span>
+    <span><a *ngIf="currentPage.page > 1" [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage.page - 1, 'category': currentCategory, 'sort': currentSort}"><i class="fas fa-chevron-left"></i></a></span>
+    <span><a *ngIf="currentPage.page < currentPage.lastPage" [routerLink]="['/articles']" [queryParams]="{page: +this.currentPage.page + 1, 'category': currentCategory, 'sort': currentSort}"><i class="fas fa-chevron-right"></i></a></span>
+    <span><a *ngIf="currentPage.page < currentPage.lastPage" class="double-arrows" [routerLink]="['/articles']" [queryParams]="{page: +currentPage.lastPage, 'category': currentCategory, 'sort': currentSort}"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></a></span>
+</div>
 </div>
