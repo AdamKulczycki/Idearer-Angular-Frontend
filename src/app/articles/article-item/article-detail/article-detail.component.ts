@@ -1,17 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Article } from '../../../models/article-model';
 import { Comment } from '../../../models/comment-model';
 import { ArticlesService } from '../../../services/articles.service';
 import { CommentsService } from '../../../services/comments.service';
 import { StorageService } from '../../../services/storage.service';
+import { ScrollService } from 'src/app/services/scroll.service';
 
 @Component({
   selector: 'app-article-detail',
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.scss']
 })
-export class ArticleDetailComponent implements OnInit {
+export class ArticleDetailComponent implements OnInit, AfterViewInit {
+  @ViewChild('myComments') myComments: ElementRef;
 
   id: number;
   article: Article;
@@ -20,7 +22,8 @@ export class ArticleDetailComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute,
     private articlesService: ArticlesService,
     private commentsService: CommentsService,
-    private storageService: StorageService) {
+    private storageService: StorageService,
+    private scrollService: ScrollService) {
     this.route.params.subscribe( (params: Params) => {
       this.id = params['id'];
     });
@@ -45,6 +48,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   submitComment(form) {
+    console.log(this.myComments);
     const payload = {
       article: {
         id: this.article.id
@@ -66,10 +70,17 @@ export class ArticleDetailComponent implements OnInit {
     );
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      console.log(this.myComments);
+      this.route.queryParams.subscribe( (params: Params) => {
+        if (params['ScrollTo']) {
+          this.scrollService.triggerScrollTo(params['ScrollTo']);
+        }
+        });
+    }, 2000);
+  }
   ngOnInit() {
-    // this.router.events.subscribe(() => { // przenosi na gore strony po wczytaniu artykulu
-    //   window.scrollTo(0, 0);
-    // });
   }
 
 }

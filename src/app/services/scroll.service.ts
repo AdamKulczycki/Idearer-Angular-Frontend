@@ -7,8 +7,10 @@ export class ScrollService {
   constructor(private _scrollToService: ScrollToService) { }
 
   public triggerScrollTo(targetScroll) {
+    console.log(targetScroll);
     const config: ScrollToConfigOptions = {
-      target: 'comment-' + targetScroll
+      target: targetScroll,
+      offset: 350
     };
 
     this._scrollToService.scrollTo(config);

@@ -12,7 +12,10 @@
     </div>
   </div>
 <div class="content"><div *ngIf="parentCommentAuthor" class="parentCommentAuthor" (click)="scroll()">@{{ parentCommentAuthor }}</div> {{ comment.content }}</div>
-<div *ngIf="!answerClicked" class="answerButton" (click)="answerVisibility()">Answer</div>
+<div class="bottom">
+    <div *ngIf="!answerClicked" class="answerButton" (click)="answerVisibility()">Answer</div>
+    <div class="scroll-to-comment" [routerLink]="['/articles', articleId]" [queryParams]="{ScrollTo: 'comment-' + comment.id}">Go to origin</div>
+</div>
 <div *ngIf="answerClicked" class="answer">
   <form (ngSubmit)="submitComment(f)" #f="ngForm">
     <div class="form-group">

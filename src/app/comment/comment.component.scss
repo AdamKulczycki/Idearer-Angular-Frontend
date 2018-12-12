@@ -6,7 +6,9 @@
     margin-bottom: 5px;
     border-radius: 15px;
 
-
+    .parentCommentAuthor {
+        cursor: pointer;
+    }
     .comment-top {
         display: flex;
         flex-direction: row;
@@ -49,15 +51,26 @@
             font-weight: bold;
         }
     }
+
+    .bottom {
     
-    .answerButton {
-        cursor: pointer;
-        background-color: white;
-        color: black;
-        text-align: center;
-        padding: 2px;
-        width: 70px;
-        border-radius: 5px 5px 5px 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+        .answerButton {
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            text-align: center;
+            padding: 2px;
+            width: 70px;
+            border-radius: 5px 5px 5px 15px;
+        }
+        .scroll-to-comment {
+            margin-right: 10px;
+            cursor: pointer;
+        }
     }
 
     form {
