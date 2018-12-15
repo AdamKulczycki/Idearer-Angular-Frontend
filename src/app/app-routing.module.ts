@@ -8,8 +8,8 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { ReportsPanelComponent } from './reports-panel/reports-panel.component';
-import { ReportModalComponent } from './modals/report-modal/report-modal.component';
 import { LoginGuard } from './services/login-guard.service';
+import { ArticleEditModalComponent } from './modals/article-edit-modal/article-edit-modal.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/articles', pathMatch: 'full' },
@@ -21,7 +21,7 @@ const appRoutes: Routes = [
     { path: 'profile', canActivate: [LoginGuard], component: ProfileComponent },
     { path: 'admin', component: AdminPanelComponent },
     { path: 'reports', component: ReportsPanelComponent },
-    { path: 'modal', component: ReportModalComponent },
+    { path: 'modal', component: ArticleEditModalComponent },
     { path: '**', redirectTo: '/articles'},
 ];
 

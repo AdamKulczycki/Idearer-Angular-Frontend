@@ -29,6 +29,7 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ScrollService } from './services/scroll.service';
 import { LoginGuard } from './services/login-guard.service';
 import { ReportsService } from './services/reports.service';
+import { ArticleEditModalComponent } from './modals/article-edit-modal/article-edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ReportsService } from './services/reports.service';
     AdminPanelComponent,
     ReportsPanelComponent,
     ReportModalComponent,
+    ArticleEditModalComponent,
   ],
   imports: [
     BrowserModule,

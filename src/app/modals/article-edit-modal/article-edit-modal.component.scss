@@ -1,0 +1,38 @@
+@import '~src/assets/scss/main.scss';
+
+.modal-box {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.95;
+
+    .modal-body{
+        background-color: $mainTheme;
+        
+        margin: 20% auto;
+        .article-edit-form {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+.title-form {
+    color: white;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+input.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+
+select.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+select.ng-valid.ng-touched {
+    border: 1px solid green;
+}

@@ -22,6 +22,16 @@ export class ProfileComponent implements OnInit {
   rejectedArticles: Article[] = [];
   waitingArticles: Article[] = [];
 
+  showModal = false;
+
+  showEditModal() {
+    this.showModal = true;
+    console.log('otwieram modal');
+  }
+  closeEditModal() {
+    this.showModal = false;
+    console.log('zamykam modal');
+  }
   ngOnInit() {
     this.articlesService.getUserArticles('ACCEPTED_HOF').subscribe(
       (res) => {

@@ -123,4 +123,14 @@ export class ArticlesService {
             map((data: any) => data.content.map((article) => new Article(article)))
         );
     }
+
+    patchArticle(id, payload) {
+
+        const token = this.storageService.get('access_token');
+        const httpheaders = new HttpHeaders({
+            'Authorization' : 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.patch(api + 'articles/' + id, JSON.stringify(payload),  {headers: httpheaders});
+    }
 }

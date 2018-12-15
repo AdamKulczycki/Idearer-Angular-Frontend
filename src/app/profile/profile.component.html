@@ -43,7 +43,11 @@
               <div *ngIf="rejectedArticles.length > 0">
                   <div class="content" *ngFor="let rejectedItem of rejectedArticles">
                       <app-article-item [article]="rejectedItem"></app-article-item>
-                      <button (click)="Edit(rejectedItem)">EDIT</button>
+                      <div class="buttons">
+                        <button  class="button btn btn-warning btn-lg btn-block" (click)="showEditModal()">EDIT</button>
+                        <button type="button" class="btn btn-danger">DELETE</button>
+                      </div>
+                      <app-article-edit-modal *ngIf="showModal" (closeModal)="closeEditModal()" [article]="rejectedItem"></app-article-edit-modal>
                   </div>
               </div>
               <div *ngIf="rejectedArticles.length == 0">

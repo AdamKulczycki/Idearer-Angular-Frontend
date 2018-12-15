@@ -1,0 +1,67 @@
+<div class="modal-box" (click)="close()">
+  <div class="modal-body" (click)=stop($event)>
+    <div class="container">
+      <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h2 class="title-form">Edit Your Article</h2>
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+              <div 
+              id="user-data"
+              ngModelGroup="userData"
+              #userData="ngModelGroup">
+                <div class="top">
+                  <div class="title-input">
+                    <div class="form-group">
+                      <input 
+                        type="text" 
+                        id="title" 
+                        class="form-control" 
+                        [(ngModel)] = "article.title"
+                        name="title" 
+                        required
+                        #title="ngModel"
+                        value = "article.title">
+                    </div>
+                  </div>
+                  <div class="category-input">
+                    <div class="form-group">
+                      <select 
+                        class="form-control" 
+                        id="category" 
+                        name="category"
+                        required
+                        [(ngModel)] = "categoryPlaceholder">
+                        <option value="-1" disabled selected hidden>CATEGORY</option>
+                        <option *ngFor="let category of categories; let i = index"
+                          [value]="i">
+                          {{ category.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="down">
+                  <div class="form-group">
+                    <input 
+                      type="text" 
+                      id="content" 
+                      class="form-control" 
+                      [(ngModel)] = "contentPlaceholder"
+                      name="content" 
+                      required
+                      pattern = '^[\s\S]*watch\?v=([\s\S]{11})$'>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button btn btn-warning btn-lg btn-block"
+                type="submit" 
+                [disabled]="!f.valid">
+                SUBMIT
+              </button>
+            </form>
+          </div>
+      </div>  
+    </div>
+  </div>
+</div>
