@@ -42,7 +42,8 @@
           <div class="col-lg-10">
               <div *ngIf="rejectedArticles.length > 0">
                   <div class="content" *ngFor="let rejectedItem of rejectedArticles">
-                      <app-article-item [article]="rejectedItem"></app-article-item>
+                      <app-article-item [article]="rejectedItem.article"></app-article-item>
+                      <div class="reject">{{rejectedItem.description}}</div>
                       <div class="buttons">
                         <button  class="button btn btn-warning btn-lg btn-block" (click)="showEditModal()">EDIT</button>
                         <button type="button" class="btn btn-danger">DELETE</button>

@@ -3,6 +3,7 @@ import { Article } from '../models/article-model';
 import { User } from '../models/user-model';
 import { Category } from '../models/category-model';
 import { ArticlesService } from '../services/articles.service';
+import { RejectsService } from '../services/rejects.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -11,61 +12,41 @@ import { ArticlesService } from '../services/articles.service';
 })
 export class AdminPanelComponent implements OnInit {
 
-  constructor(private articlesService: ArticlesService) { }
+  constructor(private articlesService: ArticlesService, private rejectsService: RejectsService) { }
 
-  articles = [
-    // new Article(
-    //   {
-    //   id: 99,
-    //   title: 'hello there general Kenobi',
-    //   content: 'rEq1Z0bjdwc',
-    //   created: new Date(),
-    //   likesCount: 9999,
-    //   user: new User({
-    //     email: 'kenobi@gmail.com',
-    //     id: 999,
-    //     password: 'hello',
-    //     username: 'General Kenobi'
-    //   }),
-    //   category: new Category({
-    //     id: 9999,
-    //     name: 'Star Wars'
-    //   }),
-    //   liked: false,
-    //   commentsCount: 0
-    //   }),
-    //   new Article(
-    //     {
-    //     id: 200,
-    //     title: 'hello there general Kenobi',
-    //     content: 'rEq1Z0bjdwc',
-    //     created: new Date(),
-    //     likesCount: 9999,
-    //     user: new User({
-    //       email: 'kenobi@gmail.com',
-    //       id: 999,
-    //       password: 'hello',
-    //       username: 'General Kenobi'
-    //     }),
-    //     category: new Category({
-    //       id: 9999,
-    //       name: 'Star Wars'
-    //     }),
-    //     liked: false,
-    //     commentsCount: 0
-    //     })
-  ];
+  articles = [];
 
   /// polaczenie z serwerem
   onSubmit(f, id) {
-    console.log(f.value.status);
-    if (f.value.reason) {
-      console.log(f.value.reason);
+    if (!f.value.reason) {
+      /// zaakceptuj
+      const payload = {
+        status: 'ACCEPTED_HOF'
+      };
+      this.articlesService.patchArticle(id, payload)
+        .subscribe(
+          res => console.log(res),
+          err => console.log(err)
+        );
+    } else {
+      if (!f.value.otherReason) {
+        /// odrzuc z predefiniowanym powodem
+        this.rejectsService.rejectArticle(id, f.value.reason)
+          .subscribe(
+            res => console.log(res),
+            err => console.log(err)
+          );
+        console.log('rejected: ' + f.value.reason);
+      } else {
+        /// odrzuc z napisanym powodem
+        this.rejectsService.rejectArticle(id, f.value.otherReason)
+          .subscribe(
+            res => console.log(res),
+            err => console.log(err)
+          );
+        console.log('rejected: ' + f.value.otherReason);
+      }
     }
-    if (f.value.otherReason) {
-      console.log(f.value.otherReason);
-    }
-    console.log(id);
   }
   ngOnInit() {
     this.articlesService.getPendingArtciles()
