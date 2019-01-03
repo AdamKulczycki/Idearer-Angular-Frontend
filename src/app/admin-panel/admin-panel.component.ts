@@ -21,7 +21,7 @@ export class AdminPanelComponent implements OnInit {
     if (!f.value.reason) {
       /// zaakceptuj
       const payload = {
-        status: 'ACCEPTED_HOF'
+        status: 'ACCEPTED'
       };
       this.articlesService.patchArticle(id, payload)
         .subscribe(
