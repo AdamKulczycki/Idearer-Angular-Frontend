@@ -11,7 +11,15 @@ export class RejectsService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
     rejectArticle(id, reason) {
-        return this.http.post(api + 'articles/' + id + '/rejects', JSON.stringify(reason));
+        const token = this.storageService.get('access_token');
+        const httpheaders = new HttpHeaders({
+            'Authorization' : 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        });
+        const payload = {
+            description: reason
+        };
+        return this.http.post(api + 'articles/' + id + '/rejects', JSON.stringify(payload), {headers: httpheaders});
     }
 
     getRejectsByArticleId(id) {

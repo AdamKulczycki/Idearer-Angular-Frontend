@@ -6,6 +6,6 @@ export class RejectArticle {
 
     constructor(article) {
         this.article = article;
-        this.description = 'fajnie';
+        this.description = '';
     }
 }
