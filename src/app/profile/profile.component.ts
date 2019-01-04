@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit {
         this.rejectedArticles.forEach(element => {
           this.rejectsService.getRejectsByArticleId(element.article.id)
             .subscribe(
-              response => element.description = response[0].description, // for now its only first item in table
+              response => element.rejectInfo = response,
               err => console.log(err)
             );
         });

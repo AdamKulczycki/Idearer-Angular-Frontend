@@ -33,6 +33,7 @@
             padding: 0 5px;
         }
     }
+    margin-bottom: 10px;
     .rejected {
         //border: none;
     }
@@ -42,13 +43,41 @@
     //background-color: rgb(52, 58, 64);
     padding-bottom: 10px;
 
-    & > div{
-        padding-top: 10px;
-    }
+    // & > div{
+    //     padding-top: 10px;
+    // }
 
     .reject {
-        color: red;
+        
+        .reason-block {
+            color: white;
+            background-color: #ff2c2c;
+            //border: 1px solid white;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 5px;
+            .icon {
+                font-size: 36px;
+                margin: 0 30px;
+            }
+            display: flex;
+            flex-direction: row;
+            .description {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+
+                .top-info {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+            }
+        }
     }
+    
 }
 
 .noContentMessage {

@@ -31,6 +31,9 @@
     <div class="username-text" *ngIf="isLogged">
       Welcome, {{ username }}
     </div>
+    <div class="login-btn" *ngIf="isLogged && isAdministrator">
+      <button class="btn btn-outline-light" type="button" routerLink="/admin">ADMIN</button>
+    </div>
     <div class="login-btn" *ngIf="isLogged">
       <button class="btn btn-outline-light" type="button" routerLink="/profile">PROFILE</button>
     </div>
