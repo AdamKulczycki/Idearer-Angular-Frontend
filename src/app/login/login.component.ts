@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { Router } from '@angular/router';
+import { AdminService } from '../services/admin.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('loginForm') LoginForm: NgForm;
 
-  constructor(private authSrv: AuthService, private storageSrv: StorageService, private router: Router) { }
+  constructor(private authSrv: AuthService, private storageSrv: StorageService,
+    private router: Router, private adminService: AdminService) { }
 
   user = {
     username: '',
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
         this.storeUser(res);
         this.navToHome();
         this.authSrv.setIsLogged(true);
+        this.adminService.checkIfAdmin();
       },
       (err) => {
         console.log(err);

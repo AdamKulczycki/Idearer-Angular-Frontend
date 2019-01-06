@@ -30,6 +30,9 @@ import { ScrollService } from './services/scroll.service';
 import { LoginGuard } from './services/login-guard.service';
 import { ReportsService } from './services/reports.service';
 import { ArticleEditModalComponent } from './modals/article-edit-modal/article-edit-modal.component';
+import { RejectsService } from './services/rejects.service';
+import { AdminGuard } from './services/admin-guard.service';
+import { AdminService } from './services/admin.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,10 @@ import { ArticleEditModalComponent } from './modals/article-edit-modal/article-e
     LikesService,
     ScrollService,
     LoginGuard,
-    ReportsService
+    AdminGuard,
+    ReportsService,
+    RejectsService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })

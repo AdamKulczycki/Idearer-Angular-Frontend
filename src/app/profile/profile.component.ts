@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Article } from '../models/article-model';
 import { Comment } from '../models/comment-model';
 import { User } from '../models/user-model';
+import { RejectArticle } from '../models/rejectArticle.model';
 import { ArticlesService } from '../services/articles.service';
 import { CommentsService } from '../services/comments.service';
 import { Router } from '@angular/router';
+import { RejectsService } from '../services/rejects.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,12 +16,14 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   constructor(private articlesService: ArticlesService,
     private commentsService: CommentsService,
-    private router: Router) { }
+    private router: Router,
+    private rejectsService: RejectsService) { }
 
   viewSelector = 'articles';
   articles: Article[] = [];
   comments: Comment[] = [];
-  rejectedArticles: Article[] = [];
+  rejectedArticles: RejectArticle[] = [];
+  rejects = [];
   waitingArticles: Article[] = [];
 
   showModal = false;
@@ -60,10 +64,17 @@ export class ProfileComponent implements OnInit {
         console.log(err);
       }
     );
-    this.articlesService.getUserArticles('REJECTED').subscribe(
+    this.rejectsService.getUserRejectArticles().subscribe(
       (res) => {
         this.rejectedArticles = res;
         console.log(res);
+        this.rejectedArticles.forEach(element => {
+          this.rejectsService.getRejectsByArticleId(element.article.id)
+            .subscribe(
+              response => element.rejectInfo = response,
+              err => console.log(err)
+            );
+        });
       },
       (err) => {
         console.log(err);

@@ -37,3 +37,104 @@
     }
 }
 
+.view-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    & > span {
+        font-size: 20px;
+        background-color: $mainTheme;
+        color: white;
+        width: 49%;
+        //border-right: 1px solid white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 5px;
+        cursor: pointer;
+        &:hover {
+            .name {
+                color: rgb(230, 132, 52);
+                letter-spacing: 5px;
+            }
+            .number {
+                background-color: white;
+                color: rgb(230, 132, 52);
+            }
+        }
+        .name {
+            
+        }
+        .number {
+            background-color: rgb(230, 132, 52);
+            padding: 0 5px;
+        }
+    }
+    margin-bottom: 10px;
+}
+
+.reports-view {
+    
+}
+.report-box {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+    color: white;
+    border: 3px solid white;
+    margin-bottom: 10px;
+
+
+
+    .report-main {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 15px 25px 15px 15px;
+
+        .top {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    .panel {
+        border-left: 1px solid white;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        text-align: center;
+
+        .delete-icon {
+            border-radius: 60px;
+            box-shadow: 0px 0px 2px #888;
+            padding: 0.1em 0.5em;
+            margin-bottom: 5px;
+            &:hover {
+                background-color: red;
+                //border-radius: 15px;
+            }
+        }
+        .accept-icon {
+            border-radius: 60px;
+            box-shadow: 0px 0px 2px #888;
+            padding: 0.1em 0.1em;
+            &:hover {
+                background-color: green;
+            }
+        }
+    }
+}
+
+// i.fas {
+//     display: inline-block;
+//     border-radius: 60px;
+//     box-shadow: 0px 0px 2px #888;
+//     padding: 0.5em 0.6em;
+  
+//   }
