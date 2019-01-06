@@ -4,6 +4,8 @@ import { User } from '../models/user-model';
 import { Category } from '../models/category-model';
 import { ArticlesService } from '../services/articles.service';
 import { RejectsService } from '../services/rejects.service';
+import { ReportsService } from '../services/reports.service';
+import { Report } from '../models/report-model';
 
 @Component({
   selector: 'app-admin-panel',
@@ -12,9 +14,14 @@ import { RejectsService } from '../services/rejects.service';
 })
 export class AdminPanelComponent implements OnInit {
 
-  constructor(private articlesService: ArticlesService, private rejectsService: RejectsService) { }
+  constructor(private articlesService: ArticlesService,
+    private rejectsService: RejectsService,
+    private reportsService: ReportsService) { }
 
+  viewSelector = 'articles';
   articles = [];
+  reportsArray = [];
+  reportsNumber = 0;
 
   /// polaczenie z serwerem
   onSubmit(f, id) {
@@ -48,6 +55,9 @@ export class AdminPanelComponent implements OnInit {
       }
     }
   }
+  viewSelectorChange(value) {
+    this.viewSelector = value;
+  }
   ngOnInit() {
     this.articlesService.getPendingArtciles()
     .subscribe(
@@ -58,6 +68,26 @@ export class AdminPanelComponent implements OnInit {
         console.log(err);
       }
     );
+
+    this.reportsService.getIdsOfReportedArticles()
+      .subscribe(
+        (res: Array<number>) => {
+          res.forEach(id => {
+            this.reportsService.getReportsByArticleId(id)
+              .subscribe(
+                (reports: Report[]) => {
+                  this.reportsArray.push({
+                    articleId: id,
+                    articleReports: reports
+                  });
+                  this.reportsNumber += reports.length;
+                },
+                (err) => console.log(err)
+              );
+          });
+        },
+        (err) => console.log(err)
+      );
   }
 
 }

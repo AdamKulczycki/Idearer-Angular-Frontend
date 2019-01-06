@@ -1,65 +1,91 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <div class="content" *ngFor="let item of articles">
-        <app-article-item [article]="item"></app-article-item>
-        <div class="managment-bar">
-          <div class="info">
-              <div>Status:<span class="status-name">Waiting</span></div>
-              <div>id:<span>{{item.id}}</span></div>
-            </div>
-          <div class="change-status">
-              <form (ngSubmit)="onSubmit(f, item.id)" #f="ngForm">
-                <div class="form-group">
-                    Change for:
-                    <select 
-                      class="form-control" 
-                      id="status" 
-                      name="status"
-                      ngModel
-                      required>
-                      <option value="accepted">Accepted</option>
-                      <option value="rejected">Rejected</option>
-                    </select>
-                </div>
-                <div *ngIf="f.value.status == 'rejected'" class="rejected-reason">
-                  <div class="form-group">
-                    Reason:
-                    <select 
-                      class="form-control" 
-                      id="reason" 
-                      name="reason"
-                      ngModel
-                      required>
-                      <option value="wrong title">Wrong Title</option>
-                      <option value="wrong content">Wrong Content</option>
-                      <option value="other">Other...</option>
-                    </select>
-                  </div>
-                </div>
-                <div *ngIf="f.value.reason == 'other'" class="otherReason">
-                    <div class="form-group">
-                      Write reason:
-                      <input 
-                        type="text" 
-                        id="otherReason" 
-                        class="form-control" 
-                        name="otherReason"
-                        ngModel
-                        required
-                        placeholder="reason...">
+      <div class="view-select">
+          <span class="articles-selector" (click)="viewSelectorChange('articles')"><span></span><span class="name">Articles</span><span class="number">{{articles.length}}</span></span>
+          <span class="comments-selector" (click)="viewSelectorChange('reports')"><span></span><span class="name">Reports</span><span class="number">{{reportsArray.length}}/{{reportsNumber}}</span></span>
+        </div>
+      <div class="change-view" [ngSwitch]='viewSelector'>
+        <div class="articles-view" *ngSwitchCase="'articles'">
+            <div class="content" *ngFor="let item of articles">
+                <app-article-item [article]="item"></app-article-item>
+                <div class="managment-bar">
+                  <div class="info">
+                      <div>Status:<span class="status-name">Waiting</span></div>
+                      <div>id:<span>{{item.id}}</span></div>
                     </div>
+                  <div class="change-status">
+                      <form (ngSubmit)="onSubmit(f, item.id)" #f="ngForm">
+                        <div class="form-group">
+                            Change for:
+                            <select 
+                              class="form-control" 
+                              id="status" 
+                              name="status"
+                              ngModel
+                              required>
+                              <option value="accepted">Accepted</option>
+                              <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                        <div *ngIf="f.value.status == 'rejected'" class="rejected-reason">
+                          <div class="form-group">
+                            Reason:
+                            <select 
+                              class="form-control" 
+                              id="reason" 
+                              name="reason"
+                              ngModel
+                              required>
+                              <option value="wrong title">Wrong Title</option>
+                              <option value="wrong content">Wrong Content</option>
+                              <option value="other">Other...</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div *ngIf="f.value.reason == 'other'" class="otherReason">
+                            <div class="form-group">
+                              Write reason:
+                              <input 
+                                type="text" 
+                                id="otherReason" 
+                                class="form-control" 
+                                name="otherReason"
+                                ngModel
+                                required
+                                placeholder="reason...">
+                            </div>
+                          </div>
+                        <button
+                          class="button btn btn-warning btn-lg btn-block"
+                          type="submit" 
+                          [disabled]="!f.valid">
+                          SUBMIT
+                        </button>
+                      </form>
                   </div>
-                <button
-                  class="button btn btn-warning btn-lg btn-block"
-                  type="submit" 
-                  [disabled]="!f.valid">
-                  SUBMIT
-                </button>
-              </form>
+                </div>
+              </div>
+        </div>
+        <div class="reports-view" *ngSwitchCase="'reports'">
+          <div class="reportsArray-loop" *ngFor="let item of reportsArray">
+            <div class="article-reports-loop" *ngFor="let report of item.articleReports">
+              <div class="report-box">
+                <div class="report-main">
+                  <div class="top">
+                      <span>Article ID : {{item.articleId}}</span> <span>{{report.reportAuthor.username}}</span>
+                  </div>
+                  <div class="report-content">
+                      {{report.description}}
+                  </div>
+                </div>
+                <div class="panel"><span class="delete-icon"><i class="fas fa-times"></i></span><span class="accept-icon"><i class="fas fa-check"></i></span></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      
     </div>
   </div>
 </div>
