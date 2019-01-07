@@ -13,7 +13,6 @@ export class AdminService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
     checkIfAdmin() {
         const id = this.storageService.get('id');
-        // let role;
         if (id) {
             this.http.get(api + 'users/' + id).subscribe(
                 (data: any) => {

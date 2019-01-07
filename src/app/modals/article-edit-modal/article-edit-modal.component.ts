@@ -33,7 +33,6 @@ export class ArticleEditModalComponent implements OnInit {
     this.article.title = f.value.userData.title;
     this.article.category = this.categories[f.value.userData.category];
     this.article.content = f.value.userData.content.match(/^[\s\S]*watch\?v=([\s\S]{11})$/)[1];
-    console.log(this.article);
     const payload = {
       category: {
         id: this.article.category.id

@@ -5,7 +5,6 @@
         <span class="created">{{ comment.created }}</span>
     </div>
     <div class="likes">
-        <!-- <span class="likesNumber"><i class="far fa-thumbs-up"></i>{{ comment.likesCount }}</span> -->
           <span *ngIf="!comment.liked" class="like-button" (click)="changeLike(true)"><i class="far fa-thumbs-up"></i></span>
           <span *ngIf="comment.liked" class="like-button" (click)="changeLike(false)"><i class="far fa-thumbs-down"></i></span>
         {{ comment.likesCount }}
@@ -37,10 +36,6 @@
     </button>
   </form>
 </div>
-<!-- <div *ngIf="answerClicked" class="answer">
-  <input class="answerInput" placeholder="Write You'r answer" #input>
-  <div class="answerSubmit" (click)="submitComment(input.value)">Submit</div>
-</div> -->
 </div>
 <div class="subcomments" *ngFor="let subcomment of comment.comments.slice().reverse()" [ngClass]="{'subcomments--top': mainComment}">
   <app-comment [comment]="subcomment" [articleId]="articleId" [parentCommentAuthor]="comment.user.username" [parentCommentId]="comment.id"  [mainComment]="false"></app-comment>

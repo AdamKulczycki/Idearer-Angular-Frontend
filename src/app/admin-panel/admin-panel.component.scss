@@ -1,18 +1,8 @@
 @import '~src/assets/scss/main.scss';
 
 .content {
-    // background-color: white;
-    
-    // .status {
-    //     background-color: white;
-    //     color: black;
-    //     border: 1px solid black;
-    //     font: 20px 'Open Sans',sans-serif;
-    //     padding: 10px;
-    // }
     .managment-bar {
         background-color: $mainTheme;
-        // color: rgb(231, 231, 75);
         color: rgb(255, 193, 7);
         font: 20px 'Open Sans',sans-serif;
         font-weight: bold;
@@ -46,7 +36,6 @@
         background-color: $mainTheme;
         color: white;
         width: 49%;
-        //border-right: 1px solid white;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -117,7 +106,6 @@
             margin-bottom: 5px;
             &:hover {
                 background-color: red;
-                //border-radius: 15px;
             }
         }
         .accept-icon {

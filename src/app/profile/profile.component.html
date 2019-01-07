@@ -3,11 +3,22 @@
     <div class="col-lg-12">
       <div class="view-select">
         <span class="articles" (click)="viewSelectorChange('articles')"><span></span><span class="name">Articles</span><span class="number">{{ articles.length }}</span></span>
+        <span class="articles-hof" (click)="viewSelectorChange('articles-hof')"><span></span><span class="name">Articles HOF</span><span class="number">{{ articlesHof.length }}</span></span>
         <span class="comments" (click)="viewSelectorChange('comments')"><span></span><span class="name">Comments</span><span class="number">{{ comments.length }}</span></span>
         <span class="waiting-list" (click)="viewSelectorChange('waiting-list')"><span></span><span class="name">Waiting List</span><span class="number">{{ waitingArticles.length }}</span></span>
         <span class="rejected" (click)="viewSelectorChange('rejected')"><span></span><span class="name">Rejected</span><span class="number">{{ rejectedArticles.length }}</span></span>
       </div>
       <div class="content" [ngSwitch]="viewSelector">
+        <div class="articles-hof-content" *ngSwitchCase="'articles-hof'">
+          <div class="col-lg-10">
+            <div *ngIf="articles.length > 0">
+                <app-article-item *ngFor="let articleItem of articlesHof" [article]="articleItem"></app-article-item>
+            </div>
+            <div *ngIf="articlesHof.length == 0">
+                <span class="noContentMessage">You have zero Articles in Hall of Fame, make some to see them here! </span>
+            </div>
+          </div>
+        </div>
         <div class="articles-content" *ngSwitchCase="'articles'">
           <div class="col-lg-10">
             <div *ngIf="articles.length > 0">

@@ -23,6 +23,9 @@
       </li>
     </ul>
     <div class="login-btn" *ngIf="!isLogged">
+      <button class="btn btn-outline-light" type="button" routerLink="/create">ADD ARTICLE</button>
+    </div>
+    <div class="login-btn" *ngIf="!isLogged">
       <button class="btn btn-outline-success" type="button" routerLink="/login">LOGIN</button>
     </div>
     <div class="register-btn" *ngIf="!isLogged">
@@ -30,6 +33,9 @@
     </div>
     <div class="username-text" *ngIf="isLogged">
       Welcome, {{ username }}
+    </div>
+    <div class="login-btn" *ngIf="isLogged">
+      <button class="btn btn-outline-light" type="button" routerLink="/create">ADD ARTICLE</button>
     </div>
     <div class="login-btn" *ngIf="isLogged && isAdministrator">
       <button class="btn btn-outline-light" type="button" routerLink="/admin">ADMIN</button>

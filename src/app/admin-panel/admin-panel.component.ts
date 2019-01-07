@@ -23,10 +23,8 @@ export class AdminPanelComponent implements OnInit {
   reportsArray = [];
   reportsNumber = 0;
 
-  /// polaczenie z serwerem
   onSubmit(f, id) {
     if (!f.value.reason) {
-      /// zaakceptuj
       const payload = {
         status: 'ACCEPTED'
       };
@@ -37,21 +35,17 @@ export class AdminPanelComponent implements OnInit {
         );
     } else {
       if (!f.value.otherReason) {
-        /// odrzuc z predefiniowanym powodem
         this.rejectsService.rejectArticle(id, f.value.reason)
           .subscribe(
             res => console.log(res),
             err => console.log(err)
           );
-        console.log('rejected: ' + f.value.reason);
       } else {
-        /// odrzuc z napisanym powodem
         this.rejectsService.rejectArticle(id, f.value.otherReason)
           .subscribe(
             res => console.log(res),
             err => console.log(err)
           );
-        console.log('rejected: ' + f.value.otherReason);
       }
     }
   }

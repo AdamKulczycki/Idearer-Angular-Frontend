@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
 
   viewSelector = 'articles';
   articles: Article[] = [];
+  articlesHof: Article[] = [];
   comments: Comment[] = [];
   rejectedArticles: RejectArticle[] = [];
   rejects = [];
@@ -39,8 +40,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.articlesService.getUserArticles('ACCEPTED_HOF').subscribe(
       (res) => {
-        this.articles.push(...res);
-        console.log(res);
+        this.articlesHof.push(...res);
       },
       (err) => {
         console.log(err);
@@ -49,7 +49,6 @@ export class ProfileComponent implements OnInit {
     this.articlesService.getUserArticles('ACCEPTED').subscribe(
       (res) => {
         this.articles.push(...res);
-        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -58,7 +57,6 @@ export class ProfileComponent implements OnInit {
     this.articlesService.getUserArticles('PENDING').subscribe(
       (res) => {
         this.waitingArticles = res;
-        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -67,7 +65,6 @@ export class ProfileComponent implements OnInit {
     this.rejectsService.getUserRejectArticles().subscribe(
       (res) => {
         this.rejectedArticles = res;
-        console.log(res);
         this.rejectedArticles.forEach(element => {
           this.rejectsService.getRejectsByArticleId(element.article.id)
             .subscribe(

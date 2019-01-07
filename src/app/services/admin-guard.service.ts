@@ -15,9 +15,6 @@ export class AdminGuard implements CanActivate {
         private http: HttpClient, private adminService: AdminService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        // const id = this.storageService.get('id');
-        // let role;
-
         return this.adminService.$isAdmin.pipe(
                 map(isAdmin => {
                     if (!isAdmin) {
@@ -26,26 +23,5 @@ export class AdminGuard implements CanActivate {
                     return isAdmin;
                 })
             );
-        // return this.adminService.checkIfAdmin().pipe(
-        //     map((data) => {
-        //         if (data) {
-        //             return data;
-        //         } else {
-        //             this.router.navigate(['']);
-        //             return data;
-        //         }
-        //     })
-        // );
-        // return this.http.get(api + 'users/' + id).pipe(
-        //     map((data) => {
-        //         role = data;
-        //         if (role.role === 'ADMIN') {
-        //             return true;
-        //         } else {
-        //             this.router.navigate(['']);
-        //             return false;
-        //         }
-        //     })
-        // );
     }
 }
