@@ -68,34 +68,75 @@
               </div>
         </div>
         <div class="reports-view col-lg-10 col-md-12 col-sm-12 col-xs-12" *ngSwitchCase="'reports'">
+          <span *ngIf="reportsArray.length === 0" class="no-content-message">There is no new reports!</span>
           <div class="reportsArray-loop" *ngFor="let item of reportsArray; let i = index">
               <span (click)="viewArticleChange(i)" class="view-article-button">
-                <span *ngIf="!item.show">Show Article</span>
-                <span *ngIf="item.show">Hide Article</span>
-                 {{item.articleObject.id ? item.articleObject.id : 'loading'}}
-                <i *ngIf="!item.show" class="fas fa-chevron-down"></i>
-                <i *ngIf="item.show" class="fas fa-chevron-up"></i>
+                <span *ngIf="!item?.showArticle">Show Article<i class="fas fa-chevron-down"></i></span>
+                <span *ngIf="item?.showArticle">Hide Article<i class="fas fa-chevron-up"></i></span>
               </span>
               <div class="article-view">
-                  <app-article-item *ngIf="item.show" [article]="item.articleObject"></app-article-item>
+                  <app-article-item *ngIf="item?.showArticle" [article]="item?.articleObject"></app-article-item>
               </div>
-            <div class="article-reports-loop" *ngFor="let report of item.articleReports">
+            <div class="article-reports-loop" *ngFor="let report of item?.articleReports">
               <div class="report-box">
                 <div class="report-main">
                   <div class="top">
-                       <span>{{report.reportAuthor.username}}</span>
+                       <span>{{report?.reportAuthor?.username}}</span>
                   </div>
                   <div class="report-content">
-                      {{report.description}}
+                      {{report?.description}}
                   </div>
                 </div>
               </div>
             </div>
-            <div class="panel"><span class="accept-icon"><i class="fas fa-check"></i></span><span class="delete-icon"><i class="fas fa-times"></i></span></div>
+            <div class="panel" *ngIf="!item?.showPanel">
+              <span class="accept-icon" (click)="item.showPanel = true"><i class="fas fa-check"></i>
+              </span><span class="delete-icon" (click)="deleteAllreports(i)"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="managment-bar-2" *ngIf="item.showPanel">
+                <div class="top" (click)="item.showPanel = !item.showPanel"><i class="fas fa-times"></i></div>
+                <div class="change-status">
+                    <form (ngSubmit)="onSubmitFromReportsPanel(f, item.articleObject.id)" #f="ngForm">
+                      <div class="rejected-reason">
+                        <div class="form-group">
+                          Reason:
+                          <select 
+                            class="form-control" 
+                            id="reason" 
+                            name="reason"
+                            ngModel
+                            required>
+                            <option value="wrong title">Wrong Title</option>
+                            <option value="wrong content">Wrong Content</option>
+                            <option value="other">Other...</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div *ngIf="f.value.reason == 'other'" class="otherReason">
+                          <div class="form-group">
+                            Write reason:
+                            <input 
+                              type="text" 
+                              id="otherReason" 
+                              class="form-control" 
+                              name="otherReason"
+                              ngModel
+                              required
+                              placeholder="reason...">
+                          </div>
+                        </div>
+                      <button
+                        class="button btn btn-warning btn-lg btn-block"
+                        type="submit" 
+                        [disabled]="!f.valid">
+                        SUBMIT
+                      </button>
+                    </form>
+                </div>
+              </div>
           </div>
         </div>
       </div>
-      
     </div>
   </div>
 </div>
