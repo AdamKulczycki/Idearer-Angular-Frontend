@@ -16,7 +16,45 @@ export class AdminPanelComponent implements OnInit {
 
   constructor(private articlesService: ArticlesService,
     private rejectsService: RejectsService,
-    private reportsService: ReportsService) { }
+    private reportsService: ReportsService) {
+
+    this.articlesService.getPendingArtciles()
+      .subscribe(
+        (res) => {
+          this.articles = res;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+
+    this.reportsService.getIdsOfReportedArticles()
+      .subscribe(
+        (res: Array<number>) => {
+          res.forEach(id => {
+            let article: Article;
+            this.articlesService.getArticle(id)
+              .subscribe(
+                articleRes => article = articleRes,
+                err => console.log(err)
+                );
+            this.reportsService.getReportsByArticleId(id)
+              .subscribe(
+                (reports: Report[]) => {
+                  this.reportsArray.push({
+                    articleObject: article,
+                    show: false,
+                    articleReports: reports
+                  });
+                  this.reportsNumber += reports.length;
+                },
+                (err) => console.log(err)
+              );
+          });
+        },
+        (err) => console.log(err)
+      );
+    }
 
   viewSelector = 'articles';
   articles = [];
@@ -52,36 +90,12 @@ export class AdminPanelComponent implements OnInit {
   viewSelectorChange(value) {
     this.viewSelector = value;
   }
+  viewArticleChange(index) {
+    this.reportsArray[index].show = !this.reportsArray[index].show;
+    console.log(this.reportsArray);
+  }
   ngOnInit() {
-    this.articlesService.getPendingArtciles()
-    .subscribe(
-      (res) => {
-        this.articles = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
 
-    this.reportsService.getIdsOfReportedArticles()
-      .subscribe(
-        (res: Array<number>) => {
-          res.forEach(id => {
-            this.reportsService.getReportsByArticleId(id)
-              .subscribe(
-                (reports: Report[]) => {
-                  this.reportsArray.push({
-                    articleId: id,
-                    articleReports: reports
-                  });
-                  this.reportsNumber += reports.length;
-                },
-                (err) => console.log(err)
-              );
-          });
-        },
-        (err) => console.log(err)
-      );
   }
 
 }
