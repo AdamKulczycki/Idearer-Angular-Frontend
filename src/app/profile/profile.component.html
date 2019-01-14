@@ -52,7 +52,7 @@
         <div class="rejected-content" *ngSwitchCase="'rejected'">
           <div class="col-lg-10">
               <div *ngIf="rejectedArticles.length > 0">
-                  <div class="content" *ngFor="let rejectedItem of rejectedArticles">
+                  <div class="content" *ngFor="let rejectedItem of rejectedArticles; let i = index">
                       <app-article-item [article]="rejectedItem.article"></app-article-item>
                       <div *ngFor="let info of rejectedItem.rejectInfo" class="reject">
                         <div class="reason-block">
@@ -61,10 +61,10 @@
                         </div>
                       </div>
                       <div class="buttons">
-                        <button  class="button btn btn-warning btn-lg btn-block" (click)="showEditModal()">EDIT</button>
-                        <button type="button" class="btn btn-danger">DELETE</button>
+                        <button  class="button btn btn-warning btn-lg btn-block" (click)="showEditModal(i)">EDIT</button>
+                        <button type="button" class="btn btn-danger"  (click)="deleteArticle(i)">DELETE</button>
                       </div>
-                      <app-article-edit-modal *ngIf="showModal" (closeModal)="closeEditModal()" [article]="rejectedItem.article"></app-article-edit-modal>
+                      <app-article-edit-modal *ngIf="rejectedItem.showModal" (closeModal)="closeEditModal(i)" (removeArticleFromArray)="removeFromArray(i)" [article]="rejectedItem.article"></app-article-edit-modal>
                   </div>
               </div>
               <div *ngIf="rejectedArticles.length == 0">

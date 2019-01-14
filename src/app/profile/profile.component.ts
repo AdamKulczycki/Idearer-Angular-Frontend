@@ -29,13 +29,19 @@ export class ProfileComponent implements OnInit {
 
   showModal = false;
 
-  showEditModal() {
-    this.showModal = true;
+  showEditModal(index) {
+    this.rejectedArticles[index].showModal = true;
     console.log('otwieram modal');
   }
-  closeEditModal() {
-    this.showModal = false;
+  closeEditModal(index) {
+    this.rejectedArticles[index].showModal = false;
     console.log('zamykam modal');
+  }
+  removeFromArray(index) {
+    this.rejectedArticles.splice(index, 1);
+  }
+  deleteArticle(index) { /// do implementacji !!!
+    console.log(index);
   }
   ngOnInit() {
     this.articlesService.getUserArticles('ACCEPTED_HOF').subscribe(
@@ -68,7 +74,9 @@ export class ProfileComponent implements OnInit {
         this.rejectedArticles.forEach(element => {
           this.rejectsService.getRejectsByArticleId(element.article.id)
             .subscribe(
-              response => element.rejectInfo = response,
+              response => {
+                element.rejectInfo = response;
+              },
               err => console.log(err)
             );
         });
