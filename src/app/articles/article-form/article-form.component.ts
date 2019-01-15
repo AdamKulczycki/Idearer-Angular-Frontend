@@ -5,6 +5,7 @@ import { Category } from '../../models/category-model';
 import { User } from '../../models/user-model';
 import { Article } from '../../models/article-model';
 import { ArticlesService } from '../../services/articles.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-article-form',
@@ -12,23 +13,33 @@ import { ArticlesService } from '../../services/articles.service';
   styleUrls: ['./article-form.component.scss']
 })
 export class ArticleFormComponent implements OnInit {
+  constructor(private categoriesService: CategoriesService,
+    private articlesService: ArticlesService,
+    private storageService: StorageService) {
 
+    this.categoriesService.getCategories()
+      .subscribe(
+        (categories) => this.categories = categories,
+        (error) => console.log(error)
+      );
+   }
   @ViewChild('f') Articleform: NgForm;
   categories: Category[];
   categoryPlaceholder = -1;
   URL_content_REGEX = new RegExp('^[\s\S]*watch\?v=([\s\S]*)$');
+  username = this.storageService.get('username');
 
   articleObject = {
     id: undefined,
     title: 'Your title',
-    content: 'iuBngI-GlWU',
+    content: 'HetU8BJg_Cg',
     created: new Date(),
     likesCount: 0,
     user: new User({
       email: undefined,
       id: undefined,
       password: undefined,
-      username: 'You'
+      username: this.username
     }),
     category: undefined,
     liked: true,
@@ -53,13 +64,6 @@ export class ArticleFormComponent implements OnInit {
       }
     );
   }
-  constructor(private categoriesService: CategoriesService, private articlesService: ArticlesService) {
-    this.categoriesService.getCategories()
-      .subscribe(
-        (categories) => this.categories = categories,
-        (error) => console.log(error)
-      );
-   }
 
   ngOnInit() {
     this.Articleform.form.valueChanges.subscribe(x => {

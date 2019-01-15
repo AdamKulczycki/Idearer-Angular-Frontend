@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
 
   viewSelector = 'articles';
   articles: Article[] = [];
+  articlesHof: Article[] = [];
   comments: Comment[] = [];
   rejectedArticles: RejectArticle[] = [];
   rejects = [];
@@ -28,19 +29,24 @@ export class ProfileComponent implements OnInit {
 
   showModal = false;
 
-  showEditModal() {
-    this.showModal = true;
+  showEditModal(index) {
+    this.rejectedArticles[index].showModal = true;
     console.log('otwieram modal');
   }
-  closeEditModal() {
-    this.showModal = false;
+  closeEditModal(index) {
+    this.rejectedArticles[index].showModal = false;
     console.log('zamykam modal');
+  }
+  removeFromArray(index) {
+    this.rejectedArticles.splice(index, 1);
+  }
+  deleteArticle(index) { /// do implementacji !!!
+    console.log(index);
   }
   ngOnInit() {
     this.articlesService.getUserArticles('ACCEPTED_HOF').subscribe(
       (res) => {
-        this.articles.push(...res);
-        console.log(res);
+        this.articlesHof.push(...res);
       },
       (err) => {
         console.log(err);
@@ -49,7 +55,6 @@ export class ProfileComponent implements OnInit {
     this.articlesService.getUserArticles('ACCEPTED').subscribe(
       (res) => {
         this.articles.push(...res);
-        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -58,7 +63,6 @@ export class ProfileComponent implements OnInit {
     this.articlesService.getUserArticles('PENDING').subscribe(
       (res) => {
         this.waitingArticles = res;
-        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -67,11 +71,12 @@ export class ProfileComponent implements OnInit {
     this.rejectsService.getUserRejectArticles().subscribe(
       (res) => {
         this.rejectedArticles = res;
-        console.log(res);
         this.rejectedArticles.forEach(element => {
           this.rejectsService.getRejectsByArticleId(element.article.id)
             .subscribe(
-              response => element.rejectInfo = response,
+              response => {
+                element.rejectInfo = response;
+              },
               err => console.log(err)
             );
         });

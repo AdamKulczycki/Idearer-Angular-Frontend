@@ -12,6 +12,7 @@ import { Category } from 'src/app/models/category-model';
 export class ArticleEditModalComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<any> = new EventEmitter();
+  @Output() removeArticleFromArray: EventEmitter<any> = new EventEmitter();
   // @Output() closeModalandEditedArticle: EventEmitter<any> = new EventEmitter();
   @Input() article: Article;
   categories: Category[];
@@ -33,7 +34,6 @@ export class ArticleEditModalComponent implements OnInit {
     this.article.title = f.value.userData.title;
     this.article.category = this.categories[f.value.userData.category];
     this.article.content = f.value.userData.content.match(/^[\s\S]*watch\?v=([\s\S]{11})$/)[1];
-    console.log(this.article);
     const payload = {
       category: {
         id: this.article.category.id
@@ -42,10 +42,10 @@ export class ArticleEditModalComponent implements OnInit {
       title: this.article.title,
       status: 'PENDING'
     };
-
     this.articlesService.patchArticle(this.article.id, payload).subscribe(
       (res) => {
         console.log(res);
+        this.removeArticleFromArray.emit();
         this.closeModal.emit();
       },
       (err) => console.log(err)

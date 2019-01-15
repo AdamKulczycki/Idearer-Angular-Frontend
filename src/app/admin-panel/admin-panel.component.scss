@@ -1,38 +1,60 @@
 @import '~src/assets/scss/main.scss';
 
-.content {
-    // background-color: white;
-    
-    // .status {
-    //     background-color: white;
-    //     color: black;
-    //     border: 1px solid black;
-    //     font: 20px 'Open Sans',sans-serif;
-    //     padding: 10px;
-    // }
-    .managment-bar {
-        background-color: $mainTheme;
-        // color: rgb(231, 231, 75);
-        color: rgb(255, 193, 7);
-        font: 20px 'Open Sans',sans-serif;
-        font-weight: bold;
-        padding: 20px 20px 20px 20px;
-        margin: 20px 0 20px 0;
+.managment-bar {
+    background-color: $mainTheme;
+    color: rgb(255, 193, 7);
+    font: 20px 'Open Sans',sans-serif;
+    font-weight: bold;
+    padding: 20px 20px 20px 20px;
+    margin: 20px 0 20px 0;
+    width: 100%;
 
-        .info {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
+    .info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
 
-            & > div > span {
-                color: white;
-                margin-left: 10px;
-            }
+        & > div > span {
+            color: white;
+            margin-left: 10px;
         }
-        .change-status{
-            
-            .status-form {
-            }
+    }
+    .change-status{
+        
+        .status-form {
+        }
+    }
+}
+.managment-bar-2 {
+    background-color: $mainTheme;
+    color: rgb(255, 193, 7);
+    font: 20px 'Open Sans',sans-serif;
+    font-weight: bold;
+    padding: 20px;
+    margin: 0 auto;
+    width: 80%;
+
+    .top {
+        text-align: right;
+        position: relative;
+        right: -10px;
+        top: -15px;
+        color: white;
+        cursor: pointer;
+    }
+    .info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        & > div > span {
+            color: white;
+            margin-left: 10px;
+        }
+    }
+    .change-status{
+        
+        .status-form {
         }
     }
 }
@@ -46,7 +68,6 @@
         background-color: $mainTheme;
         color: white;
         width: 49%;
-        //border-right: 1px solid white;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -56,10 +77,6 @@
             .name {
                 color: rgb(230, 132, 52);
                 letter-spacing: 5px;
-            }
-            .number {
-                background-color: white;
-                color: rgb(230, 132, 52);
             }
         }
         .name {
@@ -74,62 +91,96 @@
 }
 
 .reports-view {
-    
-}
-.report-box {
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 80%;
-    color: white;
-    border: 3px solid white;
-    margin-bottom: 10px;
-
-
-
-    .report-main {
+    margin: 0 auto;
+    text-align: center;
+    .no-content-message {
+        text-align: center;
+        color: white;
+        font-size: 24px;
+    }
+    .reportsArray-loop {
         display: flex;
         flex-direction: column;
-        width: 100%;
-        padding: 15px 25px 15px 15px;
+        align-items: flex-start;
+        margin-bottom: 20px;
 
-        .top {
+        .panel {
+            width: 80%;
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
-        }
-    }
-
-    .panel {
-        border-left: 1px solid white;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        text-align: center;
-
-        .delete-icon {
-            border-radius: 60px;
-            box-shadow: 0px 0px 2px #888;
-            padding: 0.1em 0.5em;
-            margin-bottom: 5px;
-            &:hover {
+            justify-content: space-around;
+            text-align: center;
+            margin: 0 auto;
+    
+            .delete-icon, .accept-icon {
+                border-radius: 60px;
+                box-shadow: 0px 0px 2px #888;
+                width: 30%;
+                padding: 1%;
+                margin: auto;
+                cursor: pointer;
+            }
+            .delete-icon:hover {
                 background-color: red;
-                //border-radius: 15px;
+            }
+            .accept-icon:hover {
+                    background-color: green;
             }
         }
-        .accept-icon {
-            border-radius: 60px;
-            box-shadow: 0px 0px 2px #888;
-            padding: 0.1em 0.1em;
+        .article-view {
+            width: 100%;
+        }
+        .view-article-button {
+            padding: 5px;
+            color: white;
+            cursor: pointer;
+            border: 3px solid white;
+            margin-left: 10%;
+            margin-bottom: 3px;
             &:hover {
-                background-color: green;
+                i {
+                    color: black;
+                }
+            }
+            i {
+                padding: 5px
             }
         }
+        .article-reports-loop {
+            width: 100%;
+
+            .report-box {
+                margin-left: auto;
+                margin-right: auto;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+                width: 80%;
+                color: white;
+                border: 3px solid white;
+                margin-bottom: 10px;
+                
+                .report-main {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    padding: 15px 25px 15px 15px;
+            
+                    .top {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                    }
+                }
+            }
+        }
+        
     }
+    
 }
+
+
 
 // i.fas {
 //     display: inline-block;

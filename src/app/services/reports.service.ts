@@ -43,4 +43,14 @@ export class ReportsService {
             map((data: any) => data.content.map(report => new Report(report)))
         );
     }
+
+    deleteReport(id) {
+        const token = this.storageService.get('access_token');
+        const httpheaders = new HttpHeaders({
+            'Authorization' : 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        });
+
+        return this.http.delete(api + 'articles/reports/' + id, {headers: httpheaders});
+    }
 }

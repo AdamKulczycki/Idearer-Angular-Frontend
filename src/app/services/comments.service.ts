@@ -23,13 +23,12 @@ export class CommentsService {
             );
         } else {
             return this.http.get(api + 'comments?articleId=' + index + '&parentCommentId=0')
-        // &parentCommentId=0 zwraca glowne komentarze artykulu
             .pipe(
                 map((data: any[]) => data.map((comment) => new Comment(comment))
                 )
             );
         }
-    } // zwraca komentarze do danego artykulu
+    }
 
     getUserComments(): Observable<Comment[]> {
         const Id = this.storageService.get('id');
