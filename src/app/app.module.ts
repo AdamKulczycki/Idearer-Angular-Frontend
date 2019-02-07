@@ -34,6 +34,9 @@ import { RejectsService } from './services/rejects.service';
 import { AdminGuard } from './services/admin-guard.service';
 import { AdminService } from './services/admin.service';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +61,13 @@ import { AdminService } from './services/admin.service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ScrollToModule.forRoot()
+    ScrollToModule.forRoot(),
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-bottom-center',
+      progressBar: true
+    }) // ToastrModule added
   ],
   providers: [
     ArticlesService,

@@ -6,6 +6,7 @@ import { ArticlesService } from '../../../services/articles.service';
 import { CommentsService } from '../../../services/comments.service';
 import { StorageService } from '../../../services/storage.service';
 import { ScrollService } from 'src/app/services/scroll.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-article-detail',
@@ -23,8 +24,9 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
     private articlesService: ArticlesService,
     private commentsService: CommentsService,
     private storageService: StorageService,
-    private scrollService: ScrollService) {
-    this.route.params.subscribe( (params: Params) => {
+    private scrollService: ScrollService,
+    private toastr: ToastrService) {
+    this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
     });
     this.articlesService.getArticle(this.id)
@@ -63,17 +65,19 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
         commentItem.user.username = this.storageService.get('username');
         this.comments.push(commentItem);
         this.answerClicked = false;
+        this.toastr.success('Comment created!', 'Success!');
       },
       (err) => {
         console.log(err);
+        this.toastr.error('Server Error!');
       }
     );
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit() { /// delete this or improve
     setTimeout(() => {
       console.log(this.myComments);
-      this.route.queryParams.subscribe( (params: Params) => {
+      this.route.queryParams.subscribe((params: Params) => {
         if (params['ScrollTo']) {
           this.scrollService.triggerScrollTo(params['ScrollTo']);
         }

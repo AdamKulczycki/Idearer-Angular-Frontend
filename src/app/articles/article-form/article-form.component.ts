@@ -6,6 +6,8 @@ import { User } from '../../models/user-model';
 import { Article } from '../../models/article-model';
 import { ArticlesService } from '../../services/articles.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-form',
@@ -15,7 +17,9 @@ import { StorageService } from 'src/app/services/storage.service';
 export class ArticleFormComponent implements OnInit {
   constructor(private categoriesService: CategoriesService,
     private articlesService: ArticlesService,
-    private storageService: StorageService) {
+    private storageService: StorageService,
+    private toastr: ToastrService,
+    private router: Router) {
 
     this.categoriesService.getCategories()
       .subscribe(
@@ -58,8 +62,11 @@ export class ArticleFormComponent implements OnInit {
     .subscribe(
       (res) => {
         console.log(res);
+        this.toastr.success('Article created!', 'Success!');
+        this.router.navigateByUrl('');
       },
       (err) => {
+        this.toastr.error('Server Error!');
         console.log(err);
       }
     );

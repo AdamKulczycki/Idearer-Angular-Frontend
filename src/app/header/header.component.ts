@@ -47,7 +47,8 @@ export class HeaderComponent implements OnInit {
     this.categoriesSrv.getCategories().subscribe(
       (categories) => {
         this.categories = categories;
-      }
+      },
+      (err) => console.log(err)
     );
   }
 

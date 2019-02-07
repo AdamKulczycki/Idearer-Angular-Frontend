@@ -3,6 +3,7 @@ import { Article } from './../../models/article-model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { User } from '../../models/user-model';
 import { LikesService } from '../../services/likes.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-article-item',
@@ -47,7 +48,7 @@ export class ArticleItemComponent implements OnInit {
   }
 
 
-  constructor(private sanitizer: DomSanitizer, private likesService: LikesService) {
+  constructor(private sanitizer: DomSanitizer, private likesService: LikesService, private toastr: ToastrService) {
     // this.safeURL = sanitizer.bypassSecurityTrustResourceUrl(this.article.content);
  }
 
@@ -66,13 +67,16 @@ export class ArticleItemComponent implements OnInit {
         console.log(res);
         if (payload.liked) {
           this.article.likesCount ++;
+          this.toastr.success('You liked article!', 'Liked!');
         } else {
           this.article.likesCount --;
+          this.toastr.success('You unliked article!', 'Unliked!');
         }
         this.article.liked = payload.liked;
       },
       (err) => {
         console.log(err);
+        this.toastr.error('Server Error');
       }
     );
   }

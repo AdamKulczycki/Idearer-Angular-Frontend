@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
   removeFromArray(index) {
     this.rejectedArticles.splice(index, 1);
   }
-  deleteArticle(index) { /// do implementacji !!!
+  deleteArticle(index) { /// for implementation or not !!!
     console.log(index);
   }
   ngOnInit() {

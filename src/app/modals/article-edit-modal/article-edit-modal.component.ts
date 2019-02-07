@@ -3,6 +3,8 @@ import { Article } from 'src/app/models/article-model';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { Category } from 'src/app/models/category-model';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-article-edit-modal',
@@ -18,7 +20,7 @@ export class ArticleEditModalComponent implements OnInit {
   categories: Category[];
   contentPlaceholder;
   categoryPlaceholder;
-  constructor(private categoriesService: CategoriesService, private articlesService: ArticlesService) {
+  constructor(private categoriesService: CategoriesService, private articlesService: ArticlesService, private toastr: ToastrService) {
     this.categoriesService.getCategories()
       .subscribe(
         (categories) => {
@@ -47,8 +49,12 @@ export class ArticleEditModalComponent implements OnInit {
         console.log(res);
         this.removeArticleFromArray.emit();
         this.closeModal.emit();
+        this.toastr.success('Article changed!', 'Success!');
       },
-      (err) => console.log(err)
+      (err) => {
+        console.log(err);
+        this.toastr.error('Server Error!');
+      }
     );
   }
 

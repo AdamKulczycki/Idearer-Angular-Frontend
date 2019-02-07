@@ -6,6 +6,7 @@ import { StorageService } from '../services/storage.service';
 import { LikesService } from '../services/likes.service';
 import { ScrollService } from '../services/scroll.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-comment',
@@ -20,8 +21,12 @@ export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   @Input() articleId: number;
   @ViewChild('f') Articleform: NgForm;
-  constructor(private commentsService: CommentsService, private storageService: StorageService,
-    private likesService: LikesService, private scrollService: ScrollService, private router: Router) { }
+  constructor(private commentsService: CommentsService,
+    private storageService: StorageService,
+    private likesService: LikesService,
+    private scrollService: ScrollService,
+    private router: Router,
+    private toastr: ToastrService) { }
 
   answerClicked = false;
   answerVisibility() {
@@ -49,9 +54,11 @@ export class CommentComponent implements OnInit {
         commentItem.user.username = this.storageService.get('username');
         this.comment.comments.push(commentItem);
         this.answerClicked = false;
+        this.toastr.success('Comment created!', 'Success!');
       },
       (err) => {
         console.log(err);
+        this.toastr.error('Server Error!');
       }
     );
   }
@@ -68,13 +75,16 @@ export class CommentComponent implements OnInit {
         console.log(res);
         if (payload.liked) {
           this.comment.likesCount ++;
+          this.toastr.success('You liked this comment!', 'Liked!');
         } else {
           this.comment.likesCount --;
+          this.toastr.success('You unliked this comment!', 'Unliked!');
         }
         this.comment.liked = payload.liked;
       },
       (err) => {
         console.log(err);
+        this.toastr.error('Server Error!');
       }
     );
   }

@@ -120,7 +120,7 @@ export class ArticlesComponent implements OnInit {
 
   sortArticlesWithClicking(sortName: string) {
     this.currentSort = sortName;
-    
+
     switch (sortName) {
       case "ASCENDING_TITLE":
         this.sortByTitle = "DESCENDING_TITLE";
