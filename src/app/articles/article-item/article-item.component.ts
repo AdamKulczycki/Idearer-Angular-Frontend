@@ -64,7 +64,6 @@ export class ArticleItemComponent implements OnInit {
     this.likesService.articleChangeLike(payload)
     .subscribe(
       (res) => {
-        console.log(res);
         if (payload.liked) {
           this.article.likesCount ++;
           this.toastr.success('You liked article!', 'Liked!');
@@ -75,8 +74,7 @@ export class ArticleItemComponent implements OnInit {
         this.article.liked = payload.liked;
       },
       (err) => {
-        console.log(err);
-        this.toastr.error('Server Error');
+        this.toastr.error(err);
       }
     );
   }

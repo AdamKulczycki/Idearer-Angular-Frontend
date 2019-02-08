@@ -54,6 +54,6 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authSrv.logOut();
-    // zamiast przeladowywania strony bezposrednia moze przenawigowac do niezaleznego urla co tez ja chyba przeladuje
+    // moze wyrzucanie do strony z logowania pomoze, albo na zmiane behaviorSubjecta ponawiac zapytanie o artykuly
   }
 }

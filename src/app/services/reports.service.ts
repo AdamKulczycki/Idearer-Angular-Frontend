@@ -4,6 +4,8 @@ import { api } from './global-variables';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { Report } from '../models/report-model';
+import { handleError } from '../shared/errorHandler';
+
 
 @Injectable()
 export class ReportsService {
@@ -19,7 +21,10 @@ export class ReportsService {
         const body = {
             description: payload.description
         };
-        return this.http.post(api + 'articles/' + id + '/reports', JSON.stringify(body), {headers: httpheaders});
+        return this.http.post(api + 'articles/' + id + '/reports', JSON.stringify(body), {headers: httpheaders})
+        .pipe(
+            catchError(handleError)
+        );
     }
 
     getIdsOfReportedArticles() {
@@ -29,7 +34,10 @@ export class ReportsService {
             'Content-Type': 'application/json'
         });
 
-        return this.http.get(api + 'articles/reported', {headers: httpheaders});
+        return this.http.get(api + 'articles/reported', {headers: httpheaders})
+        .pipe(
+            catchError(handleError)
+        );
     }
 
     getReportsByArticleId(id) {
@@ -40,7 +48,8 @@ export class ReportsService {
         });
 
         return this.http.get(api + 'articles/' + id + '/reports', {headers: httpheaders}).pipe(
-            map((data: any) => data.content.map(report => new Report(report)))
+            map((data: any) => data.content.map(report => new Report(report))),
+            catchError(handleError)
         );
     }
 
@@ -51,6 +60,9 @@ export class ReportsService {
             'Content-Type': 'application/json'
         });
 
-        return this.http.delete(api + 'articles/reports/' + id, {headers: httpheaders});
+        return this.http.delete(api + 'articles/reports/' + id, {headers: httpheaders})
+        .pipe(
+            catchError(handleError)
+        );
     }
 }

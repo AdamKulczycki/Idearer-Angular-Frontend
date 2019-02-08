@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import { api } from './global-variables';
 import { map, catchError } from 'rxjs/operators';
+import { handleError } from '../shared/errorHandler';
+
 
 @Injectable()
 export class LikesService {
@@ -21,9 +23,7 @@ export class LikesService {
         return this.http.patch(api + 'articles/' + articleId, JSON.stringify(body), {headers: httpheaders})
         .pipe(
             map((res: any) => res),
-            catchError((err: any) => {
-                throw(err);
-            })
+            catchError(handleError)
         );
     }
 
@@ -40,9 +40,7 @@ export class LikesService {
         return this.http.patch(api + 'comments/' + commentId, JSON.stringify(body), {headers: httpheaders})
         .pipe(
             map((res: any) => res),
-            catchError((err: any) => {
-                throw(err);
-            })
+            catchError(handleError)
         );
     }
 }

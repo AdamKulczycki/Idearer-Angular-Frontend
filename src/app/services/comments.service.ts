@@ -5,6 +5,8 @@ import { api } from './global-variables';
 import { map, catchError } from 'rxjs/operators';
 import { Comment } from '../models/comment-model';
 import { StorageService } from './storage.service';
+import { handleError } from '../shared/errorHandler';
+
 
 @Injectable()
 export class CommentsService {
@@ -18,14 +20,14 @@ export class CommentsService {
             });
             return this.http.get(api + 'comments?articleId=' + index + '&parentCommentId=0', {headers: httpheaders})
             .pipe(
-                map((data: any[]) => data.map((comment) => new Comment(comment))
-                )
+                map((data: any[]) => data.map((comment) => new Comment(comment))),
+                catchError(handleError)
             );
         } else {
             return this.http.get(api + 'comments?articleId=' + index + '&parentCommentId=0')
             .pipe(
-                map((data: any[]) => data.map((comment) => new Comment(comment))
-                )
+                map((data: any[]) => data.map((comment) => new Comment(comment))),
+                catchError(handleError)
             );
         }
     }
@@ -34,8 +36,8 @@ export class CommentsService {
         const Id = this.storageService.get('id');
         return this.http.get(api + 'comments?userId=' + Id + '&hideSubcomments=true')
         .pipe(
-            map((data: any[]) => data.map((comment) => new Comment(comment))
-            )
+            map((data: any[]) => data.map((comment) => new Comment(comment))),
+            catchError(handleError)
         );
     }
 
@@ -48,9 +50,7 @@ export class CommentsService {
         return this.http.post(api + 'comments', JSON.stringify(payload), {headers: httpheaders})
         .pipe(
             map((res: any) => new Comment(res)),
-            catchError((err: any) => {
-                throw(err);
-            })
+            catchError(handleError)
         );
     }
 }

@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { StorageService } from './storage.service';
+import { handleError } from '../shared/errorHandler';
 
 @Injectable()
 export class ArticlesService {
@@ -20,9 +21,7 @@ export class ArticlesService {
         return this.http.post(api + 'articles', JSON.stringify(payload), {headers: httpheaders})
         .pipe(
             map((res: any) => res),
-            catchError((err: any) => {
-                throw(err);
-            })
+            catchError(handleError)
         );
     }
     getArticles(page): Observable<Page> {
@@ -34,14 +33,14 @@ export class ArticlesService {
             });
             return this.http.get(api + 'articles?page=' + page + '&pageSize=2', {headers: httpheaders})
             .pipe(
-                map((data: any) => new Page(data)
-                )
+                map((data: any) => new Page(data)),
+                catchError(handleError)
             );
         } else {
             return this.http.get(api + 'articles?page=' + page + '&pageSize=2')
             .pipe(
-                map((data: any) => new Page(data)
-                )
+                map((data: any) => new Page(data)),
+                catchError(handleError)
             );
         }
     }
@@ -56,12 +55,14 @@ export class ArticlesService {
             });
             return this.http.get<Article>(api + 'articles/' + index, {headers: httpheaders})
             .pipe(
-                map((data: any) => new Article(data))
+                map((data: any) => new Article(data)),
+                catchError(handleError)
             );
         } else {
             return this.http.get<Article>(api + 'articles/' + index)
             .pipe(
-                map((data: any) => new Article(data))
+                map((data: any) => new Article(data)),
+                catchError(handleError)
             );
         }
     }
@@ -75,14 +76,14 @@ export class ArticlesService {
             });
             return this.http.get(api + 'articles?categoryName=' + categoryName + '&page=' + page + '&pageSize=2', {headers: httpheaders})
             .pipe(
-                map((data: any) => new Page(data)
-                )
+                map((data: any) => new Page(data)),
+                catchError(handleError)
             );
         } else {
             return this.http.get(api + 'articles?categoryName=' + categoryName + '&page=' + page + '&pageSize=2')
             .pipe(
-                map((data: any) => new Page(data)
-                )
+                map((data: any) => new Page(data)),
+                catchError(handleError)
             );
         }
     }
@@ -90,16 +91,16 @@ export class ArticlesService {
     getSortArticles(sortName: string, page): Observable<Page> {
         return this.http.get(api + 'articles?sort=' + sortName + '&page=' + page + '&pageSize=2')
             .pipe(
-                map((data: any) => new Page(data)
-                )
+                map((data: any) => new Page(data)),
+                catchError(handleError)
             );
     }
 
     getSortArticlesByCategory(categoryName: string, sortName, page): Observable<Page> {
         return this.http.get(api + 'articles?categoryName=' + categoryName + '&sort=' + sortName + '&page=' + page + '&pageSize=2')
             .pipe(
-                map((data: any) => new Page(data)
-                )
+                map((data: any) => new Page(data)),
+                catchError(handleError)
             );
     }
 
@@ -112,7 +113,8 @@ export class ArticlesService {
 
         return this.http.get(api + 'articles?authorId=' + Id + '&status=' + status)
         .pipe(
-            map((data: any) => data.content.map((article) => new Article(article)))
+            map((data: any) => data.content.map((article) => new Article(article))),
+            catchError(handleError)
         );
     }
 
@@ -120,7 +122,8 @@ export class ArticlesService {
 
         return this.http.get(api + 'articles?status=PENDING')
         .pipe(
-            map((data: any) => data.content.map((article) => new Article(article)))
+            map((data: any) => data.content.map((article) => new Article(article))),
+            catchError(handleError)
         );
     }
 
@@ -131,6 +134,9 @@ export class ArticlesService {
             'Authorization' : 'Bearer ' + token,
             'Content-Type': 'application/json'
         });
-        return this.http.patch(api + 'articles/' + id, JSON.stringify(payload),  {headers: httpheaders});
+        return this.http.patch(api + 'articles/' + id, JSON.stringify(payload),  {headers: httpheaders})
+        .pipe(
+            catchError(handleError)
+        );
     }
 }
