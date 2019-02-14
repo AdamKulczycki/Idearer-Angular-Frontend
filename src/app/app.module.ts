@@ -36,6 +36,7 @@ import { AdminService } from './services/admin.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ReportsResolver } from './services/reports.resolve';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { ToastrModule } from 'ngx-toastr';
     AdminGuard,
     ReportsService,
     RejectsService,
-    AdminService
+    AdminService,
+    ReportsResolver
   ],
   bootstrap: [AppComponent]
 })

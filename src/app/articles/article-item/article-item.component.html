@@ -19,7 +19,7 @@
   </div>
   <div class="article-info">
     <div class="article-created-info">
-        {{ article.created }},
+        {{ article.created | date: 'H:mm dd/MM/yyyy'}},
         <i>{{ article.user.username }}</i>
     </div>
     <div class="article-likes">

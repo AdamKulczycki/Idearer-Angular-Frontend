@@ -7,6 +7,7 @@ import { RejectsService } from '../services/rejects.service';
 import { ReportsService } from '../services/reports.service';
 import { Report } from '../models/report-model';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class AdminPanelComponent implements OnInit {
   constructor(private articlesService: ArticlesService,
     private rejectsService: RejectsService,
     private reportsService: ReportsService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private activatedRoute: ActivatedRoute) {
 
     this.articlesService.getPendingArtciles()
       .subscribe(
@@ -31,39 +33,49 @@ export class AdminPanelComponent implements OnInit {
         }
       );
 
-    this.reportsService.getIdsOfReportedArticles()
-      .subscribe(
-        (res: Array<number>) => {
-          res.forEach(id => {
-            let article: Article;
-            this.articlesService.getArticle(id)
-              .subscribe(
-                articleRes => article = articleRes,
-                err => console.log(err)
-                );
-            this.reportsService.getReportsByArticleId(id)
-              .subscribe(
-                (reports: Report[]) => {
-                  this.reportsArray.push({
-                    articleObject: article,
-                    showArticle: false,
-                    showPanel: false,
-                    articleReports: reports
-                  });
-                  this.reportsNumber += reports.length;
-                },
-                (err) => console.log(err)
-              );
-          });
-        },
-        (err) => console.log(err)
-      );
+    // this.reportsService.getIdsOfReportedArticles()
+    //   .subscribe(
+    //     (res: Array<number>) => {
+    //       res.forEach(id => {
+    //         let article: Article;
+    //         this.articlesService.getArticle(id)
+    //           .subscribe(
+    //             articleRes => article = articleRes,
+    //             err => console.log(err)
+    //             );
+    //         this.reportsService.getReportsByArticleId(id)
+    //           .subscribe(
+    //             (reports: Report[]) => {
+    //               this.reportsArray.push({
+    //                 articleObject: article,
+    //                 showArticle: false,
+    //                 showPanel: false,
+    //                 articleReports: reports
+    //               });
+    //               this.reportsNumber += reports.length;
+    //             },
+    //             (err) => console.log(err)
+    //           );
+    //       });
+    //     },
+    //     (err) => console.log(err)
+    //   );
+    // this.reportsArray = this.reportsService.test();
+    //  this.reportsService.test().subscribe(
+    //    res => {
+    //      res[0].subscribe(
+    //        e => console.log(e)
+    //      )
+    //    }
+    //  )
+    console.log(this.reportsService.test());
+    //  this.reportsArray = this.activatedRoute.snapshot.data['test'];
+    // console.log(this.activatedRoute.snapshot.data['test'])
     }
 
   viewSelector = 'articles';
   articles = [];
   reportsArray = [];
-  reportsNumber = 0;
   onSubmit(f, id) {
     console.log(f.value);
     const index = this.articles.map(e => e.id).indexOf(id);
@@ -121,7 +133,6 @@ export class AdminPanelComponent implements OnInit {
           res => {
           console.log(res);
           this.toastr.success('Report accepted!', 'Success!');
-          this.reportsNumber -= this.reportsArray[index].articleReports.length;
           this.reportsArray.splice(index, 1);
           },
           err => {
@@ -135,7 +146,6 @@ export class AdminPanelComponent implements OnInit {
           res => {
           console.log(res);
           this.toastr.success('Report accepted!', 'Success!');
-          this.reportsNumber -= this.reportsArray[index].articleReports.length;
           this.reportsArray.splice(index, 1);
           },
           err => {
@@ -150,7 +160,6 @@ export class AdminPanelComponent implements OnInit {
   }
   viewArticleChange(index) {
     this.reportsArray[index].showArticle = !this.reportsArray[index].showArticle;
-    console.log(this.reportsArray);
   }
   deleteAllreports(index) {
     const numberOfReports = this.reportsArray[index].articleReports.length;
@@ -164,7 +173,6 @@ export class AdminPanelComponent implements OnInit {
             reportsDeleted ++;
             if (numberOfReports === reportsDeleted) {
               console.log('All reports was deleted');
-              this.reportsNumber -= this.reportsArray[index].articleReports.length;
               this.reportsArray.splice(index, 1);
             }
           },

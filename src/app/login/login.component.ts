@@ -43,8 +43,11 @@ export class LoginComponent implements OnInit {
         this.toastr.success('Logged In!');
       },
       (err) => {
-        console.log(err);
-        this.toastr.error('Server Error!')
+        if (err.code === 400) {
+          this.toastr.error('Wrong Credentials');
+        } else {
+          this.toastr.error(err.error.error);
+        }
       }
     );
   }
