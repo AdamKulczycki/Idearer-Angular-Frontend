@@ -10,8 +10,8 @@
     </div>
   </div>
 <div class="content">
-  <div *ngIf="parentCommentAuthor" class="parent-comment-author" (click)="scroll()">@{{parentCommentAuthor}}</div>
-  <div class="comment-text">{{comment.content}}</div>
+  <span *ngIf="parentCommentAuthor" class="parent-comment-author" (click)="scroll()">@{{parentCommentAuthor}}&nbsp;</span>
+  <span class="comment-text">{{comment.content}}</span>
 </div>
 <div class="bottom">
     <div *ngIf="!answerClicked" class="answer-button" (click)="answerVisibility()">Answer</div>
