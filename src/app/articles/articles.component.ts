@@ -3,6 +3,9 @@ import { Article } from '../models/article-model';
 import { ArticlesService } from '../services/articles.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Page } from '../models/page-model';
+
+
 
 @Component({
   selector: 'app-articles',
@@ -11,31 +14,27 @@ import { AuthService } from '../services/auth.service';
 })
 export class ArticlesComponent implements OnInit {
 
-  constructor(private articleService: ArticlesService, private route: ActivatedRoute, private authSrv: AuthService,
+  public currentCategory;
+  public currentPage = new Page(null);
+  public currentSort;
+  //public articles: Article[] = [];
+  public sortByTitle: string = "ASCENDING_TITLE";
+  public sortByDate: string = "DESCENDING_CREATED";
+  public sortByLikes: string = "DESCENDING_LIKES";
+  public sortTitleReverse: boolean = false;
+  public sortDateReverse: boolean = false;
+  public sortLikesReverse: boolean = false;
+  public isLogged: boolean;
+
+  constructor(private articleService: ArticlesService,
+    private route: ActivatedRoute,
+    private authSrv: AuthService,
     private router: Router) {
 
     this.authSrv.isLogged.subscribe( value => {
       this.isLogged = value;
     });
-  }
 
-  currentCategory;
-  currentPage = {
-    page: null,
-    pageSize: null,
-    lastPage: null
-  };
-  currentSort;
-  articles: Article[] = [];
-  sortByTitle: string = "ASCENDING_TITLE";
-  sortByDate: string = "DESCENDING_CREATED";
-  sortByLikes: string = "DESCENDING_LIKES";
-  sortTitleReverse: boolean = false;
-  sortDateReverse: boolean = false;
-  sortLikesReverse: boolean = false;
-  isLogged: boolean;
-
-  ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {
       if ( params['category']) {
         this.currentSort = '';
@@ -54,11 +53,11 @@ export class ArticlesComponent implements OnInit {
           this.articleService.getArtcilesByCategory(this.currentCategory, this.currentPage.page)
           .subscribe(
             (page) => {
-              this.articles = page.articles;
-              this.currentPage.page = page.page;
-              this.currentPage.pageSize = page.pageSize;
-              this.currentPage.lastPage = page.lastPage;
-              console.log(page);
+              this.currentPage = page;
+              // this.articles = page.articles;
+              // this.currentPage.page = page.page;
+              // this.currentPage.pageSize = page.pageSize;
+              // this.currentPage.lastPage = page.lastPage;
             },
             (error) => console.log(error)
           );
@@ -79,11 +78,11 @@ export class ArticlesComponent implements OnInit {
             this.articleService.getArticles(this.currentPage.page)
             .subscribe(
               (page) => {
-                this.articles = page.articles;
-                this.currentPage.page = page.page;
-                this.currentPage.pageSize = page.pageSize;
-                this.currentPage.lastPage = page.lastPage;
-                console.log(page);
+                this.currentPage = page;
+                // this.articles = page.articles;
+                // this.currentPage.page = page.page;
+                // this.currentPage.pageSize = page.pageSize;
+                // this.currentPage.lastPage = page.lastPage;
               },
               (error) => console.log(error)
             );
@@ -92,14 +91,21 @@ export class ArticlesComponent implements OnInit {
     });
   }
 
+ 
+
+  ngOnInit() {
+    
+  }
+
   sortArticles(sortName: string, page) {
     this.articleService.getSortArticles(sortName, page)
       .subscribe(
         (page) => {
-          this.articles = page.articles;
-          this.currentPage.page = page.page;
-          this.currentPage.pageSize = page.pageSize;
-          this.currentPage.lastPage = page.lastPage;
+          this.currentPage = page;
+          // this.articles = page.articles;
+          // this.currentPage.page = page.page;
+          // this.currentPage.pageSize = page.pageSize;
+          // this.currentPage.lastPage = page.lastPage;
         },
         (error) => console.log(error)
       );
@@ -109,10 +115,11 @@ export class ArticlesComponent implements OnInit {
     this.articleService.getSortArticlesByCategory(categoryName, sortName, page)
       .subscribe(
         (page) => {
-          this.articles = page.articles;
-          this.currentPage.page = page.page;
-          this.currentPage.pageSize = page.pageSize;
-          this.currentPage.lastPage = page.lastPage;
+          this.currentPage = page;
+          // this.articles = page.articles;
+          // this.currentPage.page = page.page;
+          // this.currentPage.pageSize = page.pageSize;
+          // this.currentPage.lastPage = page.lastPage;
         },
         (error) => console.log(error)
       );

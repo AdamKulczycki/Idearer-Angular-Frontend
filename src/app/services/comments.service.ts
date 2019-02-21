@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { api } from './global-variables';
 import { map, catchError } from 'rxjs/operators';
 import { Comment } from '../models/comment-model';
@@ -11,6 +11,11 @@ import { handleError } from '../shared/errorHandler';
 @Injectable()
 export class CommentsService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
+
+    public $activeCommentForm = new BehaviorSubject<number>(null);
+    setActiveCommentForm (id) {
+        this.$activeCommentForm.next(id);
+    }
 
     getComments(index: number): Observable<Comment[]> {
         const token = this.storageService.get('access_token');

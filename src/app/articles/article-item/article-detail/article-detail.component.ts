@@ -44,10 +44,6 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
         (error) => console.log(error)
     );
   }
-  answerClicked = false;
-  answerVisibility() {
-    this.answerClicked = !this.answerClicked;
-  }
 
   submitComment(form) {
     console.log(this.myComments);
@@ -64,7 +60,6 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
         const commentItem = comment;
         commentItem.user.username = this.storageService.get('username');
         this.comments.push(commentItem);
-        this.answerClicked = false;
         this.toastr.success('Comment created!', 'Success!');
       },
       (err) => {

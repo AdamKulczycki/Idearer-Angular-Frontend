@@ -1,3 +1,6 @@
+.navbar {
+    box-shadow: 0px 10px 16px 0px rgba(0,0,0,0.75);
+}
 nav {
     padding: 0px 80px;
 
@@ -21,8 +24,21 @@ a {
 .navbar-brand {
     padding: 5px 0;
     margin-right: 100px;
+    position: relative;
     img {
         color: rgb(230, 132, 52);
+    }
+
+    &::before {
+        content: "";
+        width: 1px;
+        height: 1px;
+        border-radius: 50%;
+        background-color: #edc113;
+        position: absolute;
+        bottom: 26px;
+        left: 24px;
+        box-shadow: 1px -1px 17px 16px #edc113;
     }
 }
 
@@ -58,3 +74,4 @@ a {
     color: white;
     padding-right: 20px;
 }
+

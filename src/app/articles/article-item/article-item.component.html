@@ -4,7 +4,7 @@
         <p *ngIf="article.id" class="title"><a [routerLink]="['/articles', article.id]">{{ article.title }}</a><span class="report" (click)="showReportModal()">report!</span></p>
         <app-report-modal *ngIf="showModal" [articleId]="article.id" (closeModal)="closeReportModal()"></app-report-modal>
         <p *ngIf="!article.id" class="title">{{ article.title }}</p>
-        <span class="comments"><a [routerLink]="['/articles', article.id]"><i class="far fa-comment"></i> {{ article.commentsCount }}</a></span>
+        <span class="comments"><a [routerLink]="['/articles', article.id]"><i class="far fa-comment"></i>&nbsp;{{ article.commentsCount }}</a></span>
       </div>
       <p *ngIf="article.category" class="category"><a [routerLink]="['/articles']" [queryParams]="{category: article.category.name}">{{ article.category.name }}</a></p>
       <p *ngIf="!article.category" class="category">Your selected Category</p>

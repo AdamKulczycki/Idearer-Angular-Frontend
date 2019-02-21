@@ -38,6 +38,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ReportsResolver } from './services/reports.resolve';
 
+import {MatButtonModule, MatCheckboxModule} from '@angular/material'; // angular material
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +73,12 @@ import { ReportsResolver } from './services/reports.resolve';
       timeOut: 2000,
       positionClass: 'toast-bottom-center',
       progressBar: true
-    }) // ToastrModule added
+    }), // ToastrModule added
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule
   ],
   providers: [
     ArticlesService,

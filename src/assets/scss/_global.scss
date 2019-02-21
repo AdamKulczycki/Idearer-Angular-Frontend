@@ -1,1 +1,27 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 $mainTheme: rgb(17, 16, 16);
+.mat-form-field-empty.mat-form-field-label {
+    color: grey; //placeholder unfocused empty input
+}
+
+.mat-form-field-underline {
+    border-bottom: 1px solid grey; // underline unfocused
+}
+.mat-input-element {
+    caret-color: white;
+}
+
+.mat-focused div .mat-form-field-underline .mat-form-field-ripple { 
+    background: white; // underline focused
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+    color: white; // placeholder focused
+}
+.mat-form-field-label {
+    color: white;
+}
+.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    color: white; // placeholder unfocused notempty input
+}

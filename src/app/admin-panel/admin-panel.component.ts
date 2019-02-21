@@ -68,7 +68,7 @@ export class AdminPanelComponent implements OnInit {
     //      )
     //    }
     //  )
-    console.log(this.reportsService.test());
+   this.reportsService.test();
     //  this.reportsArray = this.activatedRoute.snapshot.data['test'];
     // console.log(this.activatedRoute.snapshot.data['test'])
     }

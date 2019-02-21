@@ -31,12 +31,14 @@ export class CommentComponent implements OnInit {
   answerClicked = false;
   answerVisibility() {
     this.answerClicked = !this.answerClicked;
+    this.commentsService.setActiveCommentForm(this.comment.id);
   }
   scroll() {
     this.scrollService.triggerScrollTo('comment-' + this.parentCommentId);
   }
 
   submitComment(form) {
+    console.log(form.value);
     const payload = {
       article: {
         id: this.articleId
@@ -46,7 +48,6 @@ export class CommentComponent implements OnInit {
         id: this.comment.id
       }
     };
-
     this.commentsService.makeComment(payload)
     .subscribe(
       (comment) => {
@@ -89,6 +90,13 @@ export class CommentComponent implements OnInit {
     );
   }
   ngOnInit() {
+    this.commentsService.$activeCommentForm.subscribe(
+      res => {
+        if (res !== this.comment.id) {
+          this.answerClicked = false;
+        }
+      }
+    );
   }
 
 }

@@ -75,42 +75,73 @@ export class ReportsService {
         'Authorization' : 'Bearer ' + this.storageService.get('access_token'),
         'Content-Type': 'application/json'
     });
-
-    return forkJoin(
-        this.http.get(api + 'articles/reported', {headers: httpheaders}).pipe(
+    return this.http.get(api + 'articles/reported', {headers: httpheaders}).pipe(
             map((res: Array<number>) => {
-                return forkJoin(
                     forkJoin(
                         res.map(
                             id => this.http.get<Article>(api + 'articles/' + id, {headers: httpheaders})
-                            .pipe(map(response => <Article>response))
-                        ),
-                    ),
-                    forkJoin(
-                        res.map(
-                            id => this.http.get(api + 'articles/' + id + '/reports', {headers: httpheaders}).pipe(
-                                map((data: any) => data.content.map(report => new Report(report))))
+                            .pipe(
+                                map((article: any) => {
+                                    console.log('article')
+                                    const art = new Article(article);
+                                    const array = []
+                                    array.push(art);
+                                    return this.http.get(api + 'articles/' + id + '/reports', {headers: httpheaders})
+                                    .pipe(map((reportsRes: any) => {
+                                        console.log('report')
+                                        const reports = reportsRes.content.map(report => new Report(report))
+                                        array.push(reports);
+                                        // return ({art, reports});
+                                        return array;
+                                    }));
+                                    // .pipe(
+                                    //     map((reportsRes: any) => {
+                                    //         const reports = reportsRes.content.map(report => new Report(report))
+                                    //         return ({art, reports});
+                                    //     }));
+                            }))
                         )
-                    )
-                ).pipe(
-                    map(
-                        r => {
-                            const reportsArray = [];
-                            for (let i = 0; i < r[0].length; i ++) {
-                                reportsArray.push({
-                                    articleObject: r[0][i],
-                                    showArticle: false,
-                                    showPanel: false,
-                                    articleReports: r[1][i]
-                                });
-                            }
-                            return reportsArray;
-                        }
-                    )
-                )
-            }))
-    );
+                    ).subscribe(
+                        e => console.log(e[0].subscribe(r=>console.log(r)))
+                    );
+            }));
 
+    // return forkJoin(
+    //     this.http.get(api + 'articles/reported', {headers: httpheaders}).pipe(
+    //         map((res: Array<number>) => {
+    //             return forkJoin(
+    //                 forkJoin(
+    //                     res.map(
+    //                         id => this.http.get<Article>(api + 'articles/' + id, {headers: httpheaders})
+    //                         .pipe(map(response => <Article>response))
+    //                     ),
+    //                 ),
+    //                 forkJoin(
+    //                     res.map(
+    //                         id => this.http.get(api + 'articles/' + id + '/reports', {headers: httpheaders}).pipe(
+    //                             map((data: any) => data.content.map(report => new Report(report))))
+    //                     )
+    //                 )
+    //             ).pipe(
+    //                 map(
+    //                     r => {
+    //                         const reportsArray = [];
+    //                         for (let i = 0; i < r[0].length; i ++) {
+    //                             reportsArray.push({
+    //                                 articleObject: r[0][i],
+    //                                 showArticle: false,
+    //                                 showPanel: false,
+    //                                 articleReports: r[1][i]
+    //                             });
+    //                         }
+    //                         return reportsArray;
+    //                     }
+    //                 )
+    //             )
+    //         }))
+    // );
+
+    // const reportsArray = [];
     // return this.http.get(api + 'articles/reported', {headers: httpheaders}).pipe(
     //     map((res: Array<number>) => {
     //         forkJoin(
