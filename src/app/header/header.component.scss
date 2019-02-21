@@ -34,11 +34,12 @@ a {
         width: 1px;
         height: 1px;
         border-radius: 50%;
-        background-color: #edc113;
+        background-color: transparent;
         position: absolute;
         bottom: 26px;
         left: 24px;
-        box-shadow: 1px -1px 17px 16px #edc113;
+        z-index: -100;
+        box-shadow: 1px 2px 17px 20px #edc113;
     }
 }
 
