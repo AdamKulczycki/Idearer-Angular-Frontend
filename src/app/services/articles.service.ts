@@ -89,19 +89,45 @@ export class ArticlesService {
     }
 
     getSortArticles(sortName: string, page): Observable<Page> {
-        return this.http.get(api + 'articles?sort=' + sortName + '&page=' + page + '&pageSize=2')
+
+        const token = this.storageService.get('access_token');
+        if (token) {
+            const httpheaders = new HttpHeaders({
+                'Authorization' : 'Bearer ' + token,
+            });
+            return this.http.get(api + 'articles?sort=' + sortName + '&page=' + page + '&pageSize=2', {headers: httpheaders})
             .pipe(
                 map((data: any) => new Page(data)),
                 catchError(handleError)
             );
+        } else {
+            return this.http.get(api + 'articles?sort=' + sortName + '&page=' + page + '&pageSize=2')
+                .pipe(
+                    map((data: any) => new Page(data)),
+                    catchError(handleError)
+                );
+        }
     }
 
     getSortArticlesByCategory(categoryName: string, sortName, page): Observable<Page> {
-        return this.http.get(api + 'articles?categoryName=' + categoryName + '&sort=' + sortName + '&page=' + page + '&pageSize=2')
+
+        const token = this.storageService.get('access_token');
+        if (token) {
+            const httpheaders = new HttpHeaders({
+                'Authorization' : 'Bearer ' + token,
+            });
+            return this.http.get(api + 'articles?categoryName=' + categoryName + '&sort=' + sortName + '&page=' + page + '&pageSize=2', {headers: httpheaders})
             .pipe(
                 map((data: any) => new Page(data)),
                 catchError(handleError)
             );
+        } else {
+            return this.http.get(api + 'articles?categoryName=' + categoryName + '&sort=' + sortName + '&page=' + page + '&pageSize=2')
+                .pipe(
+                    map((data: any) => new Page(data)),
+                    catchError(handleError)
+                );
+        }
     }
 
     getUserArticles(status): Observable<Article[]> {
