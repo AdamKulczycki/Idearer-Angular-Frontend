@@ -9,7 +9,7 @@
       </div>
       <div class="email-input">
         <div class="form-group">
-          <input type="email" id="email" class="form-control" placeholder="EMAIL" name="email" #email="ngModel" required ngModel #email="ngModel">
+          <input type="email" id="email" class="form-control" placeholder="EMAIL" name="email" #email="ngModel" required ngModel>
           <span class="help-block" *ngIf="!email.valid && (email.dirty || email.touched)">
             Please enter a valid email!
           </span>
@@ -17,41 +17,37 @@
       </div>
       <div class="email-input">
         <div class="form-group">
-          <input type="email" id="emailConfirm" class="form-control" placeholder="CONFIRM EMAIL" name="emailConfirm" required ngModel #emailConfirm="ngModel" compare="email">
+          <input type="email" id="emailConfirm" class="form-control" placeholder="CONFIRM EMAIL" name="emailConfirm" #emailConfirm="ngModel" required ngModel>
           <span class="help-block" *ngIf="!emailConfirm.valid && (emailConfirm.dirty || emailConfirm.touched)">
-            <div *ngIf="emailConfirm.errors['required']">
-              Email confirm is required
-            </div>
-            <div *ngIf="!emailConfirm.errors['required'] && emailConfirm.errors['compare']">
-              Email confirm do not match
-            </div>
+            Email confirm is required
+          </span>
+          <span class="help-block" *ngIf="(emailConfirm.valid && (emailConfirm.dirty || emailConfirm.touched)) && (email.value !== emailConfirm.value)">
+            Email confirm do not match
           </span>
         </div>
       </div>
       <div class="password-input">
         <div class="form-group">
-          <input type="password" id="password" class="form-control" placeholder="PASSWORD" name="password" ngModel #password="ngModel" required>
-          <div class="help-block" *ngIf="password.invalid && (password.dirty || password.touched)">
-            Password is required
-          </div>
+          <input type="password" id="password" class="form-control" placeholder="PASSWORD" name="password" #password="ngModel" required ngModel>
+          <span class="help-block" *ngIf="!password.valid && (password.dirty || password.touched)">
+            Password is required!
+          </span>
         </div>
       </div>
       <div class="password-input">
         <div class="form-group">
-          <input type="password" id="passwordConfirm" class="form-control" placeholder="CONFIRM PASSWORD" name="passwordConfirm" ngModel #pwConfirm="ngModel" required compare="password">
-          <div class="help-block" *ngIf="pwConfirm.invalid && (pwConfirm.dirty || pwConfirm.touched)">
-            <div *ngIf="pwConfirm.errors['required']">
-              Password confirm is required
-            </div>
-            <div *ngIf="!pwConfirm.errors['required'] && pwConfirm.errors['compare']">
-              Password confirm do not match
-            </div>
-          </div>
+          <input type="password" id="passwordConfirm" class="form-control" placeholder="CONFIRM PASSWORD" name="passwordConfirm" #pwConfirm="ngModel" required ngModel>
+          <span class="help-block" *ngIf="!pwConfirm.valid && (pwConfirm.dirty || pwConfirm.touched)">
+            Password confirm is required
+          </span>
+          <span class="help-block" *ngIf="(pwConfirm.valid && (pwConfirm.dirty || pwConfirm.touched)) && (password.value !== pwConfirm.value)">
+            Password confirm do not match
+          </span>
         </div>
       </div>
     </div>
     <div class="form-auth-group">
-      <button type="submit" class="button btn btn-danger btn-lg btn-block" [disabled]="!registerForm.valid">
+      <button type="submit" class="button btn btn-danger btn-lg btn-block" [disabled]="!registerForm.valid || (email.value !== emailConfirm.value) || (password.value !== pwConfirm.value)">
         SIGN UP
       </button>
     </div>
