@@ -39,6 +39,11 @@
 
         .likes {
             font-size: 1.3em;
+            span {
+                i {
+                    cursor: pointer;
+                }
+            }
         }
     }
 

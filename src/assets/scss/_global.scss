@@ -25,3 +25,6 @@ $mainTheme: rgb(17, 16, 16);
 .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
     color: white; // placeholder unfocused notempty input
 }
+.mat-hint.mat-right {
+    color: white !important; // number of max comment size hint
+}

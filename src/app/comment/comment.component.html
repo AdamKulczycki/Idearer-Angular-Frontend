@@ -19,36 +19,27 @@
 </div>
 <div class="answer" *ngIf="answerClicked">
   <form (ngSubmit)="submitComment(f)" #f="ngForm">
-    <!-- <div class="form-group">
-      <input 
-        type="text" 
-        id="comment" 
-        class="form-control" 
-        ngModel
-        name="comment" 
-        required
-        #title="ngModel"
-        placeholder="Write You'r Answer">
-    </div> -->
     <div class="form-group">
       <mat-form-field>
           <input
+            matInput
+            #input
+            maxlength="200"
             type="text"
             id="comment"
             name="comment"
-            matInput
             placeholder="Leave a comment"
             ngModel
             autocomplete="off">
+            <mat-hint align="end">{{input.value?.length || 0}}/200</mat-hint>
       </mat-form-field>
     </div>
     <button
       class="answer-submit-button"
       type="submit"
       [disabled]="!f.value.comment"
-      [ngClass]="(f.value.comment && f.value.comment.length > 0)? 'test': 'nietest'"
-      >
-    Submit
+      [ngClass]="{'test': f.value.comment && f.value.comment.length > 0 && f.value.comment.length <= 200}">
+    Send
     </button>
   </form>
 </div>
