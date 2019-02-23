@@ -1,22 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { CategoriesService } from '../services/categories.service';
 import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
 import { AdminService } from '../services/admin.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
+  private isLoggedSubscription: Subscription;
   constructor(private categoriesSrv: CategoriesService,
     private storageSrv: StorageService, private authSrv: AuthService,
     private adminService: AdminService) {
 
-    this.authSrv.isLogged.subscribe( value => {
+    this.isLoggedSubscription = this.authSrv.$isLogged.subscribe( value => {
       this.isLogged = value;
       this.username = this.storageSrv.get('username');
     });
@@ -25,13 +27,6 @@ export class HeaderComponent implements OnInit {
     this.adminService.$isAdmin.subscribe(
       response => this.isAdministrator = response
     );
-    // this.isAdmin.checkIfAdmin().subscribe(
-    //   res => {
-    //     this.isAdministrator = res;
-    //     console.log(res);
-    //   },
-    //   err => console.log(err)
-    // );
   }
 
   categories = [];
@@ -42,7 +37,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.getCategories();
   }
-
+  ngOnDestroy() {
+    this.isLoggedSubscription.unsubscribe();
+  }
   getCategories() {
     this.categoriesSrv.getCategories().subscribe(
       (categories) => {

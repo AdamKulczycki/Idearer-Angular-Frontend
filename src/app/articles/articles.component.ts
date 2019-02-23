@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Article } from '../models/article-model';
 import { ArticlesService } from '../services/articles.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Page } from '../models/page-model';
+import { Subscription } from 'rxjs';
 
 
 
@@ -12,7 +13,7 @@ import { Page } from '../models/page-model';
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss']
 })
-export class ArticlesComponent implements OnInit {
+export class ArticlesComponent implements OnInit, OnDestroy {
 
   public currentCategory;
   public currentPage = new Page(null);
@@ -25,17 +26,40 @@ export class ArticlesComponent implements OnInit {
   public sortDateReverse: boolean = false;
   public sortLikesReverse: boolean = false;
   public isLogged: boolean;
+  public isLoggedSubscription: Subscription;
 
   constructor(private articleService: ArticlesService,
     private route: ActivatedRoute,
     private authSrv: AuthService,
     private router: Router) {
 
-    this.authSrv.isLogged.subscribe( value => {
+    this.isLoggedSubscription = this.authSrv.$isLogged.subscribe( value => {
+      console.log(value);
+      console.log('pre subscribe, number of observers is: ', this.authSrv.$isLogged.observers.length);
+      // if (value === false) {
+      //   console.log('http request z subjecta')
+      //   this.articleService.getArticles(1)
+      //       .subscribe(
+      //         (page) => {
+      //           this.currentPage = page;
+      //           // this.articles = page.articles;
+      //           // this.currentPage.page = page.page;
+      //           // this.currentPage.pageSize = page.pageSize;
+      //           // this.currentPage.lastPage = page.lastPage;
+      //         },
+      //         (error) => console.log(error)
+      //       );
+      // }
       this.isLogged = value;
     });
 
+    
+  }
+
+
+  ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {
+      console.log('params');
       if ( params['category']) {
         this.currentSort = '';
         this.currentCategory = params['category'];
@@ -90,13 +114,9 @@ export class ArticlesComponent implements OnInit {
         }
     });
   }
-
- 
-
-  ngOnInit() {
-    
+  ngOnDestroy(): void {
+    this.isLoggedSubscription.unsubscribe();
   }
-
   sortArticles(sortName: string, page) {
     this.articleService.getSortArticles(sortName, page)
       .subscribe(

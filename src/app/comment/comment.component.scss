@@ -95,14 +95,11 @@
             mat-form-field {
                 width: 100%;
             }
-            // input {
-            //     border-radius: 0 0 0 15px;
-            //     padding-left: 10px;
-            //     background-color: transparent;
-            //     border: none;
-            //     color: white;
-            //     outline: none;
-            // }
+            textarea {
+                font-size: 1rem;
+                overflow: hidden;
+                max-height: 5rem; // how about mobile devices?
+            }
         }
     
         .answer-submit-button {
@@ -110,21 +107,18 @@
             background-color: white;
             color: black;
             width: 15%;
+            height: 3rem;
             text-align: center;
-            // padding: 0px;
             border: 0;
-            // border: 1px solid black;
             border-radius: 5px;
             margin: 0 auto 20px auto;
             visibility: hidden;         
-            // animation: KEYFRAME-NAME 5s 1;
-            // animation-play-state: running;
             &:disabled {
                 background-color: grey;
                 cursor: default;
             }
             &:hover:enabled {
-                box-shadow: 0px 0px 31px 3px rgba(255,255,255,1);
+                box-shadow: 0px 0px 15px 2px rgba(255,255,255,1);
             }
         }
     }
@@ -135,23 +129,11 @@
         margin-left: 50px;
     }
 }
-// input:focus, input.form-control:focus {
-
-//     outline:none !important;
-//     outline-width: 0 !important;
-//     box-shadow: none;
-//     -moz-box-shadow: none;
-//     -webkit-box-shadow: none;
-// }
-
-// label .mat-form-field-appearance-legacy .mat-form-field-label {
-//     color: white !important;
-// }
 @keyframes KEYFRAME-NAME {
     0%   { opacity: 0; }
     100% { opacity: 1; }
   }
-.test {
+.animation {
     visibility: visible !important;
     animation: KEYFRAME-NAME 2s;
 }

@@ -21,7 +21,8 @@
   <form (ngSubmit)="submitComment(f)" #f="ngForm">
     <div class="form-group">
       <mat-form-field>
-          <input
+          <textarea
+            rows="2"
             matInput
             #input
             maxlength="200"
@@ -30,7 +31,7 @@
             name="comment"
             placeholder="Leave a comment"
             ngModel
-            autocomplete="off">
+            autocomplete="off"></textarea>
             <mat-hint align="end">{{input.value?.length || 0}}/200</mat-hint>
       </mat-form-field>
     </div>
@@ -38,7 +39,7 @@
       class="answer-submit-button"
       type="submit"
       [disabled]="!f.value.comment"
-      [ngClass]="{'test': f.value.comment && f.value.comment.length > 0 && f.value.comment.length <= 200}">
+      [ngClass]="{'animation': f.value.comment && f.value.comment.length > 0 && f.value.comment.length <= 200}">
     Send
     </button>
   </form>

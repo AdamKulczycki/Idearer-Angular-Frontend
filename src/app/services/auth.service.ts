@@ -19,7 +19,7 @@ export class AuthService {
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
-  public isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public $isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public signUp(payload: any): Observable<User> {
 
@@ -27,10 +27,9 @@ export class AuthService {
       .pipe(
         map((data: any) => {
           return new User(data);
-        }, /// DLACZEGO CATCH JEST W MAPIE?
+        }),
         catchError((err: HttpErrorResponse) => {
           throw(err); }
-        )
         )
     );
   }
@@ -56,10 +55,14 @@ export class AuthService {
   public logOut() {
     this.storageSrv.clear();
     this.setIsLogged(false);
-    this.router.navigateByUrl('');
+    if (this.router.routerState.snapshot.url === '/articles') {
+      this.router.navigate(['/articles'], { queryParams: { page: 1 } });
+    } else {
+      this.router.navigate(['']);
+    }
   }
 
   public setIsLogged(value: boolean) {
-    this.isLogged.next(value);
+    this.$isLogged.next(value);
   }
 }

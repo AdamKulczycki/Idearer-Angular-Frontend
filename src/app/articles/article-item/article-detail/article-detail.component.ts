@@ -7,6 +7,7 @@ import { CommentsService } from '../../../services/comments.service';
 import { StorageService } from '../../../services/storage.service';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-article-detail',
@@ -15,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ArticleDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('myComments') myComments: ElementRef;
+  @ViewChild('f') formComment: NgForm;
 
   id: number;
   article: Article;
@@ -60,6 +62,7 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
         const commentItem = comment;
         commentItem.user.username = this.storageService.get('username');
         this.comments.push(commentItem);
+        this.formComment.controls.comment.reset();
         this.toastr.success('Comment created!', 'Success!');
       },
       (err) => {
@@ -69,8 +72,8 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
     );
   }
 
-  ngAfterViewInit() { /// delete this or improve
-    setTimeout(() => {
+  ngAfterViewInit() {
+    setTimeout(() => { /// delete this or improve
       console.log(this.myComments);
       this.route.queryParams.subscribe((params: Params) => {
         if (params['ScrollTo']) {
