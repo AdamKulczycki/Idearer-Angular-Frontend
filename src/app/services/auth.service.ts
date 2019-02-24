@@ -43,7 +43,7 @@ export class AuthService {
 
     const headers = new HttpHeaders({
       'Content-Type': `application/x-www-form-urlencoded`,
-      'Authorization': `Basic Y2xpZW50OnNlY3JldA==`})
+      'Authorization': `Basic Y2xpZW50OnNlY3JldA==`});
 
     return this.http.post(api + 'oauth/token', body.toString(), { headers: headers, withCredentials: true })
       .pipe(
@@ -55,11 +55,7 @@ export class AuthService {
   public logOut() {
     this.storageSrv.clear();
     this.setIsLogged(false);
-    if (this.router.routerState.snapshot.url === '/articles') {
-      this.router.navigate(['/articles'], { queryParams: { page: 1 } });
-    } else {
-      this.router.navigate(['']);
-    }
+    this.router.navigateByUrl('');
   }
 
   public setIsLogged(value: boolean) {

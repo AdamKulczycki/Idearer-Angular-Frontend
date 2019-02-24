@@ -74,9 +74,7 @@ export class ArticleFormComponent implements OnInit {
 
   ngOnInit() {
     this.Articleform.form.valueChanges.subscribe(x => {
-      if (x.userData.title) {
-        this.articleObject.title = x.userData.title;
-      }
+      this.articleObject.title = x.userData.title;
       if (this.categories && x.userData.category) {
         this.articleObject.category = this.categories[x.userData.category];
       }

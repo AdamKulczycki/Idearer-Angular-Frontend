@@ -1,13 +1,26 @@
-.custom-modal {
+.report-modal-body {
+    padding: 20px;
+    background: #fff;
+    margin: 15% 15%;
+    border-radius: 15px;
 
-    .custom-modal-body {
-        padding: 20px;
-        background: #fff;
-        margin: 20% 20%;
+    .report-modal-content {
+        padding: 50px 20px;
+
+        .message {
+            display: inline-block;
+            color: black;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: black;
+            color: white;
+            padding: 10px;
+        }
     }
 }
 
-.custom-modal-box {
+.report-modal-box {
     position: fixed;
     top: 0;
     right: 0;
@@ -17,7 +30,8 @@
     background-color: black;
     opacity: 0.9;
 
-    .message {
-        color: black;
-    }
+    // .message {
+    //     color: black;
+    //     margin-bottom: 15px;
+    // }
 }

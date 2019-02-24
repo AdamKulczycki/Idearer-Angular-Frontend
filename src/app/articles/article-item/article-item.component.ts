@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Article } from './../../models/article-model';
 import { DomSanitizer } from '@angular/platform-browser';
-import { User } from '../../models/user-model';
 import { LikesService } from '../../services/likes.service';
 import { ToastrService } from 'ngx-toastr';
 

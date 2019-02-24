@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Article } from '../models/article-model';
 import { ArticlesService } from '../services/articles.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationEnd  } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Page } from '../models/page-model';
 import { Subscription } from 'rxjs';
-
-
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-articles',
@@ -27,39 +25,38 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   public sortLikesReverse: boolean = false;
   public isLogged: boolean;
   public isLoggedSubscription: Subscription;
+  public prevRoute: string;
 
   constructor(private articleService: ArticlesService,
     private route: ActivatedRoute,
     private authSrv: AuthService,
     private router: Router) {
 
+    router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.prevRoute = event.url;
+    });
+    // triggers when user logout from '/articles'
     this.isLoggedSubscription = this.authSrv.$isLogged.subscribe( value => {
-      console.log(value);
-      console.log('pre subscribe, number of observers is: ', this.authSrv.$isLogged.observers.length);
-      // if (value === false) {
-      //   console.log('http request z subjecta')
-      //   this.articleService.getArticles(1)
-      //       .subscribe(
-      //         (page) => {
-      //           this.currentPage = page;
-      //           // this.articles = page.articles;
-      //           // this.currentPage.page = page.page;
-      //           // this.currentPage.pageSize = page.pageSize;
-      //           // this.currentPage.lastPage = page.lastPage;
-      //         },
-      //         (error) => console.log(error)
-      //       );
-      // }
+      if (!value) {
+        if (this.router.navigated && (this.router.url === '/articles' && this.prevRoute === '/')) {
+          this.articleService.getArticles(1)
+            .subscribe(
+              (page) => {
+                this.currentPage = page;
+              },
+              (error) => console.log(error)
+            );
+        }
+      }
       this.isLogged = value;
     });
-
-    
   }
 
 
   ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {
-      console.log('params');
       if ( params['category']) {
         this.currentSort = '';
         this.currentCategory = params['category'];
@@ -78,10 +75,6 @@ export class ArticlesComponent implements OnInit, OnDestroy {
           .subscribe(
             (page) => {
               this.currentPage = page;
-              // this.articles = page.articles;
-              // this.currentPage.page = page.page;
-              // this.currentPage.pageSize = page.pageSize;
-              // this.currentPage.lastPage = page.lastPage;
             },
             (error) => console.log(error)
           );
@@ -103,10 +96,6 @@ export class ArticlesComponent implements OnInit, OnDestroy {
             .subscribe(
               (page) => {
                 this.currentPage = page;
-                // this.articles = page.articles;
-                // this.currentPage.page = page.page;
-                // this.currentPage.pageSize = page.pageSize;
-                // this.currentPage.lastPage = page.lastPage;
               },
               (error) => console.log(error)
             );
@@ -122,10 +111,6 @@ export class ArticlesComponent implements OnInit, OnDestroy {
       .subscribe(
         (page) => {
           this.currentPage = page;
-          // this.articles = page.articles;
-          // this.currentPage.page = page.page;
-          // this.currentPage.pageSize = page.pageSize;
-          // this.currentPage.lastPage = page.lastPage;
         },
         (error) => console.log(error)
       );
@@ -136,10 +121,6 @@ export class ArticlesComponent implements OnInit, OnDestroy {
       .subscribe(
         (page) => {
           this.currentPage = page;
-          // this.articles = page.articles;
-          // this.currentPage.page = page.page;
-          // this.currentPage.pageSize = page.pageSize;
-          // this.currentPage.lastPage = page.lastPage;
         },
         (error) => console.log(error)
       );

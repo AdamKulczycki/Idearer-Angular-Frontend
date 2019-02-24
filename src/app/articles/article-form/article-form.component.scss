@@ -26,10 +26,17 @@ select.ng-valid.ng-touched {
 
     .title-input {
         width: 49%;
+        // height: 100%;
     }
     
     .category-input {
         width: 49%;
+        .form-group {
+            height: calc(100% - 16px);
+            select {
+                height: 100%;
+            }
+        }
     }
 }
 
@@ -63,4 +70,8 @@ select.ng-pristine {
 }
 .article-preview {
     margin-top: 10px;
+}
+
+#category {
+    // height: 40px; // only with id works? :(
 }
