@@ -23,7 +23,6 @@ import { CompareValidatorDirective } from './shared/compare-validator.directive'
 import { CommentsService } from './services/comments.service';
 import { LikesService } from './services/likes.service';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
-import { ReportsPanelComponent } from './reports-panel/reports-panel.component';
 import { ReportModalComponent } from './modals/report-modal/report-modal.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ScrollService } from './services/scroll.service';
@@ -58,7 +57,6 @@ import {MatIconModule} from '@angular/material/icon';
     ProfileComponent,
     CompareValidatorDirective,
     AdminPanelComponent,
-    ReportsPanelComponent,
     ReportModalComponent,
     ArticleEditModalComponent,
   ],
@@ -70,7 +68,7 @@ import {MatIconModule} from '@angular/material/icon';
     ScrollToModule.forRoot(),
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot({
-      timeOut: 2000,
+      timeOut: 3000,
       positionClass: 'toast-bottom-center',
       progressBar: true
     }), // ToastrModule added

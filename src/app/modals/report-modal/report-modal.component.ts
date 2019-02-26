@@ -28,17 +28,18 @@ export class ReportModalComponent implements OnInit {
       id: this.articleId,
       description: f.value.reportReason
     };
-    console.log(payload);
     this.reportsSerivce.reportArticle(payload)
       .subscribe(
         res => {
-          console.log(res);
           this.toastr.success('Report sended!', 'Success!');
           this.closeModal.emit();
         },
         err => {
-          console.log(err);
-          this.toastr.error('Server Error!');
+          if (err.code === 401) {
+            this.toastr.error('You have to be Log In to report article!');
+          } else {
+            this.toastr.error(err.error.error);
+          }
         }
       );
   }

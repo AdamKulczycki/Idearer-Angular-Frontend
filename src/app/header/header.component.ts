@@ -5,6 +5,7 @@ import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
 import { AdminService } from '../services/admin.service';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -15,8 +16,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private isLoggedSubscription: Subscription;
   constructor(private categoriesSrv: CategoriesService,
-    private storageSrv: StorageService, private authSrv: AuthService,
-    private adminService: AdminService) {
+    private storageSrv: StorageService,
+    private authSrv: AuthService,
+    private adminService: AdminService,
+    private toastr: ToastrService) {
 
     this.isLoggedSubscription = this.authSrv.$isLogged.subscribe( value => {
       this.isLogged = value;
@@ -45,12 +48,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       (categories) => {
         this.categories = categories;
       },
-      (err) => console.log(err)
+      (err) => this.toastr.error('Server Error!')
     );
   }
 
   logout() {
     this.authSrv.logOut();
-    // moze wyrzucanie do strony z logowania pomoze, albo na zmiane behaviorSubjecta ponawiac zapytanie o artykuly
   }
 }

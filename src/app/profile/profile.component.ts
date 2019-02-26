@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../models/article-model';
 import { Comment } from '../models/comment-model';
-import { User } from '../models/user-model';
 import { RejectArticle } from '../models/rejectArticle.model';
 import { ArticlesService } from '../services/articles.service';
 import { CommentsService } from '../services/comments.service';
-import { Router } from '@angular/router';
 import { RejectsService } from '../services/rejects.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -16,8 +15,8 @@ import { RejectsService } from '../services/rejects.service';
 export class ProfileComponent implements OnInit {
   constructor(private articlesService: ArticlesService,
     private commentsService: CommentsService,
-    private router: Router,
-    private rejectsService: RejectsService) { }
+    private rejectsService: RejectsService,
+    private toastr: ToastrService) { }
 
   viewSelector = 'articles';
   articles: Article[] = [];
@@ -31,11 +30,9 @@ export class ProfileComponent implements OnInit {
 
   showEditModal(index) {
     this.rejectedArticles[index].showModal = true;
-    console.log('otwieram modal');
   }
   closeEditModal(index) {
     this.rejectedArticles[index].showModal = false;
-    console.log('zamykam modal');
   }
   removeFromArray(index) {
     this.rejectedArticles.splice(index, 1);
@@ -49,7 +46,7 @@ export class ProfileComponent implements OnInit {
         this.articlesHof.push(...res);
       },
       (err) => {
-        console.log(err);
+        this.toastr.error('Server Error!');
       }
     );
     this.articlesService.getUserArticles('ACCEPTED').subscribe(
@@ -57,7 +54,7 @@ export class ProfileComponent implements OnInit {
         this.articles.push(...res);
       },
       (err) => {
-        console.log(err);
+        this.toastr.error('Server Error!');
       }
     );
     this.articlesService.getUserArticles('PENDING').subscribe(
@@ -65,7 +62,7 @@ export class ProfileComponent implements OnInit {
         this.waitingArticles = res;
       },
       (err) => {
-        console.log(err);
+        this.toastr.error('Server Error!');
       }
     );
     this.rejectsService.getUserRejectArticles().subscribe(
@@ -74,15 +71,15 @@ export class ProfileComponent implements OnInit {
         this.rejectedArticles.forEach(element => {
           this.rejectsService.getRejectsByArticleId(element.article.id)
             .subscribe(
-              response => {
+              (response) => {
                 element.rejectInfo = response;
               },
-              err => console.log(err)
+              (err) => this.toastr.error('Server Error!')
             );
         });
       },
       (err) => {
-        console.log(err);
+        this.toastr.error('Server Error!');
       }
     );
     this.commentsService.getUserComments().subscribe(
@@ -90,7 +87,7 @@ export class ProfileComponent implements OnInit {
         this.comments = res;
       },
       (err) => {
-        console.log(err);
+        this.toastr.error('Server Error!');
       }
     );
   }

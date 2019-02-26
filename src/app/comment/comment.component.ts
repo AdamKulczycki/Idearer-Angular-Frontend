@@ -25,7 +25,6 @@ export class CommentComponent implements OnInit {
     private storageService: StorageService,
     private likesService: LikesService,
     private scrollService: ScrollService,
-    private router: Router,
     private toastr: ToastrService) { }
 
   answerClicked = false;
@@ -38,7 +37,6 @@ export class CommentComponent implements OnInit {
   }
 
   submitComment(form) {
-    console.log(form.value);
     const payload = {
       article: {
         id: this.articleId
@@ -58,8 +56,11 @@ export class CommentComponent implements OnInit {
         this.toastr.success('Comment created!', 'Success!');
       },
       (err) => {
-        console.log(err);
-        this.toastr.error('Server Error!');
+        if (err.code === 401) {
+          this.toastr.error('You have to be Log In to write comments!');
+        } else {
+          this.toastr.error(err.error.error);
+        }
       }
     );
   }
@@ -69,11 +70,9 @@ export class CommentComponent implements OnInit {
       commentId: this.comment.id,
       liked: liked
     };
-    console.log(payload);
     this.likesService.commentChangeLike(payload)
     .subscribe(
       (res) => {
-        console.log(res);
         if (payload.liked) {
           this.comment.likesCount ++;
           this.toastr.success('You liked this comment!', 'Liked!');
@@ -84,8 +83,11 @@ export class CommentComponent implements OnInit {
         this.comment.liked = payload.liked;
       },
       (err) => {
-        console.log(err);
-        this.toastr.error('Server Error!');
+        if (err.code === 401) {
+          this.toastr.error('You have to be Log In to give likes!');
+        } else {
+          this.toastr.error(err.error.error);
+        }
       }
     );
   }

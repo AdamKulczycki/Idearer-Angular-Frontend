@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Article } from './../../models/article-model';
-import { DomSanitizer } from '@angular/platform-browser';
 import { LikesService } from '../../services/likes.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -27,11 +26,9 @@ export class ArticleItemComponent implements OnInit {
 
   showReportModal() {
     this.showModal = true;
-    console.log('otwieram modal');
   }
   closeReportModal() {
     this.showModal = false;
-    console.log('zamykam modal');
   }
 
   @Input()
@@ -47,8 +44,7 @@ export class ArticleItemComponent implements OnInit {
   }
 
 
-  constructor(private sanitizer: DomSanitizer, private likesService: LikesService, private toastr: ToastrService) {
-    // this.safeURL = sanitizer.bypassSecurityTrustResourceUrl(this.article.content);
+  constructor(private likesService: LikesService, private toastr: ToastrService) {
  }
 
   ngOnInit() {
@@ -59,7 +55,6 @@ export class ArticleItemComponent implements OnInit {
       articleId: this._article.id,
       liked: liked
     };
-    console.log(payload);
     this.likesService.articleChangeLike(payload)
     .subscribe(
       (res) => {
@@ -73,7 +68,11 @@ export class ArticleItemComponent implements OnInit {
         this.article.liked = payload.liked;
       },
       (err) => {
-        this.toastr.error(err);
+        if (err.code === 401) {
+          this.toastr.error('You have to be Log In to give likes!');
+        } else {
+          this.toastr.error(err.error.error);
+        }
       }
     );
   }

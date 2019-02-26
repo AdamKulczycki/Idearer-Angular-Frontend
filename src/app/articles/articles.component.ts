@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { Page } from '../models/page-model';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-articles',
@@ -16,10 +17,9 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   public currentCategory;
   public currentPage = new Page(null);
   public currentSort;
-  //public articles: Article[] = [];
-  public sortByTitle: string = "ASCENDING_TITLE";
-  public sortByDate: string = "DESCENDING_CREATED";
-  public sortByLikes: string = "DESCENDING_LIKES";
+  public sortByTitle: string = 'ASCENDING_TITLE';
+  public sortByDate: string = 'DESCENDING_CREATED';
+  public sortByLikes: string = 'DESCENDING_LIKES';
   public sortTitleReverse: boolean = false;
   public sortDateReverse: boolean = false;
   public sortLikesReverse: boolean = false;
@@ -30,7 +30,8 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   constructor(private articleService: ArticlesService,
     private route: ActivatedRoute,
     private authSrv: AuthService,
-    private router: Router) {
+    private router: Router,
+    private toastr: ToastrService) {
 
     router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -46,7 +47,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
               (page) => {
                 this.currentPage = page;
               },
-              (error) => console.log(error)
+              (err) => this.toastr.error('Server Error!')
             );
         }
       }
@@ -76,7 +77,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
             (page) => {
               this.currentPage = page;
             },
-            (error) => console.log(error)
+            (err) => this.toastr.error('Server Error!')
           );
         }
       } else {
@@ -97,7 +98,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
               (page) => {
                 this.currentPage = page;
               },
-              (error) => console.log(error)
+              (err) => this.toastr.error('Server Error!')
             );
           }
         }
@@ -106,23 +107,23 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.isLoggedSubscription.unsubscribe();
   }
-  sortArticles(sortName: string, page) {
-    this.articleService.getSortArticles(sortName, page)
+  sortArticles(sortName: string, pageNumber: number) {
+    this.articleService.getSortArticles(sortName, pageNumber)
       .subscribe(
         (page) => {
           this.currentPage = page;
         },
-        (error) => console.log(error)
+        (err) => this.toastr.error('Server Error!')
       );
   }
 
-  sortArticlesByCategory(categoryName: string, sortName: string, page) {
-    this.articleService.getSortArticlesByCategory(categoryName, sortName, page)
+  sortArticlesByCategory(categoryName: string, sortName: string, pageNumber: number) {
+    this.articleService.getSortArticlesByCategory(categoryName, sortName, pageNumber)
       .subscribe(
         (page) => {
           this.currentPage = page;
         },
-        (error) => console.log(error)
+        (err) => this.toastr.error('Server Error!')
       );
   }
 
@@ -130,28 +131,28 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     this.currentSort = sortName;
 
     switch (sortName) {
-      case "ASCENDING_TITLE":
-        this.sortByTitle = "DESCENDING_TITLE";
+      case 'ASCENDING_TITLE':
+        this.sortByTitle = 'DESCENDING_TITLE';
         this.sortTitleReverse = !this.sortTitleReverse;
         break;
-      case "DESCENDING_TITLE":
-        this.sortByTitle = "ASCENDING_TITLE";
+      case 'DESCENDING_TITLE':
+        this.sortByTitle = 'ASCENDING_TITLE';
         this.sortTitleReverse = !this.sortTitleReverse;
         break;
-      case "ASCENDING_CREATED":
-        this.sortByDate = "DESCENDING_CREATED";
+      case 'ASCENDING_CREATED':
+        this.sortByDate = 'DESCENDING_CREATED';
         this.sortDateReverse = !this.sortDateReverse;
         break;
-      case "DESCENDING_CREATED":
-        this.sortByDate = "ASCENDING_CREATED";
+      case 'DESCENDING_CREATED':
+        this.sortByDate = 'ASCENDING_CREATED';
         this.sortDateReverse = !this.sortDateReverse;
         break;
-      case "ASCENDING_LIKES":
-        this.sortByLikes = "DESCENDING_LIKES";
+      case 'ASCENDING_LIKES':
+        this.sortByLikes = 'DESCENDING_LIKES';
         this.sortLikesReverse = !this.sortLikesReverse;
         break;
-      case "DESCENDING_LIKES":
-        this.sortByLikes = "ASCENDING_LIKES";
+      case 'DESCENDING_LIKES':
+        this.sortByLikes = 'ASCENDING_LIKES';
         this.sortLikesReverse = !this.sortLikesReverse;
         break;
     }

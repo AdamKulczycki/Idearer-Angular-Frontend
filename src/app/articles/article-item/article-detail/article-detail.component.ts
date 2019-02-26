@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Article } from '../../../models/article-model';
 import { Comment } from '../../../models/comment-model';
 import { ArticlesService } from '../../../services/articles.service';
@@ -22,7 +22,7 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
   article: Article;
   comments: Comment[] = [];
 
-  constructor(private router: Router, private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
     private articlesService: ArticlesService,
     private commentsService: CommentsService,
     private storageService: StorageService,
@@ -36,19 +36,18 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
         (article) => {
           this.article = article;
         },
-        (error) => console.log(error)
+        (err) => this.toastr.error('Server Error!')
       );
     this.commentsService.getComments(this.id)
       .subscribe(
         (comments) => {
           this.comments = comments;
         },
-        (error) => console.log(error)
+        (err) => this.toastr.error('Server Error!')
     );
   }
 
   submitComment(form) {
-    console.log(this.myComments);
     const payload = {
       article: {
         id: this.article.id
@@ -66,8 +65,11 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
         this.toastr.success('Comment created!', 'Success!');
       },
       (err) => {
-        console.log(err);
-        this.toastr.error('Server Error!');
+        if (err.code === 401) {
+          this.toastr.error('You have to be Log In to write comments!');
+        } else {
+          this.toastr.error(err.error.error);
+        }
       }
     );
   }

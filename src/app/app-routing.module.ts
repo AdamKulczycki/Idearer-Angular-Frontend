@@ -7,7 +7,6 @@ import { ArticleFormComponent } from './articles/article-form/article-form.compo
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
-import { ReportsPanelComponent } from './reports-panel/reports-panel.component';
 import { LoginGuard } from './services/login-guard.service';
 import { ArticleEditModalComponent } from './modals/article-edit-modal/article-edit-modal.component';
 import { AdminGuard } from './services/admin-guard.service';
@@ -22,7 +21,6 @@ const appRoutes: Routes = [
     { path: 'create', canActivate: [LoginGuard], component: ArticleFormComponent },
     { path: 'profile', canActivate: [LoginGuard], component: ProfileComponent },
     { path: 'admin', canActivate: [LoginGuard, AdminGuard], component: AdminPanelComponent, resolve:  { test: ReportsResolver } },
-    { path: 'reports', component: ReportsPanelComponent },
     { path: 'modal', component: ArticleEditModalComponent },
     { path: '**', redirectTo: '/articles'},
 ];

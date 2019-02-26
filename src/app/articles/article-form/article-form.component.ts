@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/category-model';
@@ -8,13 +8,14 @@ import { ArticlesService } from '../../services/articles.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-article-form',
   templateUrl: './article-form.component.html',
   styleUrls: ['./article-form.component.scss']
 })
-export class ArticleFormComponent implements OnInit {
+export class ArticleFormComponent implements OnInit, OnDestroy {
   constructor(private categoriesService: CategoriesService,
     private articlesService: ArticlesService,
     private storageService: StorageService,
@@ -24,10 +25,11 @@ export class ArticleFormComponent implements OnInit {
     this.categoriesService.getCategories()
       .subscribe(
         (categories) => this.categories = categories,
-        (error) => console.log(error)
+        (error) => this.toastr.error('Server Error!')
       );
    }
   @ViewChild('f') Articleform: NgForm;
+  articleFormSubscription: Subscription;
   categories: Category[];
   categoryPlaceholder = -1;
   URL_content_REGEX = new RegExp('^[\s\S]*watch\?v=([\s\S]*)$');
@@ -57,23 +59,20 @@ export class ArticleFormComponent implements OnInit {
     }
     this.articleObject.category = this.categories[this.Articleform.value.userData.category];
     this.newArticle = new Article(this.articleObject);
-    console.log(this.newArticle);
     this.articlesService.makeArticle(this.newArticle)
     .subscribe(
       (res) => {
-        console.log(res);
         this.toastr.success('Article created!', 'Success!');
         this.router.navigateByUrl('');
       },
       (err) => {
         this.toastr.error('Server Error!');
-        console.log(err);
       }
     );
   }
 
   ngOnInit() {
-    this.Articleform.form.valueChanges.subscribe(x => {
+    this.articleFormSubscription = this.Articleform.form.valueChanges.subscribe(x => {
       this.articleObject.title = x.userData.title;
       if (this.categories && x.userData.category) {
         this.articleObject.category = this.categories[x.userData.category];
@@ -86,8 +85,8 @@ export class ArticleFormComponent implements OnInit {
       this.newArticle = new Article(this.articleObject);
     });
   }
-  /* ngOnDestroy() {
-    this.formChangesSubscription.unsubscribe();
-  } */
+  ngOnDestroy() {
+    this.articleFormSubscription.unsubscribe();
+  }
 
 }

@@ -34,12 +34,10 @@ export class RegisterComponent implements OnInit {
     this.newUser = new User(this.user);
 
     this.authSrv.signUp(this.newUser).subscribe(
-      (response) => {
-        console.log(response);
+      (res) => {
         this.toastr.success('Account created!', 'Success!');
       },
       (err) => {
-        console.log(err);
         this.toastr.error('Server Error!');
       }
     );

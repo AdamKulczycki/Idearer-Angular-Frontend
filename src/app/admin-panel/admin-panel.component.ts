@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../models/article-model';
-import { User } from '../models/user-model';
-import { Category } from '../models/category-model';
 import { ArticlesService } from '../services/articles.service';
 import { RejectsService } from '../services/rejects.service';
 import { ReportsService } from '../services/reports.service';
-import { Report } from '../models/report-model';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 
@@ -29,7 +25,7 @@ export class AdminPanelComponent implements OnInit {
           this.articles = res;
         },
         (err) => {
-          console.log(err);
+          this.toastr.error('Server Error!');
         }
       );
 
@@ -77,7 +73,6 @@ export class AdminPanelComponent implements OnInit {
   articles = [];
   reportsArray = [];
   onSubmit(f, id) {
-    console.log(f.value);
     const index = this.articles.map(e => e.id).indexOf(id);
     if (!f.value.reason) {
       const payload = {
@@ -85,13 +80,11 @@ export class AdminPanelComponent implements OnInit {
       };
       this.articlesService.patchArticle(id, payload)
         .subscribe(
-          res => {
-            console.log(res);
+          (res) => {
             this.toastr.success('Status changed!', 'Success!');
             this.articles.splice(index, 1);
           },
-          err => {
-            console.log(err);
+          (err) => {
             this.toastr.error('Server Error!');
           }
         );
@@ -99,26 +92,22 @@ export class AdminPanelComponent implements OnInit {
       if (!f.value.otherReason) {
         this.rejectsService.rejectArticle(id, f.value.reason)
           .subscribe(
-            res => {
-              console.log(res);
+            (res) => {
               this.toastr.success('Status changed!', 'Success!');
               this.articles.splice(index, 1);
             },
-            err => {
-              console.log(err);
+            (err) => {
               this.toastr.error('Server Error!');
             }
           );
       } else {
         this.rejectsService.rejectArticle(id, f.value.otherReason)
           .subscribe(
-            res => {
-              console.log(res);
+            (res) => {
               this.toastr.success('Status changed!', 'Success!');
               this.articles.splice(index, 1);
             },
-            err => {
-              console.log(err);
+            (err) => {
               this.toastr.error('Server Error!');
             }
           );
@@ -130,26 +119,22 @@ export class AdminPanelComponent implements OnInit {
     if (!f.value.otherReason) {
       this.rejectsService.rejectArticle(id, f.value.reason)
         .subscribe(
-          res => {
-          console.log(res);
+          (res) => {
           this.toastr.success('Report accepted!', 'Success!');
           this.reportsArray.splice(index, 1);
           },
-          err => {
-            console.log(err);
+          (err) => {
             this.toastr.error('Server Error!');
           }
         );
     } else {
       this.rejectsService.rejectArticle(id, f.value.otherReason)
         .subscribe(
-          res => {
-          console.log(res);
+          (res) => {
           this.toastr.success('Report accepted!', 'Success!');
           this.reportsArray.splice(index, 1);
           },
-          err => {
-            console.log(err);
+          (err) => {
             this.toastr.error('Server Error!');
           }
         );
@@ -167,17 +152,14 @@ export class AdminPanelComponent implements OnInit {
     this.reportsArray[index].articleReports.forEach(element => {
       this.reportsService.deleteReport(element.id)
         .subscribe(
-          res => {
-            console.log(res);
-            this.toastr.success('Report deleted!', 'Success!');
+          (res) => {
             reportsDeleted ++;
             if (numberOfReports === reportsDeleted) {
-              console.log('All reports was deleted');
+              this.toastr.success('Reports deleted!', 'Success!');
               this.reportsArray.splice(index, 1);
             }
           },
-          err => {
-            console.log(err);
+          (err) => {
             this.toastr.error('Server Error!');
           }
         );
