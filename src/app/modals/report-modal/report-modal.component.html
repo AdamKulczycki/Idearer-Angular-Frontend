@@ -1,24 +1,33 @@
-<div class="custom-modal-box"  (click)="close()">
-  <div class="custom-modal">
-      <div class="custom-modal-body" (click)="stop($event)">
-        <span class="message">You want to report this article. Make sure you know what you are doing.</span>
-        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-          <div class="form-group">
-            <input
-              type="text"
-              id="reportReason"
-              class="form-control"
-              name="reportReason"
-              ngModel
-              required
-              placeholder="Report reason...">
-          </div>
-          <button
-            type="submit"
-            [disabled]="!f.valid">
-            Submit
-          </button>
-        </form>
+<div class="report-modal-box"  (click)="close()">
+      <div class="report-modal-body" (click)="stop($event)">
+        <div class="report-modal-content">
+            <i class="fas fa-times icon-close-modal" (click)="close()"></i>
+            <div class="message">You want to report this article. Make sure you know what you are doing</div>
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="reportReason"
+                  class="form-control"
+                  name="reportReason"
+                  ngModel
+                  required
+                  placeholder="Report reason...">
+              </div>
+              <div class="buttons-panel">
+                <button
+                (click)="close()"
+                class="button-cancel">
+                Cancel
+              </button>
+              <button
+                class="button-submit"
+                type="submit"
+                [disabled]="!f.valid">
+                Submit
+              </button>
+              </div>
+            </form>
+        </div>
       </div>
-  </div>
 </div>

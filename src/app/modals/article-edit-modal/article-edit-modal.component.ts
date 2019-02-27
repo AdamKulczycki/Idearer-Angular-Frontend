@@ -3,6 +3,8 @@ import { Article } from 'src/app/models/article-model';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { Category } from 'src/app/models/category-model';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-article-edit-modal',
@@ -13,24 +15,27 @@ export class ArticleEditModalComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<any> = new EventEmitter();
   @Output() removeArticleFromArray: EventEmitter<any> = new EventEmitter();
-  // @Output() closeModalandEditedArticle: EventEmitter<any> = new EventEmitter();
   @Input() article: Article;
-  categories: Category[];
-  contentPlaceholder;
-  categoryPlaceholder;
-  constructor(private categoriesService: CategoriesService, private articlesService: ArticlesService) {
+  public categories: Category[];
+  public contentPlaceholder: string;
+  public categoryPlaceholder: number;
+
+  constructor(private categoriesService: CategoriesService, private articlesService: ArticlesService, private toastr: ToastrService) {
     this.categoriesService.getCategories()
       .subscribe(
         (categories) => {
           this.categories = categories;
-          console.log(categories);
           this.categoryPlaceholder = this.article.category.id - 1;
         },
-        (error) => console.log(error)
+        (err) => this.toastr.error('Server Error!')
       );
-   }
+  }
 
-  onSubmit(f) {
+  ngOnInit() {
+    this.contentPlaceholder = 'https://www.youtube.com/watch?v=' + this.article.content;
+  }
+
+  onSubmit(f): void {
     this.article.title = f.value.userData.title;
     this.article.category = this.categories[f.value.userData.category];
     this.article.content = f.value.userData.content.match(/^[\s\S]*watch\?v=([\s\S]{11})$/)[1];
@@ -44,22 +49,21 @@ export class ArticleEditModalComponent implements OnInit {
     };
     this.articlesService.patchArticle(this.article.id, payload).subscribe(
       (res) => {
-        console.log(res);
         this.removeArticleFromArray.emit();
         this.closeModal.emit();
+        this.toastr.success('Article changed!', 'Success!');
       },
-      (err) => console.log(err)
+      (err) => {
+        this.toastr.error('Server Error!');
+      }
     );
   }
 
-  close() {
+  close(): void {
     this.closeModal.emit();
   }
-  stop(event) {
+  stop(event): void {
     event.stopPropagation();
-  }
-  ngOnInit() {
-    this.contentPlaceholder = 'https://www.youtube.com/watch?v=' + this.article.content;
   }
 
 }

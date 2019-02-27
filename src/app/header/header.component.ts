@@ -1,22 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { CategoriesService } from '../services/categories.service';
 import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
 import { AdminService } from '../services/admin.service';
+import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { Category } from '../models/category-model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+
+  public categories: Category[] = [];
+  public isLogged: boolean;
+  public isAdministrator: boolean;
+  public username: string = '';
+  private isLoggedSubscription: Subscription;
 
   constructor(private categoriesSrv: CategoriesService,
-    private storageSrv: StorageService, private authSrv: AuthService,
-    private adminService: AdminService) {
+    private storageSrv: StorageService,
+    private authSrv: AuthService,
+    private adminService: AdminService,
+    private toastr: ToastrService) {
 
-    this.authSrv.isLogged.subscribe( value => {
+    this.isLoggedSubscription = this.authSrv.$isLogged.subscribe( value => {
       this.isLogged = value;
       this.username = this.storageSrv.get('username');
     });
@@ -25,34 +36,24 @@ export class HeaderComponent implements OnInit {
     this.adminService.$isAdmin.subscribe(
       response => this.isAdministrator = response
     );
-    // this.isAdmin.checkIfAdmin().subscribe(
-    //   res => {
-    //     this.isAdministrator = res;
-    //     console.log(res);
-    //   },
-    //   err => console.log(err)
-    // );
   }
-
-  categories = [];
-  isLogged: boolean;
-  isAdministrator: boolean;
-  username = '';
 
   ngOnInit() {
     this.getCategories();
   }
-
-  getCategories() {
+  ngOnDestroy() {
+    this.isLoggedSubscription.unsubscribe();
+  }
+  getCategories(): void {
     this.categoriesSrv.getCategories().subscribe(
       (categories) => {
         this.categories = categories;
-      }
+      },
+      (err) => this.toastr.error('Server Error!')
     );
   }
 
-  logout() {
+  logout(): void {
     this.authSrv.logOut();
-    // zamiast przeladowywania strony bezposrednia moze przenawigowac do niezaleznego urla co tez ja chyba przeladuje
   }
 }

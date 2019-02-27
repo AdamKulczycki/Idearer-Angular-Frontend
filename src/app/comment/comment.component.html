@@ -1,38 +1,46 @@
 <div class="comment" id="comment-{{comment.id}}">
   <div class="comment-top">
     <div class="autor-created-container">
-        <span class="author"> {{ comment.user.username }}</span>
-        <span class="created">{{ comment.created }}</span>
+        <span class="author">{{comment.user.username}}</span>
+        <span class="created">{{comment.created}}</span>
     </div>
     <div class="likes">
-          <span *ngIf="!comment.liked" class="like-button" (click)="changeLike(true)"><i class="far fa-thumbs-up"></i></span>
-          <span *ngIf="comment.liked" class="like-button" (click)="changeLike(false)"><i class="far fa-thumbs-down"></i></span>
-        {{ comment.likesCount }}
+        <span *ngIf="!comment.liked" class="like-button" (click)="changeLike(true)"><i class="far fa-thumbs-up"></i></span>
+        <span *ngIf="comment.liked" class="like-button" (click)="changeLike(false)"><i class="fas fa-thumbs-up"></i></span>&nbsp;{{comment.likesCount}}
     </div>
   </div>
-<div class="content"><div *ngIf="parentCommentAuthor" class="parentCommentAuthor" (click)="scroll()">@{{ parentCommentAuthor }}</div> {{ comment.content }}</div>
-<div class="bottom">
-    <div *ngIf="!answerClicked" class="answerButton" (click)="answerVisibility()">Answer</div>
-    <div class="scroll-to-comment" [routerLink]="['/articles', articleId]" [queryParams]="{ScrollTo: 'comment-' + comment.id}">Go to origin</div>
+<div class="content">
+  <span *ngIf="parentCommentAuthor" class="parent-comment-author" (click)="scroll()">@{{parentCommentAuthor}}&nbsp;</span>
+  <span class="comment-text">{{comment.content}}</span>
 </div>
-<div *ngIf="answerClicked" class="answer">
+<div class="bottom">
+    <div *ngIf="!answerClicked" class="answer-button" (click)="answerVisibility()">Answer</div>
+    <!-- <div class="scroll-to-comment" [routerLink]="['/articles', articleId]" [queryParams]="{ScrollTo: 'comment-' + comment.id}">Go to origin</div> -->
+</div>
+<div class="answer" *ngIf="answerClicked">
   <form (ngSubmit)="submitComment(f)" #f="ngForm">
     <div class="form-group">
-      <input 
-        type="text" 
-        id="comment" 
-        class="form-control" 
-        ngModel
-        name="comment" 
-        required
-        #title="ngModel"
-        placeholder="Write You'r Answer">
+      <mat-form-field>
+          <textarea
+            rows="2"
+            matInput
+            #input
+            maxlength="255"
+            type="text"
+            id="comment"
+            name="comment"
+            placeholder="Leave a comment"
+            ngModel
+            autocomplete="off"></textarea>
+            <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
+      </mat-form-field>
     </div>
     <button
-      class="answerSubmit"
-      type="submit" 
-      [disabled]="!f.valid">
-      Submit
+      class="answer-submit-button"
+      type="submit"
+      [disabled]="!f.value.comment"
+      [ngClass]="{'animation': f.value.comment && f.value.comment.length > 0}">
+    Send
     </button>
   </form>
 </div>

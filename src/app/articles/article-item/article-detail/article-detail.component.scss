@@ -18,38 +18,53 @@
 
     .answer {
         margin-bottom: 10px;
-    }
+        background-color: $mainTheme;
+        color: white;
+        padding: 20px 0 10px 0;
+        border-radius: 15px;
 
-    form {
-        display: flex;
-        flex-direction: row;
+        form {
+            display: flex;
+            flex-direction: row;
+     
+            .form-group {
+                width: 80%;
+                margin-bottom: 0;
+                margin: 0 auto 0 auto;
     
-        .form-group {
-            width: 80%;
-            margin-bottom: 0;
-    
-            input {
-                border-radius: 0 0 0 15px;
-                padding-left: 10px;
+        
+                mat-form-field {
+                    width: 100%;
+                }
+                textarea {
+                    font-size: 1rem;
+                    overflow: hidden;
+                    max-height: 3rem; // how about mobile devices?
+                }
+            }
+        
+            .answer-submit-button {
+                cursor: pointer;
+                background-color: white;
+                color: black;
+                width: 15%;
+                height: 3rem;
+                text-align: center;
+                border: 0;
+                border-radius: 5px;
+                margin: 0 auto 20px auto;
+                visibility: hidden;         
+                &:disabled {
+                    background-color: grey;
+                    cursor: default;
+                }
+                &:hover:enabled {
+                    box-shadow: 0px 0px 15px 2px rgba(255,255,255,1);
+                }
             }
         }
-
-        .answerSubmit {
-            cursor: pointer;
-            background-color: white;
-            color: black;
-            width: 20%;
-            text-align: center;
-            padding: 0px;
-            border: 0;
-            border-left: 1px solid black;
-            border-radius: 0 0 15px 0;
-            &:disabled {
-                background-color: grey;
-                cursor: default;
-            }
-        }
     }
+    
 }
 
 .col-lg-10 {
@@ -87,10 +102,18 @@
     }
 
     .content {
-        // text-align: center;
         padding: 20px 20px;
     }
 
 .author {
     color: yellow;
+}
+
+@keyframes KEYFRAME-NAME {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+.animation {
+    visibility: visible !important;
+    animation: KEYFRAME-NAME 2s;
 }

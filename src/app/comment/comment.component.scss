@@ -21,6 +21,7 @@
         }
 
         .autor-created-container{
+            margin: auto 0;
 
             @media (max-width: 380px) {
                 display: flex;
@@ -37,17 +38,24 @@
         }
 
         .likes {
+            font-size: 1.3em;
+            span {
+                i {
+                    cursor: pointer;
+                }
+            }
         }
     }
 
     .content {
-        padding: 20px 20px;
-        word-wrap: break-word;
-        display: flex;
-        flex-direction: column;
+        padding: 20px 20px 0 20px;
 
-        .parentCommentAuthor {
+        .parent-comment-author {
             font-weight: bold;
+            cursor: pointer;
+        }
+        .comment-text {
+            word-wrap: break-word;
         }
     }
 
@@ -55,16 +63,18 @@
     
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
 
-        .answerButton {
+        .answer-button {
             cursor: pointer;
-            background-color: white;
-            color: black;
+            color: white;
             text-align: center;
             padding: 2px;
             width: 70px;
-            border-radius: 5px 5px 5px 15px;
+
+            &:hover {
+                color: yellow;
+            }
         }
         .scroll-to-comment {
             margin-right: 10px;
@@ -75,30 +85,40 @@
     form {
         display: flex;
         flex-direction: row;
-    
+ 
         .form-group {
             width: 80%;
             margin-bottom: 0;
+            margin: 0 auto 0 auto;
+
     
-            input {
-                border-radius: 0 0 0 15px;
-                padding-left: 10px;
+            mat-form-field {
+                width: 100%;
+            }
+            textarea {
+                font-size: 1rem;
+                overflow: hidden;
+                max-height: 5rem; // how about mobile devices?
             }
         }
     
-        .answerSubmit {
+        .answer-submit-button {
             cursor: pointer;
             background-color: white;
             color: black;
-            width: 20%;
+            width: 15%;
+            height: 3rem;
             text-align: center;
-            padding: 0px;
             border: 0;
-            border-left: 1px solid black;
-            border-radius: 0 0 15px 0;
+            border-radius: 5px;
+            margin: 0 auto 20px auto;
+            visibility: hidden;         
             &:disabled {
                 background-color: grey;
                 cursor: default;
+            }
+            &:hover:enabled {
+                box-shadow: 0px 0px 15px 2px rgba(255,255,255,1);
             }
         }
     }
@@ -108,4 +128,12 @@
     &--top {
         margin-left: 50px;
     }
+}
+@keyframes KEYFRAME-NAME {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+.animation {
+    visibility: visible !important;
+    animation: KEYFRAME-NAME 2s;
 }

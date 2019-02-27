@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import { api } from './global-variables';
-import { map, catchError } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable()
@@ -11,7 +10,7 @@ export class AdminService {
 
     public $isAdmin = new BehaviorSubject<boolean>(false);
     constructor(private http: HttpClient, private storageService: StorageService) {}
-    checkIfAdmin() {
+    checkIfAdmin(): void {
         const id = this.storageService.get('id');
         if (id) {
             this.http.get(api + 'users/' + id).subscribe(
@@ -26,7 +25,7 @@ export class AdminService {
 
     }
 
-    public setIsAdmin(value: boolean) {
+    public setIsAdmin(value: boolean): void {
         this.$isAdmin.next(value);
       }
 }

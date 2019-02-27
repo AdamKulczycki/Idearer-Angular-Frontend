@@ -8,6 +8,8 @@ import { map, catchError } from 'rxjs/operators';
 import { StorageService } from './storage.service';
 import { User } from '../models/user-model';
 import { api } from './global-variables';
+import { handleError } from '../shared/errorHandler';
+
 
 @Injectable()
 export class AuthService {
@@ -16,19 +18,18 @@ export class AuthService {
 
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
-  }
-  public isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  };
+  public $isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  public signUp(payload: any): Observable<User>{
+  public signUp(payload: any): Observable<User> {
 
     return this.http.post(api + 'users', JSON.stringify(payload), this.httpOptions)
       .pipe(
         map((data: any) => {
           return new User(data);
-        },
+        }),
         catchError((err: HttpErrorResponse) => {
           throw(err); }
-        )
         )
     );
   }
@@ -42,22 +43,22 @@ export class AuthService {
 
     const headers = new HttpHeaders({
       'Content-Type': `application/x-www-form-urlencoded`,
-      'Authorization': `Basic Y2xpZW50OnNlY3JldA==`})
+      'Authorization': `Basic Y2xpZW50OnNlY3JldA==`});
 
     return this.http.post(api + 'oauth/token', body.toString(), { headers: headers, withCredentials: true })
       .pipe(
         map((res: any) => res),
-        catchError((err: any) => {throw(err)})
-      )
+        catchError(handleError)
+      );
   }
 
-  public logOut() {
+  public logOut(): void {
     this.storageSrv.clear();
     this.setIsLogged(false);
     this.router.navigateByUrl('');
   }
 
-  public setIsLogged(value: boolean) {
-    this.isLogged.next(value);
+  public setIsLogged(value: boolean): void {
+    this.$isLogged.next(value);
   }
 }

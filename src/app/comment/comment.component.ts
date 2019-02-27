@@ -1,18 +1,19 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Comment } from '../models/comment-model';
 import { CommentsService } from '../services/comments.service';
 import { StorageService } from '../services/storage.service';
 import { LikesService } from '../services/likes.service';
 import { ScrollService } from '../services/scroll.service';
-import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit, OnDestroy {
 
   @Input() mainComment: boolean;
   @Input() parentCommentAuthor: string;
@@ -20,18 +21,34 @@ export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   @Input() articleId: number;
   @ViewChild('f') Articleform: NgForm;
-  constructor(private commentsService: CommentsService, private storageService: StorageService,
-    private likesService: LikesService, private scrollService: ScrollService, private router: Router) { }
+  public answerClicked: boolean = false;
+  public commentSubscription: Subscription;
 
-  answerClicked = false;
-  answerVisibility() {
+  constructor(private commentsService: CommentsService,
+    private storageService: StorageService,
+    private likesService: LikesService,
+    private scrollService: ScrollService,
+    private toastr: ToastrService) { }
+
+  ngOnInit() {
+    this.commentSubscription = this.commentsService.$activeCommentForm.subscribe(
+      res => {
+        if (res !== this.comment.id) {
+          this.answerClicked = false;
+        }
+      }
+    );
+  }
+
+  answerVisibility(): void {
     this.answerClicked = !this.answerClicked;
+    this.commentsService.setActiveCommentForm(this.comment.id);
   }
   scroll() {
     this.scrollService.triggerScrollTo('comment-' + this.parentCommentId);
   }
 
-  submitComment(form) {
+  submitComment(form): void {
     const payload = {
       article: {
         id: this.articleId
@@ -41,7 +58,6 @@ export class CommentComponent implements OnInit {
         id: this.comment.id
       }
     };
-
     this.commentsService.makeComment(payload)
     .subscribe(
       (comment) => {
@@ -49,36 +65,46 @@ export class CommentComponent implements OnInit {
         commentItem.user.username = this.storageService.get('username');
         this.comment.comments.push(commentItem);
         this.answerClicked = false;
+        this.toastr.success('Comment created!', 'Success!');
       },
       (err) => {
-        console.log(err);
+        if (err.code === 401) {
+          this.toastr.error('You have to be Log In to write comments!');
+        } else {
+          this.toastr.error(err.error.error);
+        }
       }
     );
   }
 
-  changeLike(liked) {
+  changeLike(liked): void {
     const payload = {
       commentId: this.comment.id,
       liked: liked
     };
-    console.log(payload);
     this.likesService.commentChangeLike(payload)
     .subscribe(
       (res) => {
-        console.log(res);
         if (payload.liked) {
           this.comment.likesCount ++;
+          this.toastr.success('You liked this comment!', 'Liked!');
         } else {
           this.comment.likesCount --;
+          this.toastr.success('You unliked this comment!', 'Unliked!');
         }
         this.comment.liked = payload.liked;
       },
       (err) => {
-        console.log(err);
+        if (err.code === 401) {
+          this.toastr.error('You have to be Log In to give likes!');
+        } else {
+          this.toastr.error(err.error.error);
+        }
       }
     );
   }
-  ngOnInit() {
-  }
 
+  ngOnDestroy() {
+    this.commentSubscription.unsubscribe();
+  }
 }

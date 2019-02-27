@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../models/user-model';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-register',
@@ -12,13 +14,13 @@ export class RegisterComponent implements OnInit {
 
   @ViewChild('registerForm') RegisterForm: NgForm;
 
-  constructor(private authSrv: AuthService) { }
+  constructor(private authSrv: AuthService, private toastr: ToastrService) { }
 
   user = {
     email: '',
     password: '',
     username: ''
-  }
+  };
 
   newUser = new User(this.user);
 
@@ -30,15 +32,13 @@ export class RegisterComponent implements OnInit {
     this.user.password = this.RegisterForm.value.userData.password;
     this.user.username = this.RegisterForm.value.userData.username;
     this.newUser = new User(this.user);
-    
-    console.log(this.newUser);
-    
+
     this.authSrv.signUp(this.newUser).subscribe(
-      (response) => {
-        console.log(response);
-      }, 
+      (res) => {
+        this.toastr.success('Account created!', 'Success!');
+      },
       (err) => {
-        console.log(err);
+        this.toastr.error('Server Error!');
       }
     );
   }

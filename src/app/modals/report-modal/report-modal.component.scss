@@ -1,23 +1,73 @@
-.custom-modal {
+.report-modal-body {
+    background: #fff;
+    margin: 15% 15%;
+    border-radius: 15px;
 
-    .custom-modal-body {
-        padding: 20px;
-        background: #fff;
-        margin: 20% 20%;
+    .report-modal-content {
+        padding: 20px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .icon-close-modal {
+            color: black;
+            font-size: 1.5rem;
+            align-self: flex-end;
+            cursor: pointer;
+        }
+        .message {
+            display: inline-block;
+            color: black;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .buttons-panel {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 20px;
+
+            .button-cancel {
+                padding: 20px 30px;
+                border-radius: 5px;
+                border-width: 0;
+                background-color: transparent;
+                color: black;
+                transition: 0.3s all;
+                cursor: pointer;
+                &:hover {
+                    transition: 1s all;
+                    box-shadow: 0 10px 50px -9px rgba(0,0,0,.75);
+                }
+            }
+
+            .button-submit {
+                border-radius: 5px;
+                border-width: 0;
+                padding: 20px 30px;
+                background-color: black;
+                color: white;
+                transition: 0.3s all;
+                &:enabled:hover {
+                    transition: 0.2s all;
+                    box-shadow: 0 10px 50px -9px rgba(0,0,0,.75);
+                    cursor: pointer;
+                }
+                &:disabled {
+                    transition: 0.2s all;
+                    background-color: grey;
+                }
+            }
+        }
     }
 }
 
-.custom-modal-box {
+.report-modal-box {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
 
-    background-color: black;
-    opacity: 0.9;
-
-    .message {
-        color: black;
-    }
+    // background-color: black;
+    background: rgba(51, 63, 75, .7);
 }

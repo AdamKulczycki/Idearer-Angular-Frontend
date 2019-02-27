@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <div class="view-select">
           <span class="articles-selector" (click)="viewSelectorChange('articles')"><span></span><span class="name">Articles</span><span class="number">{{articles.length}}</span></span>
-          <span class="comments-selector" (click)="viewSelectorChange('reports')"><span></span><span class="name">Reports</span><span class="number">{{reportsArray.length}}/{{reportsNumber}}</span></span>
+          <span class="comments-selector" (click)="viewSelectorChange('reports')"><span></span><span class="name">Reports</span><span class="number">{{reportsArray.length}}</span></span>
         </div>
       <div class="change-view" [ngSwitch]='viewSelector'>
         <div class="articles-view" *ngSwitchCase="'articles'">

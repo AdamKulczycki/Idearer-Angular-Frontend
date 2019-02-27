@@ -8,9 +8,16 @@ export class Page {
     articles: Article[];
 
     constructor(Json) {
-        this.page = Json.page;
-        this.pageSize = Json.pageSize;
-        this.lastPage = Json.lastPage;
-        this.articles = Json.content.map(article => new Article(article));
+        if (!Json) {
+            this.page = null;
+            this.pageSize = null;
+            this.lastPage = null;
+            this.articles = [];
+        } else {
+            this.page = Json.page;
+            this.pageSize = Json.pageSize;
+            this.lastPage = Json.lastPage;
+            this.articles = Json.content.map(article => new Article(article));
+        }
     }
 }

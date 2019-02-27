@@ -7,7 +7,7 @@ export class LoginGuard implements CanActivate {
 
     constructor(private router: Router, private storageService: StorageService) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         if (this.storageService.get('access_token')) {
             return true;
         } else {

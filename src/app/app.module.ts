@@ -23,7 +23,6 @@ import { CompareValidatorDirective } from './shared/compare-validator.directive'
 import { CommentsService } from './services/comments.service';
 import { LikesService } from './services/likes.service';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
-import { ReportsPanelComponent } from './reports-panel/reports-panel.component';
 import { ReportModalComponent } from './modals/report-modal/report-modal.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ScrollService } from './services/scroll.service';
@@ -33,6 +32,15 @@ import { ArticleEditModalComponent } from './modals/article-edit-modal/article-e
 import { RejectsService } from './services/rejects.service';
 import { AdminGuard } from './services/admin-guard.service';
 import { AdminService } from './services/admin.service';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { ReportsResolver } from './services/reports.resolve';
+
+import {MatButtonModule, MatCheckboxModule} from '@angular/material'; // angular material
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -49,7 +57,6 @@ import { AdminService } from './services/admin.service';
     ProfileComponent,
     CompareValidatorDirective,
     AdminPanelComponent,
-    ReportsPanelComponent,
     ReportModalComponent,
     ArticleEditModalComponent,
   ],
@@ -58,7 +65,18 @@ import { AdminService } from './services/admin.service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ScrollToModule.forRoot()
+    ScrollToModule.forRoot(),
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-center',
+      progressBar: true
+    }), // ToastrModule added
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule
   ],
   providers: [
     ArticlesService,
@@ -72,7 +90,8 @@ import { AdminService } from './services/admin.service';
     AdminGuard,
     ReportsService,
     RejectsService,
-    AdminService
+    AdminService,
+    ReportsResolver
   ],
   bootstrap: [AppComponent]
 })

@@ -4,6 +4,8 @@ import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-login',
@@ -13,19 +15,21 @@ import { AdminService } from '../services/admin.service';
 export class LoginComponent implements OnInit {
 
   @ViewChild('loginForm') LoginForm: NgForm;
-
-  constructor(private authSrv: AuthService, private storageSrv: StorageService,
-    private router: Router, private adminService: AdminService) { }
-
-  user = {
+  public user: any = {
     username: '',
     password: ''
-  }
+  };
+
+  constructor(private authSrv: AuthService,
+    private storageSrv: StorageService,
+    private router: Router,
+    private adminService: AdminService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
   }
 
-  login() {
+  login(): void {
     this.user.username = this.LoginForm.value.userData.username;
     this.user.password = this.LoginForm.value.userData.password;
 
@@ -35,11 +39,16 @@ export class LoginComponent implements OnInit {
         this.navToHome();
         this.authSrv.setIsLogged(true);
         this.adminService.checkIfAdmin();
+        this.toastr.success('Logged In!');
       },
       (err) => {
-        console.log(err);
+        if (err.code === 400) {
+          this.toastr.error('Wrong Credentials');
+        } else {
+          this.toastr.error(err.error.error);
+        }
       }
-    )
+    );
   }
 
   private storeUser(response) {
