@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Comment } from '../models/comment-model';
 import { CommentsService } from '../services/comments.service';
@@ -7,13 +7,14 @@ import { LikesService } from '../services/likes.service';
 import { ScrollService } from '../services/scroll.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit, OnDestroy {
 
   @Input() mainComment: boolean;
   @Input() parentCommentAuthor: string;
@@ -22,6 +23,7 @@ export class CommentComponent implements OnInit {
   @Input() articleId: number;
   @ViewChild('f') Articleform: NgForm;
   public answerClicked: boolean = false;
+  public commentSubscription: Subscription;
 
   constructor(private commentsService: CommentsService,
     private storageService: StorageService,
@@ -30,7 +32,7 @@ export class CommentComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.commentsService.$activeCommentForm.subscribe(
+    this.commentSubscription = this.commentsService.$activeCommentForm.subscribe(
       res => {
         if (res !== this.comment.id) {
           this.answerClicked = false;
@@ -101,5 +103,9 @@ export class CommentComponent implements OnInit {
         }
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.commentSubscription.unsubscribe();
   }
 }
