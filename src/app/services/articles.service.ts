@@ -12,7 +12,7 @@ import { handleError } from '../shared/errorHandler';
 export class ArticlesService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
-    makeArticle(payload) {
+    makeArticle(payload): Observable<any> {
         const token = this.storageService.get('access_token');
         const httpheaders = new HttpHeaders({
             'Authorization' : 'Bearer ' + token,
@@ -46,7 +46,7 @@ export class ArticlesService {
     }
 
 
-    getArticle(index: number) {
+    getArticle(index: number): Observable<Article> {
 
         const token = this.storageService.get('access_token');
         if (token) {
@@ -127,7 +127,7 @@ export class ArticlesService {
         );
     }
 
-    patchArticle(id, payload) {
+    patchArticle(id, payload): Observable<any> {
 
         const token = this.storageService.get('access_token');
         const httpheaders = new HttpHeaders({

@@ -15,6 +15,10 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
 
   @ViewChild('loginForm') LoginForm: NgForm;
+  public user: any = {
+    username: '',
+    password: ''
+  };
 
   constructor(private authSrv: AuthService,
     private storageSrv: StorageService,
@@ -22,15 +26,10 @@ export class LoginComponent implements OnInit {
     private adminService: AdminService,
     private toastr: ToastrService) { }
 
-  user = {
-    username: '',
-    password: ''
-  };
-
   ngOnInit() {
   }
 
-  login() {
+  login(): void {
     this.user.username = this.LoginForm.value.userData.username;
     this.user.password = this.LoginForm.value.userData.password;
 

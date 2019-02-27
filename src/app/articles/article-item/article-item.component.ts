@@ -21,13 +21,15 @@ export class ArticleItemComponent implements OnInit {
     liked: undefined,
     commentsCount: undefined
   });
-
   showModal = false;
 
-  showReportModal() {
+  constructor(private likesService: LikesService, private toastr: ToastrService) {}
+  ngOnInit() { }
+
+  showReportModal(): void {
     this.showModal = true;
   }
-  closeReportModal() {
+  closeReportModal(): void {
     this.showModal = false;
   }
 
@@ -44,13 +46,7 @@ export class ArticleItemComponent implements OnInit {
   }
 
 
-  constructor(private likesService: LikesService, private toastr: ToastrService) {
- }
-
-  ngOnInit() {
-  }
-
-  changeLike(liked) {
+  changeLike(liked): void {
     const payload = {
       articleId: this._article.id,
       liked: liked

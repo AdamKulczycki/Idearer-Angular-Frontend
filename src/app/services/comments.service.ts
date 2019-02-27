@@ -13,7 +13,7 @@ export class CommentsService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
     public $activeCommentForm = new BehaviorSubject<number>(null);
-    setActiveCommentForm (id) {
+    setActiveCommentForm (id): void {
         this.$activeCommentForm.next(id);
     }
 
@@ -46,7 +46,7 @@ export class CommentsService {
         );
     }
 
-    makeComment(payload) {
+    makeComment(payload): Observable<Comment> {
         const token = this.storageService.get('access_token');
         const httpheaders = new HttpHeaders({
             'Authorization' : 'Bearer ' + token,

@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { AdminService } from '../services/admin.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from '../models/category-model';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  public categories: Category[] = [];
+  public isLogged: boolean;
+  public isAdministrator: boolean;
+  public username: string = '';
   private isLoggedSubscription: Subscription;
+
   constructor(private categoriesSrv: CategoriesService,
     private storageSrv: StorageService,
     private authSrv: AuthService,
@@ -32,18 +38,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  categories = [];
-  isLogged: boolean;
-  isAdministrator: boolean;
-  username = '';
-
   ngOnInit() {
     this.getCategories();
   }
   ngOnDestroy() {
     this.isLoggedSubscription.unsubscribe();
   }
-  getCategories() {
+  getCategories(): void {
     this.categoriesSrv.getCategories().subscribe(
       (categories) => {
         this.categories = categories;
@@ -52,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  logout() {
+  logout(): void {
     this.authSrv.logOut();
   }
 }

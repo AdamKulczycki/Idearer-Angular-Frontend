@@ -10,7 +10,7 @@ export class AdminService {
 
     public $isAdmin = new BehaviorSubject<boolean>(false);
     constructor(private http: HttpClient, private storageService: StorageService) {}
-    checkIfAdmin() {
+    checkIfAdmin(): void {
         const id = this.storageService.get('id');
         if (id) {
             this.http.get(api + 'users/' + id).subscribe(
@@ -25,7 +25,7 @@ export class AdminService {
 
     }
 
-    public setIsAdmin(value: boolean) {
+    public setIsAdmin(value: boolean): void {
         this.$isAdmin.next(value);
       }
 }

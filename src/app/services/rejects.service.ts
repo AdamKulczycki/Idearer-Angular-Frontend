@@ -12,7 +12,7 @@ import { handleError } from '../shared/errorHandler';
 export class RejectsService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
-    rejectArticle(id, reason) {
+    rejectArticle(id, reason): Observable<any> {
         const token = this.storageService.get('access_token');
         const httpheaders = new HttpHeaders({
             'Authorization' : 'Bearer ' + token,
@@ -27,7 +27,7 @@ export class RejectsService {
         );
     }
 
-    getRejectsByArticleId(id) {
+    getRejectsByArticleId(id): Observable<any[]> {
         const token = this.storageService.get('access_token');
         const httpheaders = new HttpHeaders({
             'Authorization' : 'Bearer ' + token,
@@ -37,7 +37,6 @@ export class RejectsService {
             .pipe(
                 map((res: any) => res),
                 catchError(handleError)
-
             );
     }
 

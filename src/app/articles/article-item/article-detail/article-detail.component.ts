@@ -15,12 +15,11 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./article-detail.component.scss']
 })
 export class ArticleDetailComponent implements OnInit, AfterViewInit {
-  @ViewChild('myComments') myComments: ElementRef;
   @ViewChild('f') formComment: NgForm;
 
-  id: number;
-  article: Article;
-  comments: Comment[] = [];
+  public id: number;
+  public article: Article;
+  public comments: Comment[] = [];
 
   constructor(private route: ActivatedRoute,
     private articlesService: ArticlesService,
@@ -47,7 +46,7 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
     );
   }
 
-  submitComment(form) {
+  submitComment(form): void {
     const payload = {
       article: {
         id: this.article.id
@@ -76,7 +75,6 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => { /// delete this or improve
-      console.log(this.myComments);
       this.route.queryParams.subscribe((params: Params) => {
         if (params['ScrollTo']) {
           this.scrollService.triggerScrollTo(params['ScrollTo']);

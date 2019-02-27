@@ -16,26 +16,14 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./article-form.component.scss']
 })
 export class ArticleFormComponent implements OnInit, OnDestroy {
-  constructor(private categoriesService: CategoriesService,
-    private articlesService: ArticlesService,
-    private storageService: StorageService,
-    private toastr: ToastrService,
-    private router: Router) {
-
-    this.categoriesService.getCategories()
-      .subscribe(
-        (categories) => this.categories = categories,
-        (error) => this.toastr.error('Server Error!')
-      );
-   }
   @ViewChild('f') Articleform: NgForm;
-  articleFormSubscription: Subscription;
-  categories: Category[];
-  categoryPlaceholder = -1;
-  URL_content_REGEX = new RegExp('^[\s\S]*watch\?v=([\s\S]*)$');
-  username = this.storageService.get('username');
+  public articleFormSubscription: Subscription;
+  public categories: Category[];
+  public categoryPlaceholder: number = -1;
+  public URL_content_REGEX = new RegExp('^[\s\S]*watch\?v=([\s\S]*)$');
+  public username: string = this.storageService.get('username');
 
-  articleObject = {
+  public articleObject = {
     id: undefined,
     title: 'Your title',
     content: 'HetU8BJg_Cg',
@@ -52,7 +40,21 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
     commentsCount: 0
   };
   newArticle = new Article(this.articleObject);
-  onSubmit() {
+
+  constructor(private categoriesService: CategoriesService,
+    private articlesService: ArticlesService,
+    private storageService: StorageService,
+    private toastr: ToastrService,
+    private router: Router) {
+
+    this.categoriesService.getCategories()
+      .subscribe(
+        (categories) => this.categories = categories,
+        (error) => this.toastr.error('Server Error!')
+      );
+   }
+
+  onSubmit(): void {
     this.articleObject.title = this.Articleform.value.userData.title;
     if ((this.Articleform.value.userData.content).match(/^[\s\S]*watch\?v=([\s\S]{11})$/)[1]) {
       this.articleObject.content = this.Articleform.value.userData.content.match(/^[\s\S]*watch\?v=([\s\S]{11})$/)[1];

@@ -12,21 +12,21 @@
                     rows="1"
                     matInput
                     #input
-                    maxlength="200"
+                    maxlength="255"
                     type="text"
                     id="comment"
                     name="comment"
                     placeholder="Leave a comment"
                     ngModel
                     autocomplete="off"></textarea>
-                    <mat-hint align="end">{{input.value?.length || 0}}/200</mat-hint>
+                    <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
               </mat-form-field>
             </div>
             <button
               class="answer-submit-button"
               type="submit"
               [disabled]="!f.value.comment"
-              [ngClass]="{'animation': f.value.comment && f.value.comment.length > 0 && f.value.comment.length <= 200}">
+              [ngClass]="{'animation': f.value.comment && f.value.comment.length > 0}">
             Send
             </button>
           </form>
@@ -35,7 +35,7 @@
     </div>
     <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
         <div class="commentsSection" *ngFor="let comment of comments.slice().reverse()">
-          <app-comment #myComments [comment]="comment" [articleId]="article.id" [parentCommentAuthor]="" [parentCommentId]="" [mainComment]="true"></app-comment>
+          <app-comment [comment]="comment" [articleId]="article.id" [parentCommentAuthor]="" [parentCommentId]="" [mainComment]="true"></app-comment>
         </div>
     </div>
 </div>

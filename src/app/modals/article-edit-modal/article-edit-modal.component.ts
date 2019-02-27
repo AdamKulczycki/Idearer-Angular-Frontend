@@ -16,9 +16,10 @@ export class ArticleEditModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<any> = new EventEmitter();
   @Output() removeArticleFromArray: EventEmitter<any> = new EventEmitter();
   @Input() article: Article;
-  categories: Category[];
-  contentPlaceholder;
-  categoryPlaceholder;
+  public categories: Category[];
+  public contentPlaceholder: string;
+  public categoryPlaceholder: number;
+
   constructor(private categoriesService: CategoriesService, private articlesService: ArticlesService, private toastr: ToastrService) {
     this.categoriesService.getCategories()
       .subscribe(
@@ -28,9 +29,13 @@ export class ArticleEditModalComponent implements OnInit {
         },
         (err) => this.toastr.error('Server Error!')
       );
-   }
+  }
 
-  onSubmit(f) {
+  ngOnInit() {
+    this.contentPlaceholder = 'https://www.youtube.com/watch?v=' + this.article.content;
+  }
+
+  onSubmit(f): void {
     this.article.title = f.value.userData.title;
     this.article.category = this.categories[f.value.userData.category];
     this.article.content = f.value.userData.content.match(/^[\s\S]*watch\?v=([\s\S]{11})$/)[1];
@@ -54,14 +59,11 @@ export class ArticleEditModalComponent implements OnInit {
     );
   }
 
-  close() {
+  close(): void {
     this.closeModal.emit();
   }
-  stop(event) {
+  stop(event): void {
     event.stopPropagation();
-  }
-  ngOnInit() {
-    this.contentPlaceholder = 'https://www.youtube.com/watch?v=' + this.article.content;
   }
 
 }

@@ -6,7 +6,7 @@ export class ScrollService {
 
   constructor(private _scrollToService: ScrollToService) { }
 
-  public triggerScrollTo(targetScroll) {
+  public triggerScrollTo(targetScroll): void {
     console.log(targetScroll);
     const config: ScrollToConfigOptions = {
       easing: 'easeOutElastic',

@@ -4,13 +4,14 @@ import { StorageService } from './storage.service';
 import { api } from './global-variables';
 import { map, catchError } from 'rxjs/operators';
 import { handleError } from '../shared/errorHandler';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
 export class LikesService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
-    articleChangeLike(payload) {
+    articleChangeLike(payload): Observable<any> {
         const articleId = payload.articleId;
         const body = {
             liked: payload.liked
@@ -27,7 +28,7 @@ export class LikesService {
         );
     }
 
-    commentChangeLike(payload) {
+    commentChangeLike(payload): Observable<any> {
         const commentId = payload.commentId;
         const body = {
             liked: payload.liked

@@ -4,6 +4,7 @@ import { RejectsService } from '../services/rejects.service';
 import { ReportsService } from '../services/reports.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { Article } from '../models/article-model';
 
 
 @Component({
@@ -13,11 +14,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AdminPanelComponent implements OnInit {
 
+  public viewSelector: string = 'articles';
+  public articles: Array<Article> = [];
+  public reportsArray: Array<any> = [];
+
   constructor(private articlesService: ArticlesService,
     private rejectsService: RejectsService,
     private reportsService: ReportsService,
-    private toastr: ToastrService,
-    private activatedRoute: ActivatedRoute) {
+    private toastr: ToastrService) {
 
     this.articlesService.getPendingArtciles()
       .subscribe(
@@ -69,10 +73,7 @@ export class AdminPanelComponent implements OnInit {
     // console.log(this.activatedRoute.snapshot.data['test'])
     }
 
-  viewSelector = 'articles';
-  articles = [];
-  reportsArray = [];
-  onSubmit(f, id) {
+  onSubmit(f, id): void {
     const index = this.articles.map(e => e.id).indexOf(id);
     if (!f.value.reason) {
       const payload = {
@@ -114,7 +115,7 @@ export class AdminPanelComponent implements OnInit {
       }
     }
   }
-  onSubmitFromReportsPanel(f, id) { // manage reports
+  onSubmitFromReportsPanel(f, id): void { // manage reports
     const index = this.reportsArray.map(e => e.articleObject.id).indexOf(id);
     if (!f.value.otherReason) {
       this.rejectsService.rejectArticle(id, f.value.reason)
@@ -140,13 +141,13 @@ export class AdminPanelComponent implements OnInit {
         );
     }
   }
-  viewSelectorChange(value) {
+  viewSelectorChange(value): void {
     this.viewSelector = value;
   }
-  viewArticleChange(index) {
+  viewArticleChange(index): void {
     this.reportsArray[index].showArticle = !this.reportsArray[index].showArticle;
   }
-  deleteAllreports(index) {
+  deleteAllreports(index): void {
     const numberOfReports = this.reportsArray[index].articleReports.length;
     let reportsDeleted = 0;
     this.reportsArray[index].articleReports.forEach(element => {

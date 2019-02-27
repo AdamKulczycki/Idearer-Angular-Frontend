@@ -25,21 +25,21 @@
             rows="2"
             matInput
             #input
-            maxlength="200"
+            maxlength="255"
             type="text"
             id="comment"
             name="comment"
             placeholder="Leave a comment"
             ngModel
             autocomplete="off"></textarea>
-            <mat-hint align="end">{{input.value?.length || 0}}/200</mat-hint>
+            <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
       </mat-form-field>
     </div>
     <button
       class="answer-submit-button"
       type="submit"
       [disabled]="!f.value.comment"
-      [ngClass]="{'animation': f.value.comment && f.value.comment.length > 0 && f.value.comment.length <= 200}">
+      [ngClass]="{'animation': f.value.comment && f.value.comment.length > 0}">
     Send
     </button>
   </form>

@@ -7,7 +7,7 @@ import { Report } from '../models/report-model';
 import { handleError } from '../shared/errorHandler';
 import { Article } from '../models/article-model';
 import { ArticlesService } from './articles.service';
-import { forkJoin, merge } from 'rxjs';
+import { forkJoin, merge, Observable } from 'rxjs';
 import { Page } from '../models/page-model';
 
 
@@ -15,7 +15,7 @@ import { Page } from '../models/page-model';
 export class ReportsService {
     constructor(private http: HttpClient, private storageService: StorageService, private articlesService: ArticlesService) {}
 
-    reportArticle(payload) {
+    reportArticle(payload): Observable<any> {
         const token = this.storageService.get('access_token');
         const httpheaders = new HttpHeaders({
             'Authorization' : 'Bearer ' + token,
@@ -31,7 +31,7 @@ export class ReportsService {
         );
     }
 
-    getIdsOfReportedArticles() {
+    getIdsOfReportedArticles(): Observable<Object> {
         const token = this.storageService.get('access_token');
         const httpheaders = new HttpHeaders({
             'Authorization' : 'Bearer ' + token,
@@ -44,7 +44,7 @@ export class ReportsService {
         );
     }
 
-    getReportsByArticleId(id) {
+    getReportsByArticleId(id): Observable<Report[]> {
         const token = this.storageService.get('access_token');
         const httpheaders = new HttpHeaders({
             'Authorization' : 'Bearer ' + token,
@@ -57,7 +57,7 @@ export class ReportsService {
         );
     }
 
-    deleteReport(id) {
+    deleteReport(id): Observable<any> {
         const token = this.storageService.get('access_token');
         const httpheaders = new HttpHeaders({
             'Authorization' : 'Bearer ' + token,

@@ -14,9 +14,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ArticlesComponent implements OnInit, OnDestroy {
 
-  public currentCategory;
+  public currentCategory: string;
   public currentPage = new Page(null);
-  public currentSort;
+  public currentSort: string;
   public sortByTitle: string = 'ASCENDING_TITLE';
   public sortByDate: string = 'DESCENDING_CREATED';
   public sortByLikes: string = 'DESCENDING_LIKES';

@@ -21,14 +21,25 @@ export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   @Input() articleId: number;
   @ViewChild('f') Articleform: NgForm;
+  public answerClicked: boolean = false;
+
   constructor(private commentsService: CommentsService,
     private storageService: StorageService,
     private likesService: LikesService,
     private scrollService: ScrollService,
     private toastr: ToastrService) { }
 
-  answerClicked = false;
-  answerVisibility() {
+  ngOnInit() {
+    this.commentsService.$activeCommentForm.subscribe(
+      res => {
+        if (res !== this.comment.id) {
+          this.answerClicked = false;
+        }
+      }
+    );
+  }
+
+  answerVisibility(): void {
     this.answerClicked = !this.answerClicked;
     this.commentsService.setActiveCommentForm(this.comment.id);
   }
@@ -36,7 +47,7 @@ export class CommentComponent implements OnInit {
     this.scrollService.triggerScrollTo('comment-' + this.parentCommentId);
   }
 
-  submitComment(form) {
+  submitComment(form): void {
     const payload = {
       article: {
         id: this.articleId
@@ -65,7 +76,7 @@ export class CommentComponent implements OnInit {
     );
   }
 
-  changeLike(liked) {
+  changeLike(liked): void {
     const payload = {
       commentId: this.comment.id,
       liked: liked
@@ -91,14 +102,4 @@ export class CommentComponent implements OnInit {
       }
     );
   }
-  ngOnInit() {
-    this.commentsService.$activeCommentForm.subscribe(
-      res => {
-        if (res !== this.comment.id) {
-          this.answerClicked = false;
-        }
-      }
-    );
-  }
-
 }

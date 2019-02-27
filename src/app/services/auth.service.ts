@@ -52,13 +52,13 @@ export class AuthService {
       );
   }
 
-  public logOut() {
+  public logOut(): void {
     this.storageSrv.clear();
     this.setIsLogged(false);
     this.router.navigateByUrl('');
   }
 
-  public setIsLogged(value: boolean) {
+  public setIsLogged(value: boolean): void {
     this.$isLogged.next(value);
   }
 }

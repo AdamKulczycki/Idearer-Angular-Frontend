@@ -1,6 +1,7 @@
 <div class="report-modal-box"  (click)="close()">
       <div class="report-modal-body" (click)="stop($event)">
         <div class="report-modal-content">
+            <i class="fas fa-times icon-close-modal" (click)="close()"></i>
             <div class="message">You want to report this article. Make sure you know what you are doing</div>
             <form (ngSubmit)="onSubmit(f)" #f="ngForm">
               <div class="form-group">
@@ -13,12 +14,19 @@
                   required
                   placeholder="Report reason...">
               </div>
+              <div class="buttons-panel">
+                <button
+                (click)="close()"
+                class="button-cancel">
+                Cancel
+              </button>
               <button
-                class="btn btn-primary"
+                class="button-submit"
                 type="submit"
                 [disabled]="!f.valid">
                 Submit
               </button>
+              </div>
             </form>
         </div>
       </div>
