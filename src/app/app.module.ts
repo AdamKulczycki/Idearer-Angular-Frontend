@@ -19,7 +19,6 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { AuthService } from './services/auth.service';
 import { StorageService } from './services/storage.service';
 import { ProfileComponent } from './profile/profile.component';
-import { CompareValidatorDirective } from './shared/compare-validator.directive';
 import { CommentsService } from './services/comments.service';
 import { LikesService } from './services/likes.service';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
@@ -55,7 +54,6 @@ import {MatIconModule} from '@angular/material/icon';
     RegisterComponent,
     SafeUrlPipe,
     ProfileComponent,
-    CompareValidatorDirective,
     AdminPanelComponent,
     ReportModalComponent,
     ArticleEditModalComponent,
