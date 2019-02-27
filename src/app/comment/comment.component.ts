@@ -5,7 +5,6 @@ import { CommentsService } from '../services/comments.service';
 import { StorageService } from '../services/storage.service';
 import { LikesService } from '../services/likes.service';
 import { ScrollService } from '../services/scroll.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
