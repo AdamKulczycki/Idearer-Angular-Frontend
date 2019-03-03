@@ -1,7 +1,7 @@
 <div class="comment" id="comment-{{comment.id}}">
   <div class="comment-top">
     <div class="autor-created-container">
-        <span class="author">{{comment.user.username}}</span>
+        <span class="author" [ngClass]="{'logged-author': this.commentAuthor === comment.user.username}">{{comment.user.username}}</span>
         <span class="created">{{comment.created}}</span>
     </div>
     <div class="likes">

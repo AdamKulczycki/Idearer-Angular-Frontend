@@ -129,11 +129,22 @@
         margin-left: 50px;
     }
 }
-@keyframes KEYFRAME-NAME {
+@keyframes visible {
     0%   { opacity: 0; }
     100% { opacity: 1; }
   }
 .animation {
     visibility: visible !important;
-    animation: KEYFRAME-NAME 2s;
+    animation: visible 2s;
+}
+.logged-author {
+    color: red !important;
+}
+.distinguish {
+    animation: flash linear 1s 1;
+}
+@keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .1; } 
+	100% { opacity: 1; }
 }
