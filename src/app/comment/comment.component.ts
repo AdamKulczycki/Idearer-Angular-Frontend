@@ -48,10 +48,10 @@ export class CommentComponent implements OnInit, OnDestroy {
   }
   scroll() {
     this.scrollService.triggerScrollTo('comment-' + this.parentCommentId);
-    const test = document.getElementById('comment-' + this.parentCommentId);
-    test.classList.add('distinguish');
+    const commentBox = document.getElementById('comment-' + this.parentCommentId);
+    commentBox.classList.add('distinguish');
     setTimeout(() => {
-      test.classList.remove('distinguish');
+      commentBox.classList.remove('distinguish');
     }, 1000);
   }
 
