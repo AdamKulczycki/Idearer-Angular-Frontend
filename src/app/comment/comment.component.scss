@@ -98,7 +98,6 @@
             textarea {
                 font-size: 1rem;
                 overflow: hidden;
-                max-height: 5rem; // how about mobile devices?
             }
         }
     
@@ -138,7 +137,7 @@
     animation: visible 2s;
 }
 .logged-author {
-    color: red !important;
+    color: rgb(153, 158, 78) !important;
 }
 .distinguish {
     animation: flash linear 1s 1;
