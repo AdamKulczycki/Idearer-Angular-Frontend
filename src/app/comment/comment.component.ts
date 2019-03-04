@@ -21,6 +21,7 @@ export class CommentComponent implements OnInit, OnDestroy {
   @Input() comment: Comment;
   @Input() articleId: number;
   @ViewChild('f') Articleform: NgForm;
+  public commentAuthor: string;
   public answerClicked: boolean = false;
   public commentSubscription: Subscription;
 
@@ -38,6 +39,7 @@ export class CommentComponent implements OnInit, OnDestroy {
         }
       }
     );
+    this.commentAuthor = this.storageService.get('username');
   }
 
   answerVisibility(): void {
@@ -46,6 +48,11 @@ export class CommentComponent implements OnInit, OnDestroy {
   }
   scroll() {
     this.scrollService.triggerScrollTo('comment-' + this.parentCommentId);
+    const commentBox = document.getElementById('comment-' + this.parentCommentId);
+    commentBox.classList.add('distinguish');
+    setTimeout(() => {
+      commentBox.classList.remove('distinguish');
+    }, 1000);
   }
 
   submitComment(form): void {
