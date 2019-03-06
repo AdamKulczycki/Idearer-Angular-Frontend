@@ -60,18 +60,14 @@ select{
     border-radius: 10px;
 }
 
-select.ng-pristine {
+select.ng-pristine { // for category placeholder
     color: grey;
 }
-.title-form {
+.header-message {
     text-align: center;
-    color: white;
+    color: $textColor;
     margin-bottom: 20px;
 }
 .article-preview {
     margin-top: 10px;
-}
-
-#category {
-    // height: 40px; // only with id works? :(
 }

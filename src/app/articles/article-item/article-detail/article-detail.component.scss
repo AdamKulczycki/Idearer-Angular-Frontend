@@ -3,23 +3,24 @@
 .col-lg-12 {
     margin: auto;
 
-    .answerButton {
-        cursor: pointer;
-        background-color: white;
-        color: black;
-        text-align: center;
-        padding: 5px;
-        width: 80%;
-        border-radius: 5px 5px 15px 15px;
-        font-weight: bold;
-        letter-spacing: 3px;
-        margin: 0 auto 10px auto;
-    }
+    // .answerButton { // Do not exist now
+    //     cursor: pointer;
+    //     background-color: white;
+    //     color: black;
+    //     text-align: center;
+    //     padding: 5px;
+    //     width: 80%;
+    //     border-radius: 5px 5px 15px 15px;
+    //     font-weight: bold;
+    //     letter-spacing: 3px;
+    //     margin: 0 auto 10px auto;
+    //     text-transform: uppercase;
+    // }
 
-    .answer {
+    .answer-form-box {
         margin-bottom: 10px;
         background-color: $mainTheme;
-        color: white;
+        color: $textColor;
         padding: 20px 0 10px 0;
         border-radius: 15px;
 
@@ -52,7 +53,8 @@
                 border: 0;
                 border-radius: 5px;
                 margin: 0 auto 20px auto;
-                visibility: hidden;         
+                visibility: hidden;
+                text-transform: uppercase;  
                 &:disabled {
                     background-color: grey;
                     cursor: default;
@@ -105,14 +107,14 @@
     }
 
 .author {
-    color: yellow;
+    color: $textHighlight;
 }
 
-@keyframes KEYFRAME-NAME {
+@keyframes animation {
     0%   { opacity: 0; }
     100% { opacity: 1; }
   }
 .animation {
     visibility: visible !important;
-    animation: KEYFRAME-NAME 2s;
+    animation: animation 2s;
 }

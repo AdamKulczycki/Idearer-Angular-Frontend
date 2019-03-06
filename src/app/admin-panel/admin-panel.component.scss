@@ -1,8 +1,9 @@
 @import '~src/assets/scss/main.scss';
 
-.managment-bar {
+.article-managment-bar {
     background-color: $mainTheme;
-    color: rgb(255, 193, 7);
+    // color: rgb(255, 193, 7);
+    color: $textSecondary;
     font: 20px 'Open Sans',sans-serif;
     font-weight: bold;
     padding: 20px 20px 20px 20px;
@@ -15,14 +16,14 @@
         justify-content: space-around;
 
         & > div > span {
-            color: white;
+            color: $textColor;
             margin-left: 10px;
         }
     }
 }
-.managment-bar-2 {
+.report-managment-bar {
     background-color: $mainTheme;
-    color: rgb(255, 193, 7);
+    color: $textSecondary;
     font: 20px 'Open Sans',sans-serif;
     font-weight: bold;
     padding: 20px;
@@ -34,7 +35,7 @@
         position: relative;
         right: -10px;
         top: -15px;
-        color: white;
+        color: $textColor;
         cursor: pointer;
     }
     .info {
@@ -43,7 +44,7 @@
         justify-content: space-between;
 
         & > div > span {
-            color: white;
+            color: $textColor;
             margin-left: 10px;
         }
     }
@@ -62,15 +63,20 @@
         flex-direction: row;
         justify-content: space-between;
         padding: 5px;
+        transition: 5s all;
         cursor: pointer;
+        .name {
+            transition: 1.5s all;            
+        }
         &:hover {
             .name {
-                color: rgb(230, 132, 52);
+                color: $textSecondary;
+                transition: 1.5s all;
                 letter-spacing: 5px;
             }
         }
         .number {
-            background-color: rgb(230, 132, 52);
+            background-color: $textSecondary;
             padding: 0 5px;
         }
     }
@@ -82,7 +88,7 @@
     text-align: center;
     .no-content-message {
         text-align: center;
-        color: white;
+        color: $textColor;
         font-size: 24px;
     }
     .reportsArray-loop {
@@ -111,7 +117,7 @@
                 background-color: red;
             }
             .accept-icon:hover {
-                    background-color: green;
+                background-color: green;
             }
         }
         .article-view {
@@ -119,7 +125,7 @@
         }
         .view-article-button {
             padding: 5px;
-            color: white;
+            color: $textColor;
             cursor: pointer;
             border: 3px solid white;
             margin-left: 10%;
@@ -144,7 +150,7 @@
                 justify-content: space-between;
                 text-align: left;
                 width: 80%;
-                color: white;
+                color: $textColor;
                 border: 3px solid white;
                 margin-bottom: 10px;
                 

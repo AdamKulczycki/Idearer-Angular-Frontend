@@ -36,9 +36,8 @@
             .comments {
                 padding: 10px 15px 10px 15px;
 
-                .fas {
-                    color: rgba(255, 0, 0, 0.425);
-                    margin-right: 5px;
+                i {
+                    color: $textColor;
                 }
             }
         }  
@@ -49,7 +48,7 @@
             padding: 10px 15px 10px 15px;
             margin-bottom: 5px;
             font-size: 14px;
-            color: rgb(230, 132, 52);
+            color: $textSecondary;
         }
     }
     

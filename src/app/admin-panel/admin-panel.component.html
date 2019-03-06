@@ -9,7 +9,7 @@
         <div class="articles-view" *ngSwitchCase="'articles'">
             <div class="content" *ngFor="let item of articles">
                 <app-article-item [article]="item"></app-article-item>
-                <div class="managment-bar">
+                <div class="article-managment-bar">
                   <div class="info">
                       <div>Status:<span class="status-name">Waiting</span></div>
                       <div>id:<span>{{item.id}}</span></div>
@@ -93,7 +93,7 @@
               <span class="accept-icon" (click)="item.showPanel = true"><i class="fas fa-check"></i>
               </span><span class="delete-icon" (click)="deleteAllreports(i)"><i class="fas fa-times"></i></span>
             </div>
-            <div class="managment-bar-2" *ngIf="item.showPanel">
+            <div class="report-managment-bar" *ngIf="item.showPanel">
                 <div class="top" (click)="item.showPanel = !item.showPanel"><i class="fas fa-times"></i></div>
                 <div class="change-status">
                     <form (ngSubmit)="onSubmitFromReportsPanel(f, item.articleObject.id)" #f="ngForm">
