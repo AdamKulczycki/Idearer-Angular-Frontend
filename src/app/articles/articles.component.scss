@@ -7,7 +7,7 @@
 
 .add-article-btn {
     cursor: pointer;
-    background-color: white;
+    background-color: $textColorPrimary;
     color: black;
     text-align: center;
     padding: 5px;
@@ -32,7 +32,7 @@
             flex-direction: row;
             justify-content: flex-start;
             align-items: center;
-            color: $textColor;
+            color: $textColorPrimary;
             
             &-element {
                 display: flex;
@@ -74,7 +74,7 @@
             color: inherit;
     
             &:hover {
-                color: white;
+                color: $textColorPrimary;
             }
         }
     }

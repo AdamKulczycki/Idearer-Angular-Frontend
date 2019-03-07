@@ -3,7 +3,7 @@
 .article-managment-bar {
     background-color: $mainTheme;
     // color: rgb(255, 193, 7);
-    color: $textSecondary;
+    color: $textColorSecondary;
     font: 20px 'Open Sans',sans-serif;
     font-weight: bold;
     padding: 20px 20px 20px 20px;
@@ -16,14 +16,14 @@
         justify-content: space-around;
 
         & > div > span {
-            color: $textColor;
+            color: $textColorPrimary;
             margin-left: 10px;
         }
     }
 }
 .report-managment-bar {
     background-color: $mainTheme;
-    color: $textSecondary;
+    color: $textColorSecondary;
     font: 20px 'Open Sans',sans-serif;
     font-weight: bold;
     padding: 20px;
@@ -35,7 +35,7 @@
         position: relative;
         right: -10px;
         top: -15px;
-        color: $textColor;
+        color: $textColorPrimary;
         cursor: pointer;
     }
     .info {
@@ -44,7 +44,7 @@
         justify-content: space-between;
 
         & > div > span {
-            color: $textColor;
+            color: $textColorPrimary;
             margin-left: 10px;
         }
     }
@@ -57,7 +57,7 @@
     & > span {
         font-size: 20px;
         background-color: $mainTheme;
-        color: white;
+        color: $textColorPrimary;
         width: 49%;
         display: flex;
         flex-direction: row;
@@ -70,13 +70,13 @@
         }
         &:hover {
             .name {
-                color: $textSecondary;
+                color: $textColorSecondary;
                 transition: 1.5s all;
                 letter-spacing: 5px;
             }
         }
         .number {
-            background-color: $textSecondary;
+            background-color: $textColorSecondary;
             padding: 0 5px;
         }
     }
@@ -88,7 +88,7 @@
     text-align: center;
     .no-content-message {
         text-align: center;
-        color: $textColor;
+        color: $textColorPrimary;
         font-size: 24px;
     }
     .reportsArray-loop {
@@ -125,9 +125,9 @@
         }
         .view-article-button {
             padding: 5px;
-            color: $textColor;
+            color: $textColorPrimary;
             cursor: pointer;
-            border: 3px solid white;
+            border: 3px solid $textColorPrimary;
             margin-left: 10%;
             margin-bottom: 3px;
             &:hover {
@@ -150,8 +150,8 @@
                 justify-content: space-between;
                 text-align: left;
                 width: 80%;
-                color: $textColor;
-                border: 3px solid white;
+                color: $textColorPrimary;
+                border: 3px solid $textColorPrimary;
                 margin-bottom: 10px;
                 
                 .report-main {

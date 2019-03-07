@@ -5,7 +5,7 @@
     font: 20px 'Open Sans',sans-serif;
     font-weight: bold;
     height: 780px;
-    color: white;
+    color: $textColorPrimary;
     display: flex;
     flex-direction: column;
 
@@ -37,7 +37,7 @@
                 padding: 10px 15px 10px 15px;
 
                 i {
-                    color: $textColor;
+                    color: $textColorPrimary;
                 }
             }
         }  
@@ -48,7 +48,7 @@
             padding: 10px 15px 10px 15px;
             margin-bottom: 5px;
             font-size: 14px;
-            color: $textSecondary;
+            color: $textColorSecondary;
         }
     }
     
