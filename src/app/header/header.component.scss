@@ -1,6 +1,73 @@
 .navbar {
     box-shadow: 0px 10px 16px 0px rgba(0,0,0,0.75);
+
+    // navbar-brand
+    &-brand {
+        padding: 5px 0;
+        position: relative;
+
+        img {
+            color: rgb(230, 132, 52);
+        }
+    
+        &::before {
+            content: "";
+            width: 1px;
+            height: 1px;
+            border-radius: 50%;
+            background-color: transparent;
+            position: absolute;
+            bottom: 26px;
+            left: 24px;
+            z-index: -100;
+            box-shadow: 1px 2px 17px 20px #edc113;
+        }
+    }
+
+    // nav-link
+    .nav-link {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 18px;
+
+        &::before {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 0%;
+            background-color: #fff;
+            position: absolute;
+            transition: all ease-in-out 250ms;
+        }
+
+        &:hover::before {
+            width: 100%;
+        }
+    }
+
+    // li nav-item right
+    .right {
+        margin-left: 0;
+    }
+
+    .welcome {
+        margin: auto 0;
+    }
+
+    .login-btn, .create-btn, .profile-btn, .admin-btn, .logout-btn {
+        margin-right: 5px;
+    }
+    
+    .username-text {
+        color: white;
+        padding-right: 20px;
+    }
 }
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding: 0;
+}
+
 nav {
     padding: 0px 80px;
 
@@ -15,64 +82,8 @@ nav {
         margin-left: 25px;
         position: relative;
     }
-}
 
-a {
-    cursor: pointer;
-}
-
-.navbar-brand {
-    padding: 5px 0;
-    margin-right: 100px;
-    position: relative;
-    img {
-        color: rgb(230, 132, 52);
-    }
-
-    &::before {
-        content: "";
-        width: 1px;
-        height: 1px;
-        border-radius: 50%;
-        background-color: transparent;
-        position: absolute;
-        bottom: 26px;
-        left: 24px;
-        z-index: -100;
-        box-shadow: 1px 2px 17px 20px #edc113;
+    a {
+        cursor: pointer;
     }
 }
-
-.nav-link {
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 18px;
-}
-
-.nav-link::before {
-    content: '';
-    display: block;
-    height: 2px;
-    width: 0%;
-    background-color: #fff;
-    position: absolute;
-    transition: all ease-in-out 250ms;
-}
-
-.nav-link:hover::before {
-    width: 100%;
-}
-
-.navbar-expand-lg .navbar-nav .nav-link {
-    padding: 0;
-}
-
-.login-btn {
-    margin-right: 5px;
-}
-
-.username-text {
-    color: white;
-    padding-right: 20px;
-}
-
