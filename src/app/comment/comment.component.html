@@ -17,7 +17,7 @@
     <div *ngIf="!answerClicked" class="answer-button" (click)="answerVisibility()">Answer</div>
     <!-- <div class="scroll-to-comment" [routerLink]="['/articles', articleId]" [queryParams]="{ScrollTo: 'comment-' + comment.id}">Go to origin</div> -->
 </div>
-<div class="answer" *ngIf="answerClicked">
+<div class="answer-form-box" *ngIf="answerClicked">
   <form (ngSubmit)="submitComment(f)" #f="ngForm">
     <div class="form-group">
       <mat-form-field>

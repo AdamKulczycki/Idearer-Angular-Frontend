@@ -17,7 +17,7 @@
     justify-content: space-between;
     & > span {
         background-color: $mainTheme;
-        color: white;
+        color: $textColorPrimary;
         width: 25%;
         display: flex;
         flex-direction: row;
@@ -25,10 +25,10 @@
         padding: 5px;
         cursor: pointer;
         .name:hover {
-            color: rgb(230, 132, 52);
+            color: $textColorSecondary;
         }
         .number {
-            background-color: rgb(230, 132, 52);
+            background-color: $textColorSecondary;
             padding: 0 5px;
         }
     }
@@ -43,7 +43,7 @@
     .reject {
         
         .reason-block {
-            color: white;
+            color: $textColorPrimary;
             background-color: #ff2c2c;
             border-radius: 5px;
             padding: 15px;
@@ -73,7 +73,7 @@
 }
 
 .noContentMessage {
-    color: white;
+    color: $textColorPrimary;
 }
 
 .buttons {

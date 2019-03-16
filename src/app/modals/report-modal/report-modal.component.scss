@@ -1,5 +1,7 @@
+@import '~src/assets/scss/main.scss';
+
 .report-modal-body {
-    background: #fff;
+    background: $textColorPrimary;
     margin: 15% 15%;
     border-radius: 15px;
 
@@ -45,7 +47,7 @@
                 border-width: 0;
                 padding: 20px 30px;
                 background-color: black;
-                color: white;
+                color: $textColorPrimary;
                 transition: 0.3s all;
                 &:enabled:hover {
                     transition: 0.2s all;
