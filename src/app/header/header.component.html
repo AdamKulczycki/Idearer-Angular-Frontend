@@ -1,18 +1,18 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" routerLink="/">
-    <img src="./assets/logo5.png" width="130" height="50" class="d-inline-block align-top" alt="">
+    <img data-toggle="collapse" data-target=".navbar-collapse.show" src="./assets/logo5.png" width="130" height="50" class="d-inline-block align-top" alt="">
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+  <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+    <ul data-toggle="collapse" data-target=".navbar-collapse.show" class="navbar-nav mr-auto mt-2 mt-xl-0">
+      <li [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-item nav-link">
+        <a routerLink="/articles">Home</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li routerLinkActive="active" class="nav-item dropdown nav-link">
+        <a class="dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Categories
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -22,29 +22,45 @@
         </div>
       </li>
     </ul>
-    <div class="login-btn" *ngIf="!isLogged">
-      <button class="btn btn-outline-light" type="button" routerLink="/create">ADD ARTICLE</button>
-    </div>
-    <div class="login-btn" *ngIf="!isLogged">
-      <button class="btn btn-outline-success" type="button" routerLink="/login">LOGIN</button>
-    </div>
-    <div class="register-btn" *ngIf="!isLogged">
-      <button class="btn btn-outline-danger" type="button" routerLink="/register">REGISTER</button>
-    </div>
     <div class="username-text" *ngIf="isLogged">
       Welcome, {{ username }}
     </div>
-    <div class="login-btn" *ngIf="isLogged">
-      <button class="btn btn-outline-light" type="button" routerLink="/create">ADD ARTICLE</button>
-    </div>
-    <div class="login-btn" *ngIf="isLogged && isAdministrator">
-      <button class="btn btn-outline-light" type="button" routerLink="/admin">ADMIN</button>
-    </div>
-    <div class="login-btn" *ngIf="isLogged">
-      <button class="btn btn-outline-light" type="button" routerLink="/profile">PROFILE</button>
-    </div>
-    <div class="login-btn" *ngIf="isLogged">
-      <button class="btn btn-outline-danger" type="button" (click)="logout()">LOGOUT</button>
-    </div>
+    <ul data-toggle="collapse" data-target=".navbar-collapse.show" class="navbar-nav my-3 my-xl-0 buttons">
+      <li class="nav-item right">
+        <div class="create-btn" *ngIf="!isLogged">
+          <button class="btn btn-outline-light" type="button" routerLink="/create">ADD ARTICLE</button>
+        </div>
+      </li>
+      <li class="nav-item right">
+        <div class="login-btn" *ngIf="!isLogged">
+          <button class="btn btn-outline-success" type="button" routerLink="/login">LOGIN</button>
+        </div>
+      </li>
+      <li class="nav-item right">
+        <div class="register-btn" *ngIf="!isLogged">
+          <button class="btn btn-outline-danger" type="button" routerLink="/register">REGISTER</button>
+        </div>
+      </li>
+      <li class="nav-item right">
+        <div class="create-btn" *ngIf="isLogged">
+          <button class="btn btn-outline-light" type="button" routerLink="/create">ADD ARTICLE</button>
+        </div>
+      </li>
+      <li class="nav-item right">
+        <div class="admin-btn" *ngIf="isLogged && isAdministrator">
+          <button class="btn btn-outline-light" type="button" routerLink="/admin">ADMIN</button>
+        </div>
+      </li>
+      <li class="nav-item right">
+        <div class="profile-btn" *ngIf="isLogged">
+          <button class="btn btn-outline-light" type="button" routerLink="/profile">PROFILE</button>
+        </div>
+      </li>
+      <li class="nav-item right">
+        <div class="logout-btn" *ngIf="isLogged">
+          <button class="btn btn-outline-danger" type="button" (click)="logout()">LOGOUT</button>
+        </div>
+      </li>
+    </ul>
   </div>
 </nav>

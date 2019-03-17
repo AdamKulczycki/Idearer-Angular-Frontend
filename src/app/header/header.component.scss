@@ -1,80 +1,159 @@
-@import '~src/assets/scss/main.scss';
+// .navbar {
+//     box-shadow: 0px 10px 16px 0px rgba(0,0,0,0.75);
+
+//     // navbar-brand
+//     &-brand {
+//         padding: 5px 0;
+//         position: relative;
+
+//         img {
+//             color: rgb(230, 132, 52);
+//         }
+    
+//         &::before {
+//             content: "";
+//             width: 1px;
+//             height: 1px;
+//             border-radius: 50%;
+//             background-color: transparent;
+//             position: absolute;
+//             bottom: 26px;
+//             left: 24px;
+//             z-index: -100;
+//             box-shadow: 1px 2px 17px 20px #edc113;
+//         }
+//     }
+
+//     // nav-link
+//     .nav-link {
+//         text-decoration: none;
+//         text-transform: uppercase;
+//         font-size: 18px;
+
+//         &::before {
+//             content: '';
+//             display: block;
+//             height: 2px;
+//             width: 0%;
+//             background-color: #fff;
+//             position: absolute;
+//             transition: all ease-in-out 250ms;
+//         }
+
+//         &:hover::before {
+//             width: 100%;
+//         }
+//     }
+
+//     // li nav-item right
+//     .right {
+//         margin-left: 0;
+//     }
+
+//     .welcome {
+//         margin: auto 0;
+//     }
+
+//     .login-btn, .create-btn, .profile-btn, .admin-btn, .logout-btn {
+//         margin-right: 5px;
+//     }
+    
+//     .username-text {
+//         color: white;
+//         padding-right: 20px;
+//     }
+// }
+
+// .navbar-expand-lg .navbar-nav .nav-link {
+//     padding: 0;
+// }
+
+// nav {
+//     padding: 0px 80px;
+
+//     ul {
+//         margin: 0;
+//         padding: 0;
+//         list-style: none;
+//     }
+
+//     li {
+//         display: flex;
+//         margin-left: 25px;
+//         position: relative;
+//     }
+
+//     a {
+//         cursor: pointer;
+//     }
+// }
 
 .navbar {
     box-shadow: 0px 10px 16px 0px rgba(0,0,0,0.75);
-}
-nav {
-    padding: 0px 80px;
 
-    ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
+    &-brand {
+        margin-right: 15px;
     }
 
-    li {
-        display: flex;
-        margin-left: 25px;
-        position: relative;
-    }
-}
-
-a {
-    cursor: pointer;
-}
-
-.navbar-brand {
-    padding: 5px 0;
-    margin-right: 100px;
-    position: relative;
-    img {
-        color: rgb(230, 132, 52);
-    }
-
-    &::before {
-        content: "";
-        width: 1px;
-        height: 1px;
-        border-radius: 50%;
+    .dropdown-item:active {
         background-color: transparent;
-        position: absolute;
-        bottom: 26px;
-        left: 24px;
-        z-index: -100;
-        box-shadow: 1px 2px 17px 20px #edc113;
+    }
+
+    .username-text {
+        text-transform: none;
+        color: white;
+        margin: auto 0;
+        padding-right: 10px;
+    }
+
+    .login-btn, .create-btn, .profile-btn, .admin-btn, .logout-btn {
+        margin-right: 5px;
+    }
+
+    @media (max-width: 1200px) {
+        .navbar-nav .show .dropdown-menu {
+            text-align: center;
+        }
+
+        .buttons {
+            flex-direction: row;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 456px) {
+        .buttons {
+            flex-direction: column;
+
+            & > li > div {
+                margin: 3px auto;
+                width: 40%;
+
+                .btn {
+                    width: 100%;
+                }
+            }
+
+            & > li:first-child > div {
+                margin-top: 0;
+            }
+        }
     }
 }
 
-.nav-link {
-    text-decoration: none;
+@media (min-width: 457px) {
+    .navbar {
+        padding: 0px 80px;
+    }
+}
+
+nav {
     text-transform: uppercase;
-    font-size: 18px;
-}
+    font-size: 1.3rem;
 
-.nav-link::before {
-    content: '';
-    display: block;
-    height: 2px;
-    width: 0%;
-    background-color: $textColorPrimary;
-    position: absolute;
-    transition: all ease-in-out 250ms;
+    a {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+    }
 }
-
-.nav-link:hover::before {
-    width: 100%;
-}
-
-.navbar-expand-lg .navbar-nav .nav-link {
-    padding: 0;
-}
-
-.login-btn {
-    margin-right: 5px;
-}
-
-.username-text {
-    color: $textColorPrimary;
-    padding-right: 20px;
-}
-
