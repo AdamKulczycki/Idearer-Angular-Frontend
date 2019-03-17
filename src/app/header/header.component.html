@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" routerLink="/">
     <img data-toggle="collapse" data-target=".navbar-collapse.show" src="./assets/logo5.png" width="130" height="50" class="d-inline-block align-top" alt="">
   </a>
@@ -7,7 +7,7 @@
   </button>
 
   <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
-    <ul data-toggle="collapse" data-target=".navbar-collapse.show" class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <ul data-toggle="collapse" data-target=".navbar-collapse.show" class="navbar-nav mr-auto mt-2 mt-xl-0">
       <li [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-item nav-link">
         <a routerLink="/articles">Home</a>
       </li>
@@ -22,7 +22,10 @@
         </div>
       </li>
     </ul>
-    <ul data-toggle="collapse" data-target=".navbar-collapse.show" class="navbar-nav ml-auto my-3 my-lg-0 buttons">
+    <div class="username-text" *ngIf="isLogged">
+      Welcome, {{ username }}
+    </div>
+    <ul data-toggle="collapse" data-target=".navbar-collapse.show" class="navbar-nav my-3 my-xl-0 buttons">
       <li class="nav-item right">
         <div class="create-btn" *ngIf="!isLogged">
           <button class="btn btn-outline-light" type="button" routerLink="/create">ADD ARTICLE</button>
@@ -36,11 +39,6 @@
       <li class="nav-item right">
         <div class="register-btn" *ngIf="!isLogged">
           <button class="btn btn-outline-danger" type="button" routerLink="/register">REGISTER</button>
-        </div>
-      </li>
-      <li class="nav-item right welcome">
-        <div class="username-text mx-auto" *ngIf="isLogged">
-          Welcome, {{ username }}
         </div>
       </li>
       <li class="nav-item right">

@@ -95,15 +95,22 @@
         margin-right: 15px;
     }
 
-    .dropdown-item:focus {
+    .dropdown-item:active {
         background-color: transparent;
+    }
+
+    .username-text {
+        text-transform: none;
+        color: white;
+        margin: auto 0;
+        padding-right: 10px;
     }
 
     .login-btn, .create-btn, .profile-btn, .admin-btn, .logout-btn {
         margin-right: 5px;
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 1200px) {
         .navbar-nav .show .dropdown-menu {
             text-align: center;
         }
@@ -115,26 +122,32 @@
     }
 
     @media (max-width: 456px) {
-
         .buttons {
             flex-direction: column;
 
-            .login-btn, .profile-btn, .admin-btn, .logout-btn, .register-btn {
-                margin-top: 5px;
+            & > li > div {
+                margin: 3px auto;
+                width: 40%;
+
+                .btn {
+                    width: 100%;
+                }
+            }
+
+            & > li:first-child > div {
+                margin-top: 0;
             }
         }
     }
 }
 
 @media (min-width: 457px) {
-
     .navbar {
         padding: 0px 80px;
     }
 }
 
 nav {
-    // padding: 0px 80px;
     text-transform: uppercase;
     font-size: 1.3rem;
 
