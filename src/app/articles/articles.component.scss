@@ -1,3 +1,5 @@
+@import '~src/assets/scss/main.scss';
+
 .col-lg-8 { 
     margin: auto;
     text-align: center;
@@ -5,7 +7,7 @@
 
 .add-article-btn {
     cursor: pointer;
-    background-color: white;
+    background-color: $textColorPrimary;
     color: black;
     text-align: center;
     padding: 5px;
@@ -30,7 +32,7 @@
             flex-direction: row;
             justify-content: flex-start;
             align-items: center;
-            color: white;
+            color: $textColorPrimary;
             
             &-element {
                 display: flex;
@@ -72,7 +74,7 @@
             color: inherit;
     
             &:hover {
-                color: white;
+                color: $textColorPrimary;
             }
         }
     }

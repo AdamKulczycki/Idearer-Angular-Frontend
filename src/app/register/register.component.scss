@@ -1,3 +1,5 @@
+@import '~src/assets/scss/main.scss';
+
 .container {
     padding: 150px 0;
     width: 50%;
@@ -7,7 +9,7 @@
     flex-direction: column;
 
     .title-form {
-        color: white;
+        color: $textColorPrimary;
     }
 
     .form {
@@ -49,7 +51,7 @@
 
 .help-block {
     display: flex;
-    color: white;
+    color: $textColorPrimary;
     margin-top: 10px;
     margin-left: 15px;
 }
