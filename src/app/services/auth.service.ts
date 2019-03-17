@@ -61,4 +61,27 @@ export class AuthService {
   public setIsLogged(value: boolean): void {
     this.$isLogged.next(value);
   }
+
+  public refreshAccessToken(): Observable<any> {
+
+    const body = new HttpParams()
+      .set(`grant_type`, `refresh_token`)
+      .set(`refresh_token`, this.storageSrv.get('refresh_token'));
+
+    const headers = new HttpHeaders({
+      'Content-Type': `application/x-www-form-urlencoded`,
+      'Authorization': `Basic Y2xpZW50OnNlY3JldA==`
+    });
+    console.log(body);
+    return this.http.post(api + 'oauth/token', body.toString(), { headers: headers})
+      .pipe(
+        map((res: any) => {
+          this.storageSrv.set('access_token', res.access_token);
+          this.storageSrv.set('refresh_token', res.refresh_token);
+          console.log(res.access_token);
+          return res.access_token;
+        }),
+        catchError(handleError)
+      );
+  }
 }
