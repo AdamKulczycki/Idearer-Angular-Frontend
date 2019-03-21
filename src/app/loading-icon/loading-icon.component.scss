@@ -1,0 +1,245 @@
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+*, *:before, *:after {
+  margin:0;
+  padding:0;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+}
+#lamp {
+  position:relative;
+//   width:100vw;
+//   height:100vh;
+  overflow:hidden;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+// input[name="switch"], input[name="switch"] + label {
+//   position:absolute;
+//   bottom:3rem;
+//   width:4rem;
+//   height:4rem;
+// }
+// input[name="switch"] + label {right:3rem;}
+// input[name="switch"] {
+//   opacity:0;
+//   z-index:9;
+//   cursor:pointer;
+// }
+// input[value="on"] {
+//   right:3rem;
+// }
+// input[value="off"] {
+//   right:-4rem;
+// }
+// input[name="switch"] + label {
+//   text-align:center;
+// }
+// [class*="entypo-"]:before {
+//   line-height:4rem;
+//   font-size:2.5rem;
+//   color:rgba(255,255,255,0.4);
+//   font-family:'entypo', sans-serif;
+// }
+// input[value="on"]:checked {
+//   right:-4rem;
+// }
+// input[value="on"]:checked + input[value="off"] {
+//   right:3rem;
+// }
+.lamp {
+  position:relative;
+  margin:0 auto;
+  width:.7rem;
+  height:10rem;
+  background-image:linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                   linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                   linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+  background-repeat:no-repeat;
+  background-size:.15rem 8rem, .4rem .8rem, .7rem 2rem;
+  background-position:50% 0, .19rem 8rem, 0 8.8rem;
+}
+.lamp:before, .lamp:after {
+  content:'';
+  position:absolute;
+}
+.lamp:before {
+  left:-1.65rem;
+  bottom:-4rem;
+  width:4rem;
+  height:4rem;
+  border-radius:50%;
+  background:rgba(255,255,255,0.03);
+  box-shadow:inset 2px -2px 10px rgba(255,255,255,0.07);
+  transition:all .15s;
+  animation: light 1s infinite;
+}
+@keyframes light {
+    to {
+        background:rgba(255,255,255,1);
+        // background:rgb(229, 221, 149);
+        box-shadow: 0px 2px 10px rgba(255,255,255,0.8),
+                    0px 5px 50px rgba(255,255,255,0.8),
+                    0px 8px 80px rgba(255,255,255,0.6),
+                    0px 8px 120px rgba(255,255,255,0.6);
+    }
+}
+.gonna-give-light, 
+.gonna-give-light:before{
+  position:absolute;
+}
+.gonna-give-light {
+  top:10.05rem;
+  left:.25rem;
+  width:0;
+  height:1.5rem;
+  border-right:.2rem solid rgba(255,255,255,0.05);
+}
+.gonna-give-light:before {
+  content:'';
+  top:1.5rem;
+  left:-.35rem;
+  width:.9rem;
+  height:.9rem;
+  border-radius:50%;
+  border:.2rem solid rgba(255,255,255,0.05);
+  box-shadow:0px 0px 50px rgba(255,255,255,0);
+}
+// input[value="on"]:checked ~ .lamp:before {
+//   background:rgba(255,255,255,1);
+//   box-shadow:0px 2px 10px rgba(255,255,255,0.8),
+//              0px 5px 50px rgba(255,255,255,0.8),
+//              0px 8px 80px rgba(255,255,255,0.6),
+//              0px 8px 120px rgba(255,255,255,0.6);
+// }
+// body {background:#2f323c;}
+// html, body {
+//   width:100%;
+//   height:100%;
+// }
+
+$green: #3ba666;
+
+// html, body {
+//   width: 100%;
+//   position: relative;
+//   overflow: hidden;
+//   background-color: $green;
+//   text-align: center;
+// }
+
+#bulb1 {
+  width: 200px;
+  margin: 32px auto;
+  
+  .bulb, .light { fill: white; }
+  .inner { fill: yellow; }
+  
+  .light {
+    fill-opacity: 0;
+    transition: fill-opacity 1s ease;
+    animation: light2 1s ease-in-out alternate infinite;
+  }
+
+  // &:hover .light {
+  //   fill-opacity: 1;
+  // }
+}
+
+@keyframes light2 {
+  from {
+    fill-opacity: 0;
+  }
+  to {
+    fill-opacity: 1;
+  }
+}
+#bulb2 {
+  width: 200px;
+  margin: 32px auto;
+  
+  path {
+    fill-opacity: 0;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: draw 3s linear alternate infinite;
+    // animation-name: draw;
+    // animation-duration: 5s;
+    // animation-iteration-count: infinite;
+    // animation-fill-mode: both;
+    // animation-timing-function: linear;
+  }
+}
+
+@keyframes draw {  
+  // 0% {
+  //   stroke-dashoffset: 300;
+  // }
+  // 25% {
+  //   stroke-dashoffset: 0;
+  // }
+  // 50% {
+  //   stroke-dashoffset: 300;
+  // }
+  // 100% {
+  //   stroke-dashoffset: 0;
+  // }
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 300;
+  }
+}
+
+@keyframes typing {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+  // from { width: 0; }
+}
+// @keyframes blink-caret {
+//   50% { border-color: transparent; }
+// }
+
+.loading1 {
+  font-size: 3rem;
+  color: white;
+	// font: bold 300% Consolas, Monaco, monospace;
+	// border-right: .1em solid black;
+	width: 100%; 
+	// width: 21ch;
+  // margin: 2em 1em;
+  // margin: 0 auto;
+	white-space: nowrap;
+	overflow: hidden;
+	animation: typing 3s alternate infinite steps(200, end),
+	          //  blink-caret .5s step-end infinite alternate;
+}
+
+.loading2 {
+  font-size: 3rem;
+  color: white;
+  width: 100%;
+  opacity: 0;
+  animation: flashing 1s ease-in-out alternate infinite;
+}
+
+@keyframes flashing {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.bulb-box {
+  width: 200px;
+  margin: 0 auto;
+}
