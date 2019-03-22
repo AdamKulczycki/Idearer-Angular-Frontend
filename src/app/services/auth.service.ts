@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { StorageService } from './storage.service';
@@ -72,13 +72,11 @@ export class AuthService {
       'Content-Type': `application/x-www-form-urlencoded`,
       'Authorization': `Basic Y2xpZW50OnNlY3JldA==`
     });
-    console.log(body);
     return this.http.post(api + 'oauth/token', body.toString(), { headers: headers})
       .pipe(
         map((res: any) => {
           this.storageSrv.set('access_token', res.access_token);
           this.storageSrv.set('refresh_token', res.refresh_token);
-          console.log(res.access_token);
           return res.access_token;
         }),
         catchError(handleError)

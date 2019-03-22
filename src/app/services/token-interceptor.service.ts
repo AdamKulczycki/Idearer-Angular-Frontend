@@ -1,57 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { filter, catchError, take, switchMap } from 'rxjs/operators';
 import { StorageService } from './storage.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Injectable()
 export class RefreshTokenInterceptor implements HttpInterceptor {
     private refreshTokenInProgress = false;
     // Refresh Token Subject tracks the current token, or is null if no token is currently
     // available (e.g. refresh pending).
-    private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
-        null
-    );
-    constructor(public auth: AuthService, private storageSrv: StorageService) {}
+    private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    constructor(public auth: AuthService, private storageSrv: StorageService, private toastr: ToastrService) {}
 
-    intercept(
-        request: HttpRequest<any>,
-        next: HttpHandler
-    ): Observable<HttpEvent<any>> {
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return <any> next.handle(request).pipe(
             catchError(error => {
-                // We don't want to refresh token for some requests like login or refresh token itself
-                // So we verify url and we throw an error if it's the case
-                if (
-                    request.url.includes('refreshtoken') ||
-                    request.url.includes('login')
-                ) {
-                    // We do another check to see if refresh token failed
-                    // In this case we want to logout user and to redirect it to login page
-
-                    if (request.url.includes('refreshtoken')) {
-                        this.auth.logOut();
-                    }
-
-                    return Observable.throw(error);
-                }
 
                 // If error status is different than 401 we want to skip refresh token
                 // So we check that and throw the error if it's the case
                 if (error.status !== 401) {
-                    return Observable.throw(error);
+                    return throwError(error);
                 }
 
                 if (this.refreshTokenInProgress) {
                     // If refreshTokenInProgress is true, we will wait until refreshTokenSubject has a non-null value
                     // – which means the new token is ready and we can retry the request again
-                    return this.refreshTokenSubject
-                        .pipe(
-                            filter(result => result !== null),
-                            take(1),
-                            switchMap(() => next.handle(this.addAuthenticationToken(request)))
-                        );
+                    return this.refreshTokenSubject.pipe(
+                        filter(result => result !== null),
+                        take(1),
+                        switchMap(() => next.handle(this.addAuthenticationToken(request)))
+                    );
                 } else {
                     this.refreshTokenInProgress = true;
 
@@ -61,7 +42,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
                     // Call auth.refreshAccessToken(this is an Observable that will be returned)
                     return this.auth.refreshAccessToken().pipe(
                         switchMap((token: any) => {
-                            console.log('refreshing token');
                             // When the call to refreshToken completes we reset the refreshTokenInProgress to false
                             // for the next time the token needs to be refreshed
                             this.refreshTokenInProgress = false;
@@ -71,9 +51,9 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
                         }),
                         catchError((err: any) => {
                             this.refreshTokenInProgress = false;
-
                             this.auth.logOut();
-                            return Observable.throw(error);
+                            this.toastr.error('Failed to refresh token. Please re-login');
+                            return throwError(error);
                         })
                     );
                 }
