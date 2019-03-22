@@ -70,7 +70,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
         if (!accessToken) {
             return request;
         }
-
         // We clone the request, because the original request is immutable
         return request.clone({
             setHeaders: {
