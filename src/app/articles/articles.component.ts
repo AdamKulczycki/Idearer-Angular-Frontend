@@ -26,7 +26,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   public sortLikesReverse: boolean = false;
   public isLogged: boolean;
   public isLoggedSubscription: Subscription;
-  public prevRoute: string;
+  // public prevRoute: string;
 
   constructor(private articleService: ArticlesService,
     private route: ActivatedRoute,
@@ -35,15 +35,16 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private isLoading: LoadingIconService) {
 
-    router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      this.prevRoute = event.url;
-    });
+    // router.events.pipe(
+    //   filter(event => event instanceof NavigationEnd)
+    // ).subscribe((event: NavigationEnd) => {
+    //   this.prevRoute = event.url;
+    // });
     // triggers when user logout from '/articles'
     this.isLoggedSubscription = this.authSrv.$isLogged.subscribe( value => {
       if (!value) {
-        if (this.router.navigated && (this.router.url === '/articles' && this.prevRoute === '/')) {
+        if (this.router.navigated && (this.router.url === '/articles')) {
+          console.log('odpalam');
           this.isLoading.setLoading(true);
           this.articleService.getArticles(1)
             .subscribe(
