@@ -52,11 +52,12 @@ export class LoginComponent implements OnInit {
   }
 
   private storeUser(response) {
-    const { access_token, userId, userName } = response;
+    const { access_token, userId, userName, refresh_token } = response;
 
     this.storageSrv.set('access_token', access_token);
     this.storageSrv.set('id', userId);
     this.storageSrv.set('username', userName);
+    this.storageSrv.set('refresh_token', refresh_token);
   }
 
   private navToHome() {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { StorageService } from './storage.service';
@@ -60,5 +60,26 @@ export class AuthService {
 
   public setIsLogged(value: boolean): void {
     this.$isLogged.next(value);
+  }
+
+  public refreshAccessToken(): Observable<any> {
+
+    const body = new HttpParams()
+      .set(`grant_type`, `refresh_token`)
+      .set(`refresh_token`, this.storageSrv.get('refresh_token'));
+
+    const headers = new HttpHeaders({
+      'Content-Type': `application/x-www-form-urlencoded`,
+      'Authorization': `Basic Y2xpZW50OnNlY3JldA==`
+    });
+    return this.http.post(api + 'oauth/token', body.toString(), { headers: headers})
+      .pipe(
+        map((res: any) => {
+          this.storageSrv.set('access_token', res.access_token);
+          this.storageSrv.set('refresh_token', res.refresh_token);
+          return res.access_token;
+        }),
+        catchError(handleError)
+      );
   }
 }

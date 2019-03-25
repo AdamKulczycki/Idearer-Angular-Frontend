@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ArticlesService } from './services/articles.service';
 import { LoginComponent } from './login/login.component';
 import { CommentComponent } from './comment/comment.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ArticleFormComponent } from './articles/article-form/article-form.component';
 import { FormsModule } from '@angular/forms';
 import { CategoriesService } from './services/categories.service';
@@ -40,6 +40,8 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material'; // angular
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+
+import { RefreshTokenInterceptor } from './services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatIconModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },
     ArticlesService,
     CategoriesService,
     AuthService,
