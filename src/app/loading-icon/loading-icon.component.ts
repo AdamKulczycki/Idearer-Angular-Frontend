@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadingIconComponent implements OnInit {
 
+  public show: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
+    // we dont want to display loading icon immediately after http request
+    // this would result to display icon for nanoseconds after every request
+    setTimeout(() => {
+      this.show = true;
+    }, 1000);
   }
 
 }

@@ -8,6 +8,7 @@ import { StorageService } from '../../../services/storage.service';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
+import { LoadingIconService } from 'src/app/services/loading-icon.service';
 
 @Component({
   selector: 'app-article-detail',
@@ -26,24 +27,30 @@ export class ArticleDetailComponent implements OnInit, AfterViewInit {
     private commentsService: CommentsService,
     private storageService: StorageService,
     private scrollService: ScrollService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private isLoading: LoadingIconService) {
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
     });
+    this.isLoading.setLoading(true);
     this.articlesService.getArticle(this.id)
       .subscribe(
         (article) => {
           this.article = article;
+          this.commentsService.getComments(this.id)
+            .subscribe(
+              (comments) => {
+                this.comments = comments;
+                this.isLoading.setLoading(false);
+              },
+              (err) => {
+                this.toastr.error('Server Error!');
+                this.isLoading.setLoading(false);
+              }
+          );
         },
         (err) => this.toastr.error('Server Error!')
       );
-    this.commentsService.getComments(this.id)
-      .subscribe(
-        (comments) => {
-          this.comments = comments;
-        },
-        (err) => this.toastr.error('Server Error!')
-    );
   }
 
   submitComment(form): void {

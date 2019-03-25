@@ -78,7 +78,7 @@ export class CommentComponent implements OnInit, OnDestroy {
         if (err.code === 401) {
           this.toastr.error('You have to be Log In to write comments!');
         } else {
-          this.toastr.error(err.error.error);
+          this.toastr.error('Server Error!');
         }
       }
     );
@@ -105,7 +105,7 @@ export class CommentComponent implements OnInit, OnDestroy {
         if (err.code === 401) {
           this.toastr.error('You have to be Log In to give likes!');
         } else {
-          this.toastr.error(err.error.error);
+          this.toastr.error('Server Error!');
         }
       }
     );

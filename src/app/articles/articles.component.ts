@@ -6,6 +6,7 @@ import { Page } from '../models/page-model';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { LoadingIconService } from '../services/loading-icon.service';
 
 @Component({
   selector: 'app-articles',
@@ -31,7 +32,8 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private authSrv: AuthService,
     private router: Router,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private isLoading: LoadingIconService) {
 
     router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -42,12 +44,17 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     this.isLoggedSubscription = this.authSrv.$isLogged.subscribe( value => {
       if (!value) {
         if (this.router.navigated && (this.router.url === '/articles' && this.prevRoute === '/')) {
+          this.isLoading.setLoading(true);
           this.articleService.getArticles(1)
             .subscribe(
               (page) => {
+                this.isLoading.setLoading(false);
                 this.currentPage = page;
               },
-              (err) => this.toastr.error('Server Error!')
+              (err) => {
+                this.isLoading.setLoading(false);
+                this.toastr.error('Server Error!');
+              }
             );
         }
       }
@@ -58,6 +65,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {
+      this.isLoading.setLoading(true);
       if ( params['category']) {
         this.currentSort = '';
         this.currentCategory = params['category'];
@@ -75,9 +83,13 @@ export class ArticlesComponent implements OnInit, OnDestroy {
           this.articleService.getArtcilesByCategory(this.currentCategory, this.currentPage.page)
           .subscribe(
             (page) => {
+              this.isLoading.setLoading(false);
               this.currentPage = page;
             },
-            (err) => this.toastr.error('Server Error!')
+            (err) => {
+              this.isLoading.setLoading(false);
+              this.toastr.error('Server Error!');
+            }
           );
         }
       } else {
@@ -96,9 +108,13 @@ export class ArticlesComponent implements OnInit, OnDestroy {
             this.articleService.getArticles(this.currentPage.page)
             .subscribe(
               (page) => {
+                this.isLoading.setLoading(false);
                 this.currentPage = page;
               },
-              (err) => this.toastr.error('Server Error!')
+              (err) => {
+                this.isLoading.setLoading(false);
+                this.toastr.error('Server Error!');
+              }
             );
           }
         }
@@ -111,9 +127,13 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     this.articleService.getSortArticles(sortName, pageNumber)
       .subscribe(
         (page) => {
+          this.isLoading.setLoading(false);
           this.currentPage = page;
         },
-        (err) => this.toastr.error('Server Error!')
+        (err) => {
+          this.isLoading.setLoading(false);
+          this.toastr.error('Server Error!');
+        }
       );
   }
 
@@ -121,9 +141,13 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     this.articleService.getSortArticlesByCategory(categoryName, sortName, pageNumber)
       .subscribe(
         (page) => {
+          this.isLoading.setLoading(false);
           this.currentPage = page;
         },
-        (err) => this.toastr.error('Server Error!')
+        (err) => {
+          this.isLoading.setLoading(false);
+          this.toastr.error('Server Error!');
+        }
       );
   }
 

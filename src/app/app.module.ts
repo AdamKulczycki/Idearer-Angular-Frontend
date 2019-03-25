@@ -41,6 +41,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { LoadingIconComponent } from './loading-icon/loading-icon.component';
+import { LoadingIconService } from './services/loading-icon.service';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { LoadingIconComponent } from './loading-icon/loading-icon.component';
     ReportsService,
     RejectsService,
     AdminService,
-    ReportsResolver
+    ReportsResolver,
+    LoadingIconService
   ],
   bootstrap: [AppComponent]
 })
