@@ -40,6 +40,8 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material'; // angular
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import { LoadingIconComponent } from './loading-icon/loading-icon.component';
+import { LoadingIconService } from './services/loading-icon.service';
 
 import { RefreshTokenInterceptor } from './services/token-interceptor.service';
 
@@ -59,6 +61,7 @@ import { RefreshTokenInterceptor } from './services/token-interceptor.service';
     AdminPanelComponent,
     ReportModalComponent,
     ArticleEditModalComponent,
+    LoadingIconComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,8 @@ import { RefreshTokenInterceptor } from './services/token-interceptor.service';
     ReportsService,
     RejectsService,
     AdminService,
-    ReportsResolver
+    ReportsResolver,
+    LoadingIconService
   ],
   bootstrap: [AppComponent]
 })
