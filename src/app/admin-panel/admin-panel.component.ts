@@ -21,7 +21,8 @@ export class AdminPanelComponent implements OnInit {
   constructor(private articlesService: ArticlesService,
     private rejectsService: RejectsService,
     private reportsService: ReportsService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private activatedRoute: ActivatedRoute) {
 
     this.articlesService.getPendingArtciles()
       .subscribe(
@@ -68,8 +69,9 @@ export class AdminPanelComponent implements OnInit {
     //      )
     //    }
     //  )
-   this.reportsService.test();
-    //  this.reportsArray = this.activatedRoute.snapshot.data['test'];
+  //  this.reportsService.test();
+     this.reportsArray = this.activatedRoute.snapshot.data['test'];
+     console.log(this.reportsArray);
     // console.log(this.activatedRoute.snapshot.data['test'])
     }
 

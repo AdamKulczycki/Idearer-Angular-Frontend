@@ -4,11 +4,12 @@
     margin-bottom: 20px;
     font: 20px 'Open Sans',sans-serif;
     font-weight: bold;
-    height: 780px;
+    height: 80vh;
     color: $textColorPrimary;
     display: flex;
     flex-direction: column;
-
+    min-width: 470px;
+    min-height: 400px;
 
     .article-top {
 
@@ -78,7 +79,8 @@
             margin: auto 0;
         }
         .article-likes {
-            font-size: 120%;
+            margin: auto 0;
+            font-size: 1.5rem;
         }
     }
 }

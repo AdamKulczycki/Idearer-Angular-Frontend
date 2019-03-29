@@ -75,36 +75,36 @@ export class ReportsService {
         'Authorization' : 'Bearer ' + this.storageService.get('access_token'),
         'Content-Type': 'application/json'
     });
-    return this.http.get(api + 'articles/reported', {headers: httpheaders}).pipe(
-            map((res: Array<number>) => {
-                    forkJoin(
-                        res.map(
-                            id => this.http.get<Article>(api + 'articles/' + id, {headers: httpheaders})
-                            .pipe(
-                                map((article: any) => {
-                                    console.log('article')
-                                    const art = new Article(article);
-                                    const array = []
-                                    array.push(art);
-                                    return this.http.get(api + 'articles/' + id + '/reports', {headers: httpheaders})
-                                    .pipe(map((reportsRes: any) => {
-                                        console.log('report')
-                                        const reports = reportsRes.content.map(report => new Report(report))
-                                        array.push(reports);
-                                        // return ({art, reports});
-                                        return array;
-                                    }));
-                                    // .pipe(
-                                    //     map((reportsRes: any) => {
-                                    //         const reports = reportsRes.content.map(report => new Report(report))
-                                    //         return ({art, reports});
-                                    //     }));
-                            }))
-                        )
-                    ).subscribe(
-                        e => console.log(e[0].subscribe(r=>console.log(r)))
-                    );
-            }));
+    // return this.http.get(api + 'articles/reported', {headers: httpheaders}).pipe(
+    //         map((res: Array<number>) => {
+    //                 forkJoin(
+    //                     res.map(
+    //                         id => this.http.get<Article>(api + 'articles/' + id, {headers: httpheaders})
+    //                         .pipe(
+    //                             map((article: any) => {
+    //                                 console.log('article')
+    //                                 const art = new Article(article);
+    //                                 const array = []
+    //                                 array.push(art);
+    //                                 return this.http.get(api + 'articles/' + id + '/reports', {headers: httpheaders})
+    //                                 .pipe(map((reportsRes: any) => {
+    //                                     console.log('report')
+    //                                     const reports = reportsRes.content.map(report => new Report(report))
+    //                                     array.push(reports);
+    //                                     // return ({art, reports});
+    //                                     return array;
+    //                                 }));
+    //                                 // .pipe(
+    //                                 //     map((reportsRes: any) => {
+    //                                 //         const reports = reportsRes.content.map(report => new Report(report))
+    //                                 //         return ({art, reports});
+    //                                 //     }));
+    //                         }))
+    //                     )
+    //                 ).subscribe(
+    //                     e => console.log(e[0].subscribe(r=>console.log(r)))
+    //                 );
+    //         }));
 
     // return forkJoin(
     //     this.http.get(api + 'articles/reported', {headers: httpheaders}).pipe(
@@ -141,39 +141,39 @@ export class ReportsService {
     //         }))
     // );
 
-    // const reportsArray = [];
-    // return this.http.get(api + 'articles/reported', {headers: httpheaders}).pipe(
-    //     map((res: Array<number>) => {
-    //         forkJoin(
-    //             forkJoin(
-    //                 res.map(
-    //                     id => this.http.get<Article>(api + 'articles/' + id, {headers: httpheaders})
-    //                     .pipe(map(response => <Article>response))
-    //                 ),
-    //             ),
-    //             forkJoin(
-    //                 res.map(
-    //                     id => this.http.get(api + 'articles/' + id + '/reports', {headers: httpheaders}).pipe(
-    //                         map((data: any) => data.content.map(report => new Report(report))))
-    //                 )
-    //             )
-    //         )
-    //         .subscribe(res1 => {
-    //             for (let i = 0; i < res1[0].length; i ++) {
-    //                 reportsArray.push({
-    //                     articleObject: res1[0][i],
-    //                     showArticle: false,
-    //                     showPanel: false,
-    //                     articleReports: res1[1][i]
-    //                 });
-    //             }
-    //             console.log('kek')
-    //             // return reportsArray;
-    //         });
-    //         console.log('zrobilem')
-    //         return reportsArray;
-    //     })
-    // );
+    const reportsArray = [];
+    return this.http.get(api + 'articles/reported', {headers: httpheaders}).pipe(
+        map((res: Array<number>) => {
+            forkJoin(
+                forkJoin(
+                    res.map(
+                        id => this.http.get<Article>(api + 'articles/' + id, {headers: httpheaders})
+                        .pipe(map(response => <Article>response))
+                    ),
+                ),
+                forkJoin(
+                    res.map(
+                        id => this.http.get(api + 'articles/' + id + '/reports', {headers: httpheaders}).pipe(
+                            map((data: any) => data.content.map(report => new Report(report))))
+                    )
+                )
+            )
+            .subscribe(res1 => {
+                for (let i = 0; i < res1[0].length; i ++) {
+                    reportsArray.push({
+                        articleObject: res1[0][i],
+                        showArticle: false,
+                        showPanel: false,
+                        articleReports: res1[1][i]
+                    });
+                }
+                console.log('kek')
+                // return reportsArray;
+            });
+            console.log('zrobilem')
+            return reportsArray;
+        })
+    );
 
     // this.getIdsOfReportedArticles().subscribe(
     //     (res: Array<number>) => {
