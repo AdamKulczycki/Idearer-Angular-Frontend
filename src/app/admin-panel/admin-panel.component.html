@@ -152,14 +152,56 @@
                   <i class="fas fa-sticky-note"></i>&nbsp;{{report?.description}}
                 </div>
             </article>
-            <div class="reports-panel__buttons-panel">
-              <div class="reports-panel__button reports-panel__button--accept">
+            <div class="reports-panel__buttons-panel" *ngIf="!reportedArticle.showPanel">
+              <div class="reports-panel__button reports-panel__button--accept" (click)="reportedArticle.showPanel = true">
                   <i class="fas fa-check"></i>
                   <p class="reports-panel__caption">Accept</p>
               </div>
               <div class="reports-panel__button reports-panel__button--reject">
                   <i class="fas fa-times "></i>
                   <p class="reports-panel__caption">Reject</p>
+              </div>
+            </div>
+            <div class="management-bar" *ngIf="reportedArticle.showPanel">
+              <div class="management-bar__close-wrapper" ><i class="fas fa-times management-bar__close-icon" (click)="reportedArticle.showPanel = false"></i></div>
+              <div class="management-bar__form-wrapper">
+                  <form (ngSubmit)="onSubmitFromReportsPanel(f, reportedArticle.articleObject.id)" #f="ngForm" class="management-bar__form">
+                    <div class="management-bar__reject-reason">
+                      <div class="form-group">
+                        <!-- Reason: -->
+                        <select 
+                          class="form-control" 
+                          id="reason" 
+                          name="reason"
+                          ngModel
+                          required>
+                          <option value="" disabled selected hidden>reason</option>
+                          <option value="wrong title">Wrong Title</option>
+                          <option value="wrong content">Wrong Content</option>
+                          <option value="other">Other...</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div *ngIf="f.value.reason === 'other'" class="management-bar__other-reason">
+                        <div class="form-group">
+                          <!-- Write reason: -->
+                          <input
+                            type="text" 
+                            id="otherReason" 
+                            class="form-control" 
+                            name="otherReason"
+                            ngModel
+                            required
+                            placeholder="other reason">
+                        </div>
+                      </div>
+                    <button
+                      class="management-bar__button"
+                      type="submit" 
+                      [disabled]="!f.valid">
+                      SUBMIT
+                    </button>
+                  </form>
               </div>
             </div>
           </section>

@@ -54,17 +54,25 @@
 .view-select {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    
+    @media(max-width: 400px) {
+        & {
+            flex-direction: column;
+
+            & > span {
+                margin-top: 5px;
+            }
+        }
+    }
     & > span {
         font-size: 20px;
         background-color: $mainTheme;
         color: $textColorPrimary;
-        width: 49%;
+        flex-grow: 1;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         padding: 5px;
-        transition: 5s all;
         cursor: pointer;
         .name {
             transition: 1.5s all;            
@@ -202,6 +210,7 @@
     &__article-show {
         cursor: pointer;
         display: inline-block;
+
         &:hover {
             .reports-panel__eye-icon {
                 color: $textColorSecondary;
@@ -213,7 +222,7 @@
 
     &__buttons-panel {
 
-        @media(max-width: 360px) {
+        @media(max-width: 300px) {
             & {
                 flex-direction: column;
             }
@@ -264,16 +273,63 @@
             word-break: break-all;
         }
     }
+
+    .management-bar {
+        width: 60%;
+        margin: 0 auto;
+
+        &__close-wrapper {
+            text-align: right;
+        }
+
+        &__close-icon {
+            font-size: 1.5rem;
+            position: relative;
+            right: -20px;
+            cursor: pointer;
+        }
+
+        &__form {
+            text-align: left;
+        }
+
+        &__reject-reason {
+            width: 100%;
+        }
+
+        &__other-reason {
+            width: 100%;
+        }
+
+        &__button {
+            all: unset;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: .25rem;
+            padding: 10px 20px;
+            display: block;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            cursor: pointer;
+            transition: .5s all;
+            
+            &:hover {
+                background-color: $textColorPrimary;
+                color: $mainTheme;
+            }
+
+            &:disabled {
+                opacity: 0;
+                cursor: default;
+            }
+        }
+    }
 }
 
 @keyframes flashing{
     0% {
         opacity: 0;
-    }
-}
-
-@media(max-width: 360px) {
-    .reports-panel__buttons-panel {
-        flex-direction: column;
     }
 }

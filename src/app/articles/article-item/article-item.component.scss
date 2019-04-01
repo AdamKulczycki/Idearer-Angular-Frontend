@@ -4,12 +4,13 @@
     margin-bottom: 20px;
     font: 20px 'Open Sans',sans-serif;
     font-weight: bold;
-    height: 80vh;
+    // height: 80vh;
     color: $textColorPrimary;
     display: flex;
     flex-direction: column;
-    min-width: 470px;
-    min-height: 400px;
+    word-wrap: break-word;
+    // min-width: 470px;
+    // min-height: 400px;
 
     .article-top {
 

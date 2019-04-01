@@ -13,7 +13,7 @@ import { AdminGuard } from './services/admin-guard.service';
 import { ReportsResolver } from './services/reports.resolve';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: '/articles', pathMatch: 'full' },
+    { path: '', redirectTo: 'articles', pathMatch: 'full' },
     { path: 'articles', component: ArticlesComponent },
     { path: 'articles/:id', component: ArticleDetailComponent },
     { path: 'login', component: LoginComponent },
@@ -22,11 +22,11 @@ const appRoutes: Routes = [
     { path: 'profile', canActivate: [LoginGuard], component: ProfileComponent },
     { path: 'admin', canActivate: [LoginGuard, AdminGuard], component: AdminPanelComponent, resolve:  { test: ReportsResolver } },
     { path: 'modal', component: ArticleEditModalComponent },
-    { path: '**', redirectTo: '/articles'},
+    { path: '**', redirectTo: 'articles'},
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(appRoutes, { anchorScrolling: 'enabled', scrollPositionRestoration: 'top'})],
+    imports: [RouterModule.forRoot(appRoutes)],
     exports: [RouterModule]
 })
 
