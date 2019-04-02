@@ -50,12 +50,10 @@
                 color: $textColorPrimary;
                 transition: 0.3s all;
                 &:enabled:hover {
-                    transition: 0.2s all;
                     box-shadow: 0 10px 50px -9px rgba(0,0,0,.75);
                     cursor: pointer;
                 }
                 &:disabled {
-                    transition: 0.2s all;
                     background-color: grey;
                 }
             }
@@ -69,7 +67,6 @@
     right: 0;
     bottom: 0;
     left: 0;
-
-    // background-color: black;
+    z-index: 9999;
     background: rgba(51, 63, 75, .7);
 }

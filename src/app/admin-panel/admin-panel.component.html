@@ -157,9 +157,18 @@
                   <i class="fas fa-check"></i>
                   <p class="reports-panel__caption">Accept</p>
               </div>
-              <div class="reports-panel__button reports-panel__button--reject">
+              <div class="reports-panel__button reports-panel__button--reject" (click)="reportedArticle.confirmModalShow = true">
                   <i class="fas fa-times "></i>
                   <p class="reports-panel__caption">Reject</p>
+              </div>
+            </div>
+            <div class="reject-modal" *ngIf="reportedArticle.confirmModalShow" (click)="reportedArticle.confirmModalShow = false">
+              <div class="reject-modal__content" (click)="$event.stopPropagation()">
+                <p>Are You sure You want to reject all reports ({{reportedArticle.articleReports.length}})?</p>
+                <div class="reject-modal__buttons-panel">
+                  <button type="button" class="reject-modal__button reject-modal__button--decline" (click)="reportedArticle.confirmModalShow = false">No</button>
+                  <button type="button" class="reject-modal__button reject-modal__button--accept" (click)="deleteAllreports(i)">Yes</button>
+                </div>
               </div>
             </div>
             <div class="management-bar" *ngIf="reportedArticle.showPanel">

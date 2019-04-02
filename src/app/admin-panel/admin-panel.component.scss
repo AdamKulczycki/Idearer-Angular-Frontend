@@ -274,7 +274,79 @@
         }
     }
 
+    .reject-modal {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(51, 63, 75, .7);
+        display: flex;
+        text-align: center;
+
+        &__content {
+            border-radius: 15px;
+            font-size: 1.5rem;
+            margin: auto;
+            padding: 30px;
+            background-color: $mainTheme;
+            
+            @media(max-width: 400px) {
+                & {
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        &__buttons-panel {
+            display: flex;
+            justify-content: space-evenly;
+
+            @media(max-width: 400px) {
+                & {
+                    align-items: center;
+                    flex-direction: column;
+                }
+            }
+        }
+
+        &__button {
+            all: unset;
+            padding: 10px 20px;
+            width: 30%;
+            transition: .5s all;
+            cursor: pointer;
+
+            &--accept {
+                background-color: $textColorPrimary;
+                color: $mainTheme;
+
+                &:hover, &:active {
+                    background-color: darken($textColorPrimary, 30%)
+                }
+
+                &:active {
+                    transform: scale(0.99);
+                }
+            }
+
+            &--decline {
+                color: $textColorPrimary;
+                
+                &:hover {
+                    box-shadow: 0 0px 40px -9px rgba(255, 255, 255, 0.75)
+                }
+            }
+        }
+    }
+
     .management-bar {
+
+        @media(max-width: 400px) {
+            & {
+                width: 90%;
+            }
+        }
         width: 60%;
         margin: 0 auto;
 
