@@ -1,5 +1,6 @@
 @import '~src/assets/scss/main.scss';
 
+
 .article-managment-bar {
     background-color: $mainTheme;
     // color: rgb(255, 193, 7);
@@ -53,25 +54,32 @@
 .view-select {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    
+    @media(max-width: 456px) {
+        & {
+            flex-direction: column;
+
+            & > span {
+                margin-top: 5px;
+            }
+        }
+    }
     & > span {
         font-size: 20px;
         background-color: $mainTheme;
         color: $textColorPrimary;
-        width: 49%;
+        flex-basis: 100%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         padding: 5px;
-        transition: 5s all;
         cursor: pointer;
         .name {
-            transition: 1.5s all;            
+            transition: .5s all;            
         }
         &:hover {
             .name {
                 color: $textColorSecondary;
-                transition: 1.5s all;
                 letter-spacing: 5px;
             }
         }
@@ -86,89 +94,238 @@
 .reports-view {
     margin: 0 auto;
     text-align: center;
+
     .no-content-message {
         text-align: center;
         color: $textColorPrimary;
         font-size: 24px;
-    }
-    .reportsArray-loop {
+    }   
+}
+
+.reports-panel {
+    color: white;
+    background-color: $mainTheme;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+
+    &__article-preview {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(51, 63, 75, .7);
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 20px;
+        justify-content: center;
+        align-items: flex-end;
 
-        .panel {
-            width: 80%;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            text-align: center;
-            margin: 0 auto;
-    
-            .delete-icon, .accept-icon {
-                border-radius: 60px;
-                box-shadow: 0px 0px 2px #888;
-                width: 30%;
-                padding: 1%;
-                margin: auto;
-                cursor: pointer;
-            }
-            .delete-icon:hover {
-                background-color: red;
-            }
-            .accept-icon:hover {
-                background-color: green;
-            }
+        .article {
+            width: 80vh;
+            height: 80vh;
         }
-        .article-view {
-            width: 100%;
-        }
-        .view-article-button {
-            padding: 5px;
-            color: $textColorPrimary;
-            cursor: pointer;
-            border: 3px solid $textColorPrimary;
-            margin-left: 10%;
-            margin-bottom: 3px;
-            &:hover {
-                i {
-                    color: black;
-                }
-            }
-            i {
-                padding: 5px
-            }
-        }
-        .article-reports-loop {
-            width: 100%;
-
-            .report-box {
-                margin-left: auto;
-                margin-right: auto;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                text-align: left;
-                width: 80%;
-                color: $textColorPrimary;
-                border: 3px solid $textColorPrimary;
-                margin-bottom: 10px;
-                
-                .report-main {
-                    display: flex;
-                    flex-direction: column;
-                    width: 100%;
-                    padding: 15px 25px 15px 15px;
-            
-                    .top {
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: space-between;
-                    }
-                }
-            }
-        }
-        
     }
+
+    &__eye-icon {
+        margin-right: 10px;
+        transition: .5s all;
+    }
+
+    &__article-show {
+        cursor: pointer;
+        display: inline-block;
+
+        &:hover {
+            .reports-panel__eye-icon {
+                color: $textColorSecondary;
+                transform: scale(2);
+                transition: .5s all;
+            }
+        }
+    }
+
+    &__buttons-panel {
+
+        @media(max-width: 300px) {
+            & {
+                flex-direction: column;
+            }
+        }
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    &__button {
+        font-size: 1.5rem;
+        transition: .5s all;
+    }
+
+    &__button--accept {
     
+        cursor: pointer;
+
+        &:hover {
+            color: green;
+        }
+    }
+
+    &__button--reject {   
+        cursor: pointer;
+
+        &:hover {
+            color: red;
+        }
+    }
+
+    &__caption {
+        font-size: 1rem;
+    }
+
+    .report {
+        background-color: lighten($mainTheme, 10%);
+        border: 1px solid white;
+        padding: 10px;
+        text-align: left;
+        margin: 10px auto;
+        width: 80%;
+        border-radius: 10px;
+
+        &__author, &__reason {
+            word-break: break-all;
+        }
+    }
+
+    .reject-modal {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(51, 63, 75, .7);
+        display: flex;
+        text-align: center;
+
+        &__content {
+            border-radius: 15px;
+            font-size: 1.5rem;
+            margin: auto;
+            padding: 30px;
+            background-color: $mainTheme;
+            
+            @media(max-width: 400px) {
+                & {
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        &__buttons-panel {
+            display: flex;
+            justify-content: space-evenly;
+
+            @media(max-width: 400px) {
+                & {
+                    align-items: center;
+                    flex-direction: column;
+                }
+            }
+        }
+
+        &__button {
+            all: unset;
+            padding: 10px 20px;
+            width: 30%;
+            transition: .5s all;
+            cursor: pointer;
+
+            &--accept {
+                background-color: $textColorPrimary;
+                color: $mainTheme;
+
+                &:hover, &:active {
+                    background-color: darken($textColorPrimary, 30%)
+                }
+
+                &:active {
+                    transform: scale(0.99);
+                }
+            }
+
+            &--decline {
+                color: $textColorPrimary;
+                
+                &:hover {
+                    box-shadow: 0 0px 40px -9px rgba(255, 255, 255, 0.75)
+                }
+            }
+        }
+    }
+
+    .management-bar {
+
+        @media(max-width: 400px) {
+            & {
+                width: 90%;
+            }
+        }
+        width: 60%;
+        margin: 0 auto;
+
+        &__close-wrapper {
+            text-align: right;
+        }
+
+        &__close-icon {
+            font-size: 1.5rem;
+            position: relative;
+            right: -20px;
+            cursor: pointer;
+        }
+
+        &__form {
+            text-align: left;
+        }
+
+        &__reject-reason {
+            width: 100%;
+        }
+
+        &__other-reason {
+            width: 100%;
+        }
+
+        &__button {
+            all: unset;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: .25rem;
+            padding: 10px 20px;
+            display: block;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            cursor: pointer;
+            transition: .5s all;
+            
+            &:hover {
+                background-color: $textColorPrimary;
+                color: $mainTheme;
+            }
+
+            &:disabled {
+                opacity: 0;
+                cursor: default;
+            }
+        }
+    }
+}
+
+@keyframes flashing{
+    0% {
+        opacity: 0;
+    }
 }
