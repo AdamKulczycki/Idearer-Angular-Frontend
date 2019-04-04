@@ -1,6 +1,6 @@
 # Idearer
 
-Aplications which allow You to share ideas from various domains with others.
+Aplication which allow you to share ideas from various domains with others.
 
 ## Development server
 
