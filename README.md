@@ -1,6 +1,6 @@
-# ProjektWakacyjny
+# Idearer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+Aplications which allow You to share ideas from various domains with others.
 
 ## Development server
 
