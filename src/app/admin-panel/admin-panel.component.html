@@ -69,72 +69,6 @@
         </div>
         <div class="reports-view" *ngSwitchCase="'reports'">
           <span *ngIf="reportsArray.length === 0" class="no-content-message">There is no new reports!</span>
-          <!-- <div class="reportsArray-loop" *ngFor="let item of reportsArray; let i = index">
-              <span (click)="viewArticleChange(i)" class="view-article-button">
-                <span *ngIf="!item?.showArticle">Show Article<i class="fas fa-chevron-down"></i></span>
-                <span *ngIf="item?.showArticle">Hide Article<i class="fas fa-chevron-up"></i></span>
-              </span>
-              <div class="article-view">
-                  <app-article-item *ngIf="item?.showArticle" [article]="item?.articleObject"></app-article-item>
-              </div>
-            <div class="article-reports-loop" *ngFor="let report of item?.articleReports">
-              <div class="report-box">
-                <div class="report-main">
-                  <div class="top">
-                       <span>{{report?.reportAuthor?.username}}</span>
-                  </div>
-                  <div class="report-content">
-                      {{report?.description}}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel" *ngIf="!item?.showPanel">
-              <span class="accept-icon" (click)="item.showPanel = true"><i class="fas fa-check"></i>
-              </span><span class="delete-icon" (click)="deleteAllreports(i)"><i class="fas fa-times"></i></span>
-            </div>
-            <div class="report-managment-bar" *ngIf="item.showPanel">
-                <div class="top" (click)="item.showPanel = !item.showPanel"><i class="fas fa-times"></i></div>
-                <div class="change-status">
-                    <form (ngSubmit)="onSubmitFromReportsPanel(f, item.articleObject.id)" #f="ngForm">
-                      <div class="rejected-reason">
-                        <div class="form-group">
-                          Reason:
-                          <select 
-                            class="form-control" 
-                            id="reason" 
-                            name="reason"
-                            ngModel
-                            required>
-                            <option value="wrong title">Wrong Title</option>
-                            <option value="wrong content">Wrong Content</option>
-                            <option value="other">Other...</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div *ngIf="f.value.reason == 'other'" class="otherReason">
-                          <div class="form-group">
-                            Write reason:
-                            <input 
-                              type="text" 
-                              id="otherReason" 
-                              class="form-control" 
-                              name="otherReason"
-                              ngModel
-                              required
-                              placeholder="reason...">
-                          </div>
-                        </div>
-                      <button
-                        class="button btn btn-warning btn-lg btn-block"
-                        type="submit" 
-                        [disabled]="!f.valid">
-                        SUBMIT
-                      </button>
-                    </form>
-                </div>
-              </div>
-          </div> -->
           <section class="reports-panel" *ngFor="let reportedArticle of reportsArray; let i = index">
             <div class="reports-panel__article-show" (click)="viewArticleChange(i)">
               <i class="far fa-eye reports-panel__eye-icon"></i>&nbsp;Show Article
@@ -164,7 +98,7 @@
             </div>
             <div class="reject-modal" *ngIf="reportedArticle.confirmModalShow" (click)="reportedArticle.confirmModalShow = false">
               <div class="reject-modal__content" (click)="$event.stopPropagation()">
-                <p>Are You sure You want to reject all reports ({{reportedArticle.articleReports.length}})?</p>
+                <p>Are you sure you want to reject all reports ({{reportedArticle.articleReports.length}})?</p>
                 <div class="reject-modal__buttons-panel">
                   <button type="button" class="reject-modal__button reject-modal__button--decline" (click)="reportedArticle.confirmModalShow = false">No</button>
                   <button type="button" class="reject-modal__button reject-modal__button--accept" (click)="deleteAllreports(i)">Yes</button>
@@ -177,14 +111,14 @@
                   <form (ngSubmit)="onSubmitFromReportsPanel(f, reportedArticle.articleObject.id)" #f="ngForm" class="management-bar__form">
                     <div class="management-bar__reject-reason">
                       <div class="form-group">
-                        <!-- Reason: -->
+                        <label for="reason">Reason</label>
                         <select 
                           class="form-control" 
                           id="reason" 
                           name="reason"
                           ngModel
                           required>
-                          <option value="" disabled selected hidden>reason</option>
+                          <option value="" disabled selected hidden>Reason</option>
                           <option value="wrong title">Wrong Title</option>
                           <option value="wrong content">Wrong Content</option>
                           <option value="other">Other...</option>
@@ -193,7 +127,7 @@
                     </div>
                     <div *ngIf="f.value.reason === 'other'" class="management-bar__other-reason">
                         <div class="form-group">
-                          <!-- Write reason: -->
+                          <label for="otherReason">Explanation</label>
                           <input
                             type="text" 
                             id="otherReason" 
@@ -201,7 +135,7 @@
                             name="otherReason"
                             ngModel
                             required
-                            placeholder="other reason">
+                            placeholder="Explanation">
                         </div>
                       </div>
                     <button

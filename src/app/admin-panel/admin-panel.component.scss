@@ -55,7 +55,7 @@
     display: flex;
     flex-direction: row;
     
-    @media(max-width: 400px) {
+    @media(max-width: 456px) {
         & {
             flex-direction: column;
 
@@ -68,19 +68,18 @@
         font-size: 20px;
         background-color: $mainTheme;
         color: $textColorPrimary;
-        flex-grow: 1;
+        flex-basis: 100%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         padding: 5px;
         cursor: pointer;
         .name {
-            transition: 1.5s all;            
+            transition: .5s all;            
         }
         &:hover {
             .name {
                 color: $textColorSecondary;
-                transition: 1.5s all;
                 letter-spacing: 5px;
             }
         }
@@ -95,91 +94,12 @@
 .reports-view {
     margin: 0 auto;
     text-align: center;
+
     .no-content-message {
         text-align: center;
         color: $textColorPrimary;
         font-size: 24px;
-    }
-    .reportsArray-loop {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 20px;
-
-        .panel {
-            width: 80%;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            text-align: center;
-            margin: 0 auto;
-    
-            .delete-icon, .accept-icon {
-                border-radius: 60px;
-                box-shadow: 0px 0px 2px #888;
-                width: 30%;
-                padding: 1%;
-                margin: auto;
-                cursor: pointer;
-            }
-            .delete-icon:hover {
-                background-color: red;
-            }
-            .accept-icon:hover {
-                background-color: green;
-            }
-        }
-        .article-view {
-            width: 100%;
-        }
-        .view-article-button {
-            padding: 5px;
-            color: $textColorPrimary;
-            cursor: pointer;
-            border: 3px solid $textColorPrimary;
-            margin-left: 10%;
-            margin-bottom: 3px;
-            &:hover {
-                i {
-                    color: black;
-                }
-            }
-            i {
-                padding: 5px
-            }
-        }
-        .article-reports-loop {
-            width: 100%;
-
-            .report-box {
-                margin-left: auto;
-                margin-right: auto;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                text-align: left;
-                width: 80%;
-                color: $textColorPrimary;
-                border: 3px solid $textColorPrimary;
-                margin-bottom: 10px;
-                
-                .report-main {
-                    display: flex;
-                    flex-direction: column;
-                    width: 100%;
-                    padding: 15px 25px 15px 15px;
-            
-                    .top {
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: space-between;
-                    }
-                }
-            }
-        }
-        
-    }
-    
+    }   
 }
 
 .reports-panel {
@@ -196,9 +116,13 @@
         bottom: 0;
         left: 0;
         background: rgba(51, 63, 75, .7);
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
 
         .article {
-            margin: 8%;
+            width: 80vh;
+            height: 80vh;
         }
     }
 
