@@ -34,45 +34,7 @@ export class AdminPanelComponent implements OnInit {
         }
       );
 
-    // this.reportsService.getIdsOfReportedArticles()
-    //   .subscribe(
-    //     (res: Array<number>) => {
-    //       res.forEach(id => {
-    //         let article: Article;
-    //         this.articlesService.getArticle(id)
-    //           .subscribe(
-    //             articleRes => article = articleRes,
-    //             err => console.log(err)
-    //             );
-    //         this.reportsService.getReportsByArticleId(id)
-    //           .subscribe(
-    //             (reports: Report[]) => {
-    //               this.reportsArray.push({
-    //                 articleObject: article,
-    //                 showArticle: false,
-    //                 showPanel: false,
-    //                 articleReports: reports
-    //               });
-    //               this.reportsNumber += reports.length;
-    //             },
-    //             (err) => console.log(err)
-    //           );
-    //       });
-    //     },
-    //     (err) => console.log(err)
-    //   );
-    // this.reportsArray = this.reportsService.test();
-    //  this.reportsService.test().subscribe(
-    //    res => {
-    //      res[0].subscribe(
-    //        e => console.log(e)
-    //      )
-    //    }
-    //  )
-  //  this.reportsService.test();
-     this.reportsArray = this.activatedRoute.snapshot.data['test'];
-     console.log(this.reportsArray);
-    // console.log(this.activatedRoute.snapshot.data['test'])
+    this.reportsArray = this.activatedRoute.snapshot.data['reports'];
     }
 
   onSubmit(f, id): void {
@@ -117,8 +79,8 @@ export class AdminPanelComponent implements OnInit {
       }
     }
   }
-  onSubmitFromReportsPanel(f, id): void { // manage reports
-    const index = this.reportsArray.map(e => e.articleObject.id).indexOf(id);
+  onSubmitFromReportsPanel(f, index): void { // manage reports
+    const id = this.reportsArray[index].id;
     if (!f.value.otherReason) {
       this.rejectsService.rejectArticle(id, f.value.reason)
         .subscribe(
@@ -149,24 +111,18 @@ export class AdminPanelComponent implements OnInit {
   viewArticleChange(index): void {
     this.reportsArray[index].showArticle = !this.reportsArray[index].showArticle;
   }
-  deleteAllreports(index): void {
-    const numberOfReports = this.reportsArray[index].articleReports.length;
-    let reportsDeleted = 0;
-    this.reportsArray[index].articleReports.forEach(element => {
-      this.reportsService.deleteReport(element.id)
-        .subscribe(
-          (res) => {
-            reportsDeleted ++;
-            if (numberOfReports === reportsDeleted) {
-              this.toastr.success('Reports deleted!', 'Success!');
-              this.reportsArray.splice(index, 1);
-            }
-          },
-          (err) => {
-            this.toastr.error('Server Error!');
-          }
-        );
-    });
+  deleteArticleReports(articleId, index): void {
+    this.reportsService.deleteArticleReports(articleId)
+      .subscribe(
+        (res) => {
+          this.toastr.success('Reports Rejected!');
+          this.reportsArray[index].confirmModalShow = false;
+          this.reportsArray.splice(index, 1);
+        },
+        (err) => {
+          this.toastr.error('Server Error!');
+        }
+      );
   }
   ngOnInit() {
 

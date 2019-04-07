@@ -7,8 +7,6 @@ export class ReportsResolver implements Resolve<any> {
     constructor(private reportsService: ReportsService) {}
 
     resolve() {
-        console.log('resolve')
-        console.log(this.reportsService.test())
-        return this.reportsService.test();
+        return this.reportsService.getReports();
     }
 }

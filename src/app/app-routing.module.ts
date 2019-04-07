@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'create', canActivate: [LoginGuard], component: ArticleFormComponent },
     { path: 'profile', canActivate: [LoginGuard], component: ProfileComponent },
-    { path: 'admin', canActivate: [LoginGuard, AdminGuard], component: AdminPanelComponent, resolve:  { test: ReportsResolver } },
+    { path: 'admin', canActivate: [LoginGuard, AdminGuard], component: AdminPanelComponent, resolve:  { reports: ReportsResolver } },
     { path: 'modal', component: ArticleEditModalComponent },
     { path: '**', redirectTo: 'articles'},
 ];

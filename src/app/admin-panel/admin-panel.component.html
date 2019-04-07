@@ -75,12 +75,12 @@
             </div>
             <div class="reports-panel__article-preview" *ngIf="reportedArticle?.showArticle" (click)="reportedArticle.showArticle = false">
               <div class="article" (click)="$event.stopPropagation()">
-                <app-article-item [article]="reportedArticle?.articleObject"></app-article-item>
+                <app-article-item [article]="reportedArticle"></app-article-item>
               </div>
             </div>
-            <article class="report" *ngFor="let report of reportedArticle?.articleReports">
+            <article class="report" *ngFor="let report of reportedArticle?.reports">
                 <div class="report__author">
-                    <i class="fas fa-user"></i>&nbsp;{{report?.reportAuthor?.username}}
+                    <i class="fas fa-user"></i>&nbsp;{{report?.user?.username}}
                 </div>
                 <div class="report__reason">
                   <i class="fas fa-sticky-note"></i>&nbsp;{{report?.description}}
@@ -98,17 +98,17 @@
             </div>
             <div class="reject-modal" *ngIf="reportedArticle.confirmModalShow" (click)="reportedArticle.confirmModalShow = false">
               <div class="reject-modal__content" (click)="$event.stopPropagation()">
-                <p>Are you sure you want to reject all reports ({{reportedArticle.articleReports.length}})?</p>
+                <p>Are you sure you want to reject all reports ({{reportedArticle.reports.length}})?</p>
                 <div class="reject-modal__buttons-panel">
                   <button type="button" class="reject-modal__button reject-modal__button--decline" (click)="reportedArticle.confirmModalShow = false">No</button>
-                  <button type="button" class="reject-modal__button reject-modal__button--accept" (click)="deleteAllreports(i)">Yes</button>
+                  <button type="button" class="reject-modal__button reject-modal__button--accept" (click)="deleteArticleReports(reportedArticle.id, i)">Yes</button>
                 </div>
               </div>
             </div>
             <div class="management-bar" *ngIf="reportedArticle.showPanel">
               <div class="management-bar__close-wrapper" ><i class="fas fa-times management-bar__close-icon" (click)="reportedArticle.showPanel = false"></i></div>
               <div class="management-bar__form-wrapper">
-                  <form (ngSubmit)="onSubmitFromReportsPanel(f, reportedArticle.articleObject.id)" #f="ngForm" class="management-bar__form">
+                  <form (ngSubmit)="onSubmitFromReportsPanel(f, i)" #f="ngForm" class="management-bar__form">
                     <div class="management-bar__reject-reason">
                       <div class="form-group">
                         <label for="reason">Reason</label>
