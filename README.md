@@ -2,6 +2,15 @@
 
 Aplication which allow you to share ideas from various domains with others.
 
+To use all features in our application you can create new account or use one of the following.
+
+role: USER
+login: user | password: user
+
+role: ADMIN
+login: admin | password: admin
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
